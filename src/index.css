@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #70C7BA;
+  --color-alert: #D6341E;
+  --color-warning: #FC8908;
+  --color-success: #13893E;
+  --color-info: #1D6DCB;
+  --color-link: #2463EC;
+
+  --color-accent-red: #FBEBE8;
+  --color-accent-blue: #E9EFFD;
+  --color-accent-green: #E8F5ED;
+  --color-accent-yellow: #FFF3E6;
+
+  --color-gray-900: #1C1C1C;
+  --color-gray-800: #2F2F2F;
+  --color-gray-700: #484848;
+  --color-gray-600: #656565;
+  --color-gray-500: #818181;
+  --color-gray-400: #9E9E9E;
+  --color-gray-300: #BABABA;
+  --color-gray-200: #D7D7D7;
+  --color-gray-100: #EBEBEB;
+  --color-gray-50: #F3F3F3;
+}
+
+@layer base {
+  :root {
+    font-family: Rubik, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    width: 100%;
+    height: 100%;
+
+    background-color: #f9fafb;
+
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+
+      :root[data-theme="light"] {
+        --primary: green;
+        --secondary: blue;
+        --background: #ffffff;
+        --text-color: #000000;
+      }
+
+      :root[data-theme="dark"] {
+        --primary: green;
+        --secondary: blue;
+        --background: #121212;
+        --text-color: #ffffff;
+      }
+
+      :root[data-theme="high-contrast"] {
+        --primary: yellow;
+        --secondary: black;
+        --background: #000000;
+        --text-color: #ffffff;
+      }
+
+      body {
+        background-color: var(--background);
+        color: var(--text-color);
+      }
+
+      button {
+        background-color: var(--primary);
+        color: var(--text-color);
+      }
+
+      button:hover {
+        background-color: var(--secondary);
+      }
+    }
+
+    body {
+      color: #ffffff;
+      background-color: #121212;
+    }
+
+    a {
+      color: #bb86fc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #3700b3;
+    }
+
+    button {
+      background-color: #03dac6;
+      color: #000000;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #018786;
+    }
+  }
+}
+
+/*a {*/
+/*  font-weight: 500;*/
+/*  color: #646cff;*/
+/*  text-decoration: inherit;*/
+/*}*/
+/*a:hover {*/
+/*  color: #535bf2;*/
+/*}*/
+
+/*body {*/
+/*  margin: 0;*/
+/*  display: flex;*/
+/*  place-items: center;*/
+/*  min-width: 320px;*/
+/*  min-height: 100vh;*/
+/*}*/
+
+/*h1 {*/
+/*  font-size: 3.2em;*/
+/*  line-height: 1.1;*/
+/*}*/
+
+/*button {*/
+/*  border-radius: 8px;*/
+/*  border: 1px solid transparent;*/
+/*  padding: 0.6em 1.2em;*/
+/*  font-size: 1em;*/
+/*  font-weight: 500;*/
+/*  font-family: inherit;*/
+/*  background-color: #1a1a1a;*/
+/*  cursor: pointer;*/
+/*  transition: border-color 0.25s;*/
+/*}*/
+/*button:hover {*/
+/*  border-color: #646cff;*/
+/*}*/
+/*button:focus,*/
+/*button:focus-visible {*/
+/*  outline: 4px auto -webkit-focus-ring-color;*/
+/*}*/
