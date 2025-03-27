@@ -1,8 +1,8 @@
 // @ts-ignore
 import KaspaIcon from '../../../assets/kaspa.svg'
 
-export default () => (
-    <div className="flex flex-row justify-around items-center p-1
+export default (props) => (
+    <div className="hidden sm:flex flex-row justify-around items-center p-1
     bg-white border-[1px] border-gray-100 rounded-4xl pr-2
     gap-x-1 ms-4">
         <img src={KaspaIcon} className="w-4 h-4"/>

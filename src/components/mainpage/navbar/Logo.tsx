@@ -2,5 +2,5 @@
 import logo from "../../../assets/logo.svg"
 
 export default () => (
-    <div><img src={logo} className="h-10 w-[199px]"/></div>
+    <div><img src={logo} className="h-7 md:h-10"/></div>
 )
