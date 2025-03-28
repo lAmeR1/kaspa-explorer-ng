@@ -13,24 +13,28 @@ function App() {
                         ${expanded ? "h-screen overflow-hidden" : ""}`}>
 
             <Navbar onExpandChange={(e) => setExpanded(e)}/>
-            <div className="grow mt-16">
-                <p>Here</p>
-                <p>is</p>
-                <p>some</p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div className="block bg-white m-2 mt-18 rounded-4xl text-black p-8 text-left">
+                <div className="text-2xl mb-4">Blocks</div>
+
+                <div className="w-full flex flex-row justify-between items-stretch flex-wrap">
+                    <div className="mr-2 grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                        <span className="text-sm">Total blocks</span>
+                        <span className="text-xl">119,762,579</span>
+                    </div>
+                    <div className="mr-2 grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                        <span className="text-sm">Total transactions</span>
+                        <span className="text-xl">119,762,579</span>
+                    </div>
+                    <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                        <span className="text-sm">Average block time</span>
+                        <span className="text-xl">0,4 <span className="text-gray-500 text-sm">s</span></span>
+                    </div>
+                    <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                        <span className="text-sm">Block rewards</span>
+                        <span className="text-xl">77.32 <span className="text-gray-500 text-sm">KAS</span></span>
+                    </div>
+                </div>
+
             </div>
             <Footer/>
         </div>
