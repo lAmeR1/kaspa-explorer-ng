@@ -1,6 +1,7 @@
 import Navbar from "./components/mainpage/navbar/Navbar.tsx";
 import {useEffect, useRef, useState} from "react";
 import Footer from "./components/mainpage/footer/Footer.js";
+import numeral from "numeral";
 
 // @ts-ignore
 import Box from "./assets/box.svg?react";
@@ -25,7 +26,7 @@ function App() {
 
     return (
         <div
-            className={`text-sm sm:text-base flex flex-col justify-start items-stretch min-h-screen relative 
+            className={`flex flex-col justify-start items-center min-h-screen relative 
                         ${expanded ? "h-screen overflow-hidden" : ""}`}>
 
             <Navbar ref={navbarRef} onExpandChange={(e) => setExpanded(e)}/>
@@ -40,20 +41,20 @@ function App() {
                         className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 justify-between items-stretch flex-wrap">
                         <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
                             <span className="text-xs sm:text-sm">Total blocks</span>
-                            <span className="text-lg sm:text-xl">119,762,579</span>
+                            <span className="text-base sm:text-xl">{numeral(Math.random()*100990000).format("0,0")}</span>
                         </div>
                         <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
                             <span className="text-xs sm:text-sm">Total transactions</span>
-                            <span className="text-lg sm:text-xl">119,762,579</span>
+                            <span className="text-base sm:text-xl">{numeral(Math.random()*1000000).format("0,0")}</span>
                         </div>
                         <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
                             <span className="text-xs sm:text-sm">Average block time</span>
-                            <span className="text-lg sm:text-xl">0,4 <span
+                            <span className="text-base sm:text-xl">{numeral(Math.random()).format("0.00")} <span
                                 className="text-gray-500 text-sm">s</span></span>
                         </div>
                         <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
                             <span className="text-xs sm:text-sm">Block rewards</span>
-                            <span className="text-lg sm:text-xl">77.32 <span
+                            <span className="text-base sm:text-xl">{numeral(Math.random()*10 + 70).format("0.00")} <span
                                 className="text-gray-500 text-sm">KAS</span></span>
                         </div>
                     </div>
@@ -89,7 +90,8 @@ function App() {
                                         className="table-cell xs:hidden">{crypto.getRandomValues(new Uint8Array(4)).reduce((hash, byte) => hash + byte.toString(16).padStart(2, '0'), '')}...{crypto.getRandomValues(new Uint8Array(4)).reduce((hash, byte) => hash + byte.toString(16).padStart(2, '0'), '')}</span>
                                 </td>
                                 <td className="hidden sm:table-cell">124121225</td>
-                                <td className="pl-5 py-3 text-right">29</td>
+                                <td className="pl-5 py-3 text-right">{Math.floor(Math.random() * 100) + 1}</td>
+
                             </tr>
                         ))}
 

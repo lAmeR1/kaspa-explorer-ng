@@ -3,6 +3,8 @@
 @theme {
   --breakpoint-xs: 30rem;
 
+  --font-mono: 'Roboto Mono', monospace;
+
   --color-primary: #70C7BA;
   --color-alert: #D6341E;
   --color-warning: #FC8908;
@@ -34,12 +36,14 @@ body {
   align-items: center;
 }
 
+
 #root {
   max-width: 1280px;
   width: 100%;
   min-height: 100vh;
   background-color: #ebebeb;
   font-family: Rubik, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
   line-height: 1.5;
   font-weight: 400;
 

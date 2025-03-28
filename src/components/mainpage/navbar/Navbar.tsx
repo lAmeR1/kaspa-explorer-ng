@@ -14,13 +14,15 @@ import SearchBox from "./SearchBox";
 
 const Navbar = ({onExpandChange, ref}) => {
     const [expanded, setExpanded] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
+
 
     useEffect(() => {
         onExpandChange(expanded);
     }, [expanded])
 
     return <div ref={ref}
-        className={`flex flex-col bg-white px-6 rounded-b-4xl
+                className={`flex flex-col bg-white px-6 rounded-b-4xl
             items-stretch py-4 w-full gap-y-6
             transition-all duration-300 absolute z-20
             ${expanded ? 'h-[100vh] overflow-hidden rounded-b-none' : ''}`}>
@@ -29,7 +31,7 @@ const Navbar = ({onExpandChange, ref}) => {
             <Logo/>
             <Price/>
 
-            <SearchBox className="hidden lg:flex" />
+            <SearchBox value={searchValue} className="hidden lg:flex" onChange={(e) => setSearchValue(e.target.value)}/>
 
             <div className="hidden sm:flex flex-row gap-x-10 ms-auto">
                 <span>BlockDAG</span>
@@ -43,7 +45,7 @@ const Navbar = ({onExpandChange, ref}) => {
 
             </div>
         </div>
-        <SearchBox className="lg:hidden w-full"/>
+        <SearchBox value={searchValue} className="lg:hidden w-full" onChange={(e) => setSearchValue(e.target.value)}/>
 
         {expanded && <>
             <div className="">
