@@ -16,12 +16,12 @@ function App() {
             <div className="block bg-white m-2 mt-18 rounded-4xl text-black p-8 text-left">
                 <div className="text-2xl mb-4">Blocks</div>
 
-                <div className="w-full flex flex-row justify-between items-stretch flex-wrap">
-                    <div className="mr-2 grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 justify-between items-stretch flex-wrap">
+                    <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
                         <span className="text-sm">Total blocks</span>
                         <span className="text-xl">119,762,579</span>
                     </div>
-                    <div className="mr-2 grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                    <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
                         <span className="text-sm">Total transactions</span>
                         <span className="text-xl">119,762,579</span>
                     </div>
