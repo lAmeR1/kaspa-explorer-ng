@@ -10,11 +10,11 @@ function App() {
 
     return (
         <div
-            className={`text-sm sm:text-base flex flex-col justify-start items-center min-h-screen relative 
+            className={`text-sm sm:text-base flex flex-col justify-start items-stretch min-h-screen relative 
                         ${expanded ? "h-screen overflow-hidden" : ""}`}>
 
             <Navbar onExpandChange={(e) => setExpanded(e)}/>
-            <div className="block bg-white mt-18 rounded-4xl text-black p-4 sm:p-8 text-left w-full max-w-[1100px]">
+            <div className="bg-white mt-18 rounded-4xl text-black p-4 sm:p-8 text-left mx-4 max-w-[1100px]">
                 <div className="text-2xl mb-4">Blocks</div>
 
                 <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 justify-between items-stretch flex-wrap">
@@ -39,8 +39,8 @@ function App() {
 
             </div>
 
-            <div className="w-full flex flex-col bg-white mt-2 rounded-4xl p-4 sm:p-8 text-left text-gray-500 max-w-[1100px]">
-                <div className="bg-primary/20 w-full mb-2 p-6 rounded-2xl text-black text-left text-sm">
+            <div className="mx-4 flex flex-col bg-white mt-2 rounded-4xl p-4 sm:p-8 text-left text-gray-500 max-w-[1100px]">
+                <div className="bg-primary/20 basis-full mb-2 p-6 rounded-2xl text-black text-left text-sm">
                     Blocks are arriving with a speed of 10 blocks per second. The network is currently at block
                     119,762,579.
                 </div>
@@ -72,7 +72,7 @@ function App() {
 
             </div>
 
-            <div className="flex flex-row bg-white my-2 rounded-4xl p-4 sm:p-8 text-left text-gray-500 max-w-[1100px]">
+            <div className="flex flex-row bg-white my-2 rounded-4xl p-4 sm:p-8 text-left mx-4 text-gray-500 max-w-[1100px]">
                 <div className="h-5 w-5 me-2">
                     <Box className="h-5 w-5 fill-gray-500"/>
                 </div>

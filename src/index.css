@@ -29,12 +29,13 @@
 
 body {
   background-color: #ebebeb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  text-align: center;
   width: 100%;
   min-height: 100vh;
   background-color: #ebebeb;
