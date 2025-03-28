@@ -56,7 +56,7 @@ const Footer = () => {
             <span className="hidden sm:block ms-auto">© 2025 Kaspa Explorer. All rights are reserved</span>
         </div>
 
-        <span className="sm:hidden py-6 text-gray-500">© 2025 Kaspa Explorer. All rights are reserved</span>
+        <span className="sm:hidden pt-6 text-gray-500">© 2025 Kaspa Explorer. All rights are reserved</span>
     </div>
 };
 
