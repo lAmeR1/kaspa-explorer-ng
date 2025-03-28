@@ -2,6 +2,7 @@ import './App.css'
 
 import Navbar from "./components/mainpage/navbar/Navbar.tsx";
 import {useState} from "react";
+import Footer from "./components/mainpage/footer/Footer.js";
 
 function App() {
     const [expanded, setExpanded] = useState(false);
@@ -59,7 +60,7 @@ function App() {
                     occaecat
                     cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
-            {/*<Footer/>*/}
+            <Footer/>
         </div>
     )
 }

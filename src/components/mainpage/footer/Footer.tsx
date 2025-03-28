@@ -9,7 +9,13 @@ import Twitter from '../../../assets/twitter.svg?react'
 
 
 const Footer = () => {
-    return <div className="w-full flex flex-col bg-black px-24 rounded-t-4xl items-start text-white pt-14 pb-6">
+    return <div className="w-full flex flex-col bg-black rounded-t-4xl items-start text-white
+    pt-6 sm:pt-14
+    pb-6 sm:pb-6
+    px-4 sm:px-24
+
+    text-sm sm:text-md
+    ">
 
         <svg width="199" height="40" viewBox="0 0 199 40" fill="white" xmlns="http://www.w3.org/2000/svg">
             <g id="logo">
@@ -27,24 +33,27 @@ const Footer = () => {
 
         <div className="w-full py-4 flex flex-row justify-start">
             <span>Explore</span>
-            <span className="ms-auto">Help improve the service</span>
+            <span className="hidden sm:block ms-auto">Help improve the service</span>
         </div>
-        <div className="flex flex-row w-full jusitfy-start gap-x-10 text-gray-500">
+        <div className="flex flex-row flex-wrap jusitfy-around gap-x-6 sm:gap-x-10 gap-y-5 text-gray-500">
             <span>Blocks</span>
             <span>Transactions</span>
             <span>Accounts</span>
             <span>Tokens</span>
-            <span className="ms-auto">Donate</span>
+            <span className="hidden sm:block ms-auto">Donate</span>
         </div>
+
+        <span className="block sm:hidden mt-5">Help improve the service</span>
+        <span className="block sm:hidden mt-5 text-gray-500">Donate</span>
 
         <div className="w-full h-[1px] bg-gray-800 my-8"/>
 
         <div className="flex flex-row w-full jusitfy-start text-gray-500 gap-x-6">
-            <Discord/>
-            <Github />
-            <Telegram />
-            <Twitter />
-            <span className="ms-auto">© 2025 Kaspa Explorer. All rights are reserved</span>
+            <Discord className="h-6 w-6" />
+            <Github className="h-6 w-6" />
+            <Telegram className="h-6 w-6" />
+            <Twitter className="h-6 w-6" />
+            <span className="hidden sm:block ms-auto">© 2025 Kaspa Explorer. All rights are reserved</span>
         </div>
     </div>
 };
