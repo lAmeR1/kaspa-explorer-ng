@@ -1,5 +1,3 @@
-import './App.css'
-
 import Navbar from "./components/mainpage/navbar/Navbar.tsx";
 import {useState} from "react";
 import Footer from "./components/mainpage/footer/Footer.js";
@@ -16,7 +14,7 @@ function App() {
                         ${expanded ? "h-screen overflow-hidden" : ""}`}>
 
             <Navbar onExpandChange={(e) => setExpanded(e)}/>
-            <div className="block bg-white mt-18 rounded-4xl text-black p-4 sm:p-8 text-left w-full">
+            <div className="block bg-white mt-18 rounded-4xl text-black p-4 sm:p-8 text-left w-full max-w-[1100px]">
                 <div className="text-2xl mb-4">Blocks</div>
 
                 <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 justify-between items-stretch flex-wrap">
@@ -41,7 +39,7 @@ function App() {
 
             </div>
 
-            <div className="w-full flex flex-col bg-white mt-2 rounded-4xl p-4 sm:p-8 text-left text-gray-500 max-w-280">
+            <div className="w-full flex flex-col bg-white mt-2 rounded-4xl p-4 sm:p-8 text-left text-gray-500 max-w-[1100px]">
                 <div className="bg-primary/20 w-full mb-2 p-6 rounded-2xl text-black text-left text-sm">
                     Blocks are arriving with a speed of 10 blocks per second. The network is currently at block
                     119,762,579.
@@ -74,7 +72,7 @@ function App() {
 
             </div>
 
-            <div className="flex flex-row bg-white mt-2 rounded-4xl p-4 sm:p-8 text-left text-gray-500">
+            <div className="flex flex-row bg-white my-2 rounded-4xl p-4 sm:p-8 text-left text-gray-500 max-w-[1100px]">
                 <div className="h-5 w-5 me-2">
                     <Box className="h-5 w-5 fill-gray-500"/>
                 </div>
