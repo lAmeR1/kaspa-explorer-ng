@@ -10,23 +10,26 @@ import close from "../../../assets/close.svg";
 import ChevronUp from '../../../assets/chevron-up.svg?react'
 // @ts-ignore
 import ChevronDown from '../../../assets/chevron-down.svg?react'
+import SearchBox from "./SearchBox";
 
-const Navbar = ({onExpandChange}) => {
+const Navbar = ({onExpandChange, ref}) => {
     const [expanded, setExpanded] = useState(false);
 
     useEffect(() => {
         onExpandChange(expanded);
     }, [expanded])
 
-    return <div
+    return <div ref={ref}
         className={`flex flex-col bg-white px-6 rounded-b-4xl
-            items-start py-4 w-full h-16 gap-y-6
+            items-stretch py-4 w-full gap-y-6
             transition-all duration-300 absolute z-20
             ${expanded ? 'h-[100vh] overflow-hidden rounded-b-none' : ''}`}>
 
         <div className="flex flex-row items-center w-full text-sm md:text-md">
             <Logo/>
             <Price/>
+
+            <SearchBox className="hidden lg:flex" />
 
             <div className="hidden sm:flex flex-row gap-x-10 ms-auto">
                 <span>BlockDAG</span>
@@ -40,6 +43,8 @@ const Navbar = ({onExpandChange}) => {
 
             </div>
         </div>
+        <SearchBox className="lg:hidden w-full"/>
+
         {expanded && <>
             <div className="">
                 <span>BlockDAG</span>
