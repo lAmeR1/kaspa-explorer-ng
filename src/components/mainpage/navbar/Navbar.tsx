@@ -24,7 +24,7 @@ const Navbar = ({onExpandChange}) => {
             transition-all duration-300 absolute z-20
             ${expanded ? 'h-[100vh] overflow-hidden rounded-b-none' : ''}`}>
 
-        <div className="flex flex-row justify-center w-full">
+        <div className="flex flex-row items-center w-full text-sm md:text-md">
             <Logo/>
             <Price/>
 
