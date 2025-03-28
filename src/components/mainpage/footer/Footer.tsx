@@ -12,6 +12,7 @@ const Footer = () => {
     return <div className="w-full flex flex-col bg-black rounded-t-4xl items-start text-white
     pb-6 sm:pb-6
     px-4 sm:px-24
+    mt-auto
     text-sm sm:text-md
     ">
 
