@@ -1,6 +1,8 @@
 // @ts-ignore
-import logo from "../../../assets/logo.svg"
+import logo from "../../../assets/logo.svg";
 
-export default () => (
-    <div><img src={logo} className="h-7 md:h-10"/></div>
-)
+const Logo = () => (
+    <div><img src={logo} alt="" className="h-7 md:h-10"/></div>
+);
+
+export default Logo;

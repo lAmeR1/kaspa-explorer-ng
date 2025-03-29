@@ -7,9 +7,9 @@ import menu from "../../../assets/menu.svg";
 import close from "../../../assets/close.svg";
 
 // @ts-ignore
-import ChevronUp from '../../../assets/chevron-up.svg?react'
+import ChevronUp from '../../../assets/chevron-up.svg?react';
 // @ts-ignore
-import ChevronDown from '../../../assets/chevron-down.svg?react'
+import ChevronDown from '../../../assets/chevron-down.svg?react';
 import SearchBox from "./SearchBox";
 
 const Navbar = ({expanded, setExpanded, ref}) => {
@@ -85,7 +85,7 @@ const Navbar = ({expanded, setExpanded, ref}) => {
                 <span className=""></span>
             </div>
         </div>}
-    </div>
+    </div>;
 };
 
 export default Navbar;

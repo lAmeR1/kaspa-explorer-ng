@@ -1,6 +1,6 @@
-import Navbar from "./components/mainpage/navbar/Navbar.tsx";
+import Navbar from "./components/mainpage/navbar/Navbar";
 import {useEffect, useRef, useState} from "react";
-import Footer from "./components/mainpage/footer/Footer.js";
+import Footer from "./components/mainpage/footer/Footer";
 import numeral from "numeral";
 
 // @ts-ignore
@@ -34,7 +34,8 @@ function App() {
 
             <Navbar ref={navbarRef} expanded={expanded} setExpanded={setExpanded}/>
 
-            <div id="main-content" className="flex flex-col items-stretch max-w-[1100px] px-2 sm:px-4 py-2 gap-y-2"
+            <div id="main-content"
+                 className="w-full flex flex-col items-stretch max-w-[1100px] px-2 sm:px-4 py-2 gap-y-2"
                  style={{marginTop: navbarHeight}}>
 
                 <div className="bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full">
@@ -90,11 +91,11 @@ function App() {
                                 <td className="pr-2 text-nowrap">1 second ago</td>
                                 <td className="text-link pr-2 font-mono">
                                     <span
-                                        className="hidden md:table-cell">{crypto.getRandomValues(new Uint8Array(32)).reduce((hash, byte) => hash + byte.toString(16).padStart(2, '0'), '')}</span>
+                                        className="hidden md:table-cell">{"330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7"}</span>
                                     <span
-                                        className="hidden xs:table-cell md:hidden">{crypto.getRandomValues(new Uint8Array(8)).reduce((hash, byte) => hash + byte.toString(16).padStart(2, '0'), '')}...{crypto.getRandomValues(new Uint8Array(8)).reduce((hash, byte) => hash + byte.toString(16).padStart(2, '0'), '')}</span>
+                                        className="hidden xs:table-cell md:hidden">{"330ecb081ea2093ffb...ef667d5fa0ce7dfccd7"}</span>
                                     <span
-                                        className="table-cell xs:hidden">{crypto.getRandomValues(new Uint8Array(4)).reduce((hash, byte) => hash + byte.toString(16).padStart(2, '0'), '')}...{crypto.getRandomValues(new Uint8Array(4)).reduce((hash, byte) => hash + byte.toString(16).padStart(2, '0'), '')}</span>
+                                        className="table-cell xs:hidden">{"330ecb08...d5fa0ce7dfccd7"}</span>
                                 </td>
                                 <td className="hidden sm:table-cell">124121225</td>
                                 <td className="pl-5 py-3 text-right">{Math.floor(Math.random() * 100) + 1}</td>
@@ -105,7 +106,6 @@ function App() {
                     </table>
 
                 </div>
-
                 <div
                     className="w-full flex flex-row bg-white rounded-4xl p-4 sm:p-8 text-left  text-gray-500">
                     <div className="h-5 w-5 me-2">
@@ -117,7 +117,7 @@ function App() {
 
             <Footer/>
         </div>
-    </>
+    </>;
 }
 
-export default App
+export default App;
