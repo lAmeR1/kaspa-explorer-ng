@@ -11,12 +11,12 @@ function App() {
     const navbarRef = useRef(null);
     const [navbarHeight, setNavbarHeight] = useState(0);
 
+    const updateNavbarHeight = () => {
+        if (navbarRef.current)
+            setNavbarHeight(navbarRef.current.offsetHeight);
+    };
 
     useEffect(() => {
-        const updateNavbarHeight = () => {
-            if (navbarRef.current)
-                setNavbarHeight(navbarRef.current.offsetHeight);
-        };
         updateNavbarHeight();
         window.addEventListener('resize', updateNavbarHeight);
 
@@ -24,12 +24,15 @@ function App() {
     }, []);
 
 
-    return (
+    return <>
+        {expanded && <div className="absolute top-0 left-0 z-2 w-screen h-screen bg-black opacity-15"
+                          onClick={() => setExpanded(false)}/>}
         <div
             className={`flex flex-col justify-start items-center min-h-screen relative 
                         ${expanded ? "h-screen overflow-hidden" : ""}`}>
 
-            <Navbar ref={navbarRef} onExpandChange={(e) => setExpanded(e)}/>
+
+            <Navbar ref={navbarRef} expanded={expanded} setExpanded={setExpanded}/>
 
             <div id="main-content" className="flex flex-col items-stretch max-w-[1100px] px-2 sm:px-4 py-2 gap-y-2"
                  style={{marginTop: navbarHeight}}>
@@ -39,23 +42,27 @@ function App() {
 
                     <div
                         className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 justify-between items-stretch flex-wrap">
-                        <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                        <div className="grow grid border border-gray-100 rounded-2xl p-4">
                             <span className="text-xs sm:text-sm">Total blocks</span>
-                            <span className="text-base sm:text-xl">{numeral(Math.random()*100990000).format("0,0")}</span>
+                            <span
+                                className="text-base sm:text-xl">{numeral(Math.random() * 100990000).format("0,0")}</span>
                         </div>
-                        <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                        <div className="grow grid border border-gray-100 rounded-2xl p-4">
                             <span className="text-xs sm:text-sm">Total transactions</span>
-                            <span className="text-base sm:text-xl">{numeral(Math.random()*1000000).format("0,0")}</span>
+                            <span
+                                className="text-base sm:text-xl">{numeral(Math.random() * 1000000).format("0,0")}</span>
                         </div>
-                        <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                        <div className="grow grid border border-gray-100 rounded-2xl p-4">
                             <span className="text-xs sm:text-sm">Average block time</span>
-                            <span className="text-base sm:text-xl">{numeral(Math.random()).format("0.00")} <span
-                                className="text-gray-500 text-sm">s</span></span>
+                            <span className="text-base sm:text-xl">{numeral(Math.random()).format("0.00")}
+                                <span className="text-gray-500 text-sm"> s</span>
+                            </span>
                         </div>
-                        <div className="grow grid border-[1px] border-gray-100 rounded-2xl p-4">
+                        <div className="grow grid border border-gray-100 rounded-2xl p-4">
                             <span className="text-xs sm:text-sm">Block rewards</span>
-                            <span className="text-base sm:text-xl">{numeral(Math.random()*10 + 70).format("0.00")} <span
-                                className="text-gray-500 text-sm">KAS</span></span>
+                            <span className="text-base sm:text-xl">{numeral(Math.random() * 10 + 70).format("0.00")}
+                                <span
+                                    className="text-gray-500 text-sm"> KAS</span></span>
                         </div>
                     </div>
 
@@ -110,7 +117,7 @@ function App() {
 
             <Footer/>
         </div>
-    )
+    </>
 }
 
 export default App
