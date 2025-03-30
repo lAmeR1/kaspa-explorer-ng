@@ -48,7 +48,7 @@ export default function App() {
 
     return <><Header expanded={expanded} setExpanded={setExpanded}/>
         {!expanded && <>
-            <div className="grow w-full max-w-[1100px] flex flex-col items-center justify-start px-2 py-3.5 mb-5 gap-y-2">
+            <div className="grow w-full max-w-[1400px] flex flex-col items-center justify-start px-2 py-3.5 mb-5 gap-y-2">
                 <Outlet/>
             </div>
             <Footer/></>}

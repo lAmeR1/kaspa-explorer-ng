@@ -9,7 +9,7 @@ import Twitter from '../assets/twitter.svg?react';
 
 
 const Footer = () => {
-    return <div className="max-w-[1400px] w-full flex flex-col bg-black rounded-t-4xl items-start text-white
+    return <div className="max-w-[1500px] w-full flex flex-col bg-black rounded-t-4xl items-start text-white
     pb-6 sm:pb-6
     px-4 sm:px-24
     mt-auto

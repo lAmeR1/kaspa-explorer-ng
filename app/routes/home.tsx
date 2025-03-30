@@ -1,6 +1,6 @@
 import type {Route} from "./+types/home";
-import {Welcome} from "../welcome/welcome";
+import Dashboard from "../Dashboard";
 
 export default function Home() {
-    return <Welcome/>;
+    return <Dashboard />;
 }

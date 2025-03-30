@@ -24,13 +24,16 @@ const Header = ({expanded, setExpanded, ref}: {
         id="header"
         className={`flex flex-col bg-white px-6 rounded-b-4xl
             items-stretch py-4 w-full gap-y-6
-            transition-all duration-600 max-w-[1400px]
+            transition-all duration-600 max-w-[1500px]
             ${expanded ? 'h-[100vh] sm:h-auto overflow-hidden rounded-b-none sm:rounded-b-4xl' : ''}`}>
         <div className="flex flex-row items-center w-full text-sm md:text-md">
             <NavLink to={"/"}><Logo/></NavLink>
             <Price/>
 
-            <SearchBox value={searchValue} className="hidden lg:flex" onChange={(e) => setSearchValue(e.target.value)}/>
+            {window.location.pathname !== "/" && (
+                <SearchBox value={searchValue} className="hidden lg:flex lg:ml-4 lg:mr-8"
+                           onChange={(e) => setSearchValue(e.target.value)}/>
+            )}
 
             <div className="hidden sm:flex flex-row gap-x-4 ms-auto">
                 <div className="hover:cursor-pointer p-2">
@@ -61,7 +64,7 @@ const Header = ({expanded, setExpanded, ref}: {
                 <div className="hover:cursor-pointer p-2">Analytics</div>
             </div>
         </div>}
-        {!expanded && <SearchBox value={searchValue} className="lg:hidden w-full"
+        {!expanded && window.location.pathname !== "/" && <SearchBox value={searchValue} className="lg:hidden w-full"
                                  onChange={(e) => setSearchValue(e.target.value)}/>}
 
         {expanded && <div className="flex flex-col gap-y-3 sm:hidden">
