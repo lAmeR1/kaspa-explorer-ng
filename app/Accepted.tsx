@@ -1,0 +1,1 @@
+export default () => <div className="bg-accent-green text-success rounded-full px-2 py-0.5">Accepted</div>

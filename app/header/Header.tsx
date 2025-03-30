@@ -33,7 +33,7 @@ const Header = ({expanded, setExpanded, ref}: {
             {typeof window !== "undefined" &&
                 window.location.pathname !== "/" && (
                 <SearchBox value={searchValue} className="hidden lg:flex lg:ml-4 lg:mr-8"
-                           onChange={(e) => setSearchValue(e.target.value)}/>
+                           onChange={setSearchValue}/>
             )}
 
             <div className="hidden sm:flex flex-row gap-x-4 ms-auto">
