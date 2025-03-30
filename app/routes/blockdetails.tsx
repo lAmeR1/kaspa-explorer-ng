@@ -87,7 +87,7 @@ export default function Blocks({loaderData}: Route.ComponentProps) {
 
         <div
             className="grid grid-cols-1 text-nowrap bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full
-            gap-y-2 gap-x-18 overflow-x-scroll">
+            gap-y-2 gap-x-18 overflow-x-auto">
             <div className="sm:col-span-2 text-black mt-4 mb-2">Transactions ( 19 minutes ago )</div>
 
             <div className="w-full grid grid-cols-[auto_2fr_auto_2fr_auto_auto] gap-x-4 gap-y-2">
