@@ -30,7 +30,8 @@ const Header = ({expanded, setExpanded, ref}: {
             <NavLink to={"/"}><Logo/></NavLink>
             <Price/>
 
-            {window.location.pathname !== "/" && (
+            {typeof window !== "undefined" &&
+                window.location.pathname !== "/" && (
                 <SearchBox value={searchValue} className="hidden lg:flex lg:ml-4 lg:mr-8"
                            onChange={(e) => setSearchValue(e.target.value)}/>
             )}
@@ -64,7 +65,8 @@ const Header = ({expanded, setExpanded, ref}: {
                 <div className="hover:cursor-pointer p-2">Analytics</div>
             </div>
         </div>}
-        {!expanded && window.location.pathname !== "/" && <SearchBox value={searchValue} className="lg:hidden w-full"
+        {!expanded && typeof window !== "undefined" &&
+            window.location.pathname !== "/" && <SearchBox value={searchValue} className="lg:hidden w-full"
                                  onChange={(e) => setSearchValue(e.target.value)}/>}
 
         {expanded && <div className="flex flex-col gap-y-3 sm:hidden">
