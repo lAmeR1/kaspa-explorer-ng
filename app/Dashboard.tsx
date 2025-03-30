@@ -91,7 +91,7 @@ const Dashboard = () => {
                 pb-4 sm:pb-6 md:pb-8 lg:pb-12 xl:pb-14
                 ">
             <div className="text-5xl flex-1/2">About Kaspa</div>
-            <div className="text-base flex-1/2"><PageSelector currentPage={2} totalPages={5} onPageChange={(p) => {console.log(p)}} />Kaspa is a community project – completely open source with no central
+            <div className="text-base flex-1/2">Kaspa is a community project – completely open source with no central
                 governance – following in the ethos of coins like Bitcoin. The coin was fair-launched without pre-mining
                 or any other pre-allocation of coins.
             </div>
