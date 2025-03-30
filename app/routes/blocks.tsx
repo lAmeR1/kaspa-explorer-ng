@@ -15,6 +15,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Blocks() {
+    console.log("Render blocks..")
     return <>
         <div className="bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full">
             <div className="text-2xl mb-4">Blocks</div>
@@ -24,22 +25,22 @@ export default function Blocks() {
                 <div className="grow grid border border-gray-100 rounded-2xl p-4">
                     <span className="text-xs sm:text-sm">Total blocks</span>
                     <span
-                        className="text-base sm:text-xl">{numeral(Math.random() * 100990000).format("0,0")}</span>
+                        className="text-base sm:text-lg md:text-xl">{numeral(100990000).format("0,0")}</span>
                 </div>
                 <div className="grow grid border border-gray-100 rounded-2xl p-4">
                     <span className="text-xs sm:text-sm">Total transactions</span>
                     <span
-                        className="text-base sm:text-xl">{numeral(Math.random() * 1000000).format("0,0")}</span>
+                        className="text-base sm:text-lg md:text-xl">{numeral(11412419616).format("0,0")}</span>
                 </div>
                 <div className="grow grid border border-gray-100 rounded-2xl p-4">
                     <span className="text-xs sm:text-sm">Average block time</span>
-                    <span className="text-base sm:text-xl">{numeral(Math.random()).format("0.00")}
+                    <span className="text-base sm:text-lg md:text-xl">{numeral(0.140).format("0.00")}
                         <span className="text-gray-500 text-sm"> s</span>
                             </span>
                 </div>
                 <div className="grow grid border border-gray-100 rounded-2xl p-4">
                     <span className="text-xs sm:text-sm">Block rewards</span>
-                    <span className="text-base sm:text-xl">{numeral(Math.random() * 10 + 70).format("0.00")}
+                    <span className="text-base sm:text-lg md:text-xl">{numeral(88.988).format("0.00")}
                         <span
                             className="text-gray-500 text-sm"> KAS</span></span>
                 </div>
@@ -63,7 +64,7 @@ export default function Blocks() {
                     <th className="text-right font-normal text-nowrap">TX Count</th>
                 </tr>
                 </thead>
-
+                <tbody>
                 {[...Array(20)].map((_, index) => (
                     <tr key={index} className="border-b border-gray-100 text-black text-sm">
                         <td className="pr-2 text-nowrap">1 second ago</td>
@@ -76,10 +77,11 @@ export default function Blocks() {
                                 className="table-cell xs:hidden">{"330ecb08...d5fa0ce7dfccd7"}</span>
                         </td>
                         <td className="hidden sm:table-cell">124121225</td>
-                        <td className="pl-5 py-3 text-right">{Math.floor(Math.random() * 100) + 1}</td>
+                        <td className="pl-5 py-3 text-right">55</td>
 
                     </tr>
                 ))}
+                </tbody>
 
             </table>
 
