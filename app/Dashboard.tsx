@@ -104,7 +104,7 @@ const Dashboard = () => {
                 pt-4 sm:pt-6 md:pt-8 lg:pt-12 xl:pt-14
                 pb-4 sm:pb-12 md:pb-20 lg:pb-24 xl:pb-38
                 ">
-            <div className="text-xl flex-1/2">The world’s first blockDAG – a digital ledger enabling parallel blocks
+            <div className="text-base flex-1/2">The world’s first blockDAG – a digital ledger enabling parallel blocks
                 and instant transaction confirmation – built on a robust proof-of-work engine with rapid single-second
                 block intervals.
             </div>
