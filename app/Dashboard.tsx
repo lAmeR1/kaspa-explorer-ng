@@ -24,6 +24,8 @@ import BackToTab from "./assets/back_to_tab.svg?react";
 import VerifiedUser from "./assets/verified_user.svg?react";
 // @ts-ignore
 import FlashOn from "./assets/flash_on.svg?react";
+import Button from "~/Button";
+import PageSelector from "~/PageSelector";
 
 const Dashboard = () => {
     const [search, setSearch] = useState('');
@@ -89,7 +91,7 @@ const Dashboard = () => {
                 pb-4 sm:pb-6 md:pb-8 lg:pb-12 xl:pb-14
                 ">
             <div className="text-5xl flex-1/2">About Kaspa</div>
-            <div className="text-base flex-1/2">Kaspa is a community project – completely open source with no central
+            <div className="text-base flex-1/2"><PageSelector currentPage={2} totalPages={5} onPageChange={(p) => {console.log(p)}} />Kaspa is a community project – completely open source with no central
                 governance – following in the ethos of coins like Bitcoin. The coin was fair-launched without pre-mining
                 or any other pre-allocation of coins.
             </div>
