@@ -35,15 +35,15 @@ const Dashboard = () => {
                 px-4 sm:px-8 md:px-20 lg:px-24 xl:px-36
                 py-12 sm:py-12 md:py-20 lg:py-24 xl:py-38
         ">
-            <span className="text-4xl">Kaspa Explorer</span>
-            <span className="text-sm mb-6">Kaspa is the fastest, open-source, decentralized & fully scalable Layer-1 PoW network in the world.</span>
+            <span className="text-[54px]">Kaspa Explorer</span>
+            <span className="text-lg mb-6">Kaspa is the fastest, open-source, decentralized & fully scalable Layer-1 PoW network in the world.</span>
             <SearchBox value={search} onChange={setSearch} className="w-full py-4"/>
         </div>
         <div className="flex flex-col w-full bg-black text-white rounded-4xl
                 px-4 sm:px-8 md:px-20 lg:px-24 xl:px-36
-                py-12 sm:py-12 md:py-20 lg:py-24 xl:py-38
+                py-12 sm:py-12 md:py-20 lg:py-24 xl:py-26
         ">
-            <span className="text-4xl mb-7">Kaspa by the numbers</span>
+            <span className="text-3xl md:text-4xl lg:text-5xl mb-7">Kaspa by the numbers</span>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-4">
                 <DashboardBox
                     description="Total transactions"
@@ -87,7 +87,7 @@ const Dashboard = () => {
                 flex-col sm:flex-row
                 gap-x-28 gap-y-14
                 px-4 sm:px-8 md:px-20 lg:px-24 xl:px-36
-                pt-4 sm:pt-12 md:pt-20 lg:pt-24 xl:pt-38
+                pt-10 sm:pt-12 md:pt-20 lg:pt-24 xl:pt-38
                 pb-4 sm:pb-6 md:pb-8 lg:pb-12 xl:pb-14
                 ">
             <div className="text-5xl flex-1/2">About Kaspa</div>
@@ -104,7 +104,7 @@ const Dashboard = () => {
         <div className="flex flex-col lg:flex-row w-full gap-y-12 gap-x-28 text-black
                 px-4 sm:px-8 md:px-20 lg:px-24 xl:px-36
                 pt-4 sm:pt-6 md:pt-8 lg:pt-12 xl:pt-14
-                pb-4 sm:pb-12 md:pb-20 lg:pb-24 xl:pb-38
+                pb-10 sm:pb-12 md:pb-20 lg:pb-24 xl:pb-38
                 ">
             <div className="text-base flex-1/2">The world’s first blockDAG – a digital ledger enabling parallel blocks
                 and instant transaction confirmation – built on a robust proof-of-work engine with rapid single-second

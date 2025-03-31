@@ -19,12 +19,13 @@ const SearchBox = (props: Props) => {
         <Search className="w-5 mx-2 fill-gray-500" onClick={() => {
             inputFieldRef.current?.focus();
         }}/>
-        <input type="text" ref={inputFieldRef} className="grow focus:outline-none text-lg"
+        <input type="text" ref={inputFieldRef} className="grow focus:outline-none text-sm md:text-base lg:text-lg"
                placeholder="Search for address, transaction, token..."
                onChange={(e) => props.onChange(e.target.value)}
                value={props.value}
         />
-        <div className="text-gray-500 w-6 h-6 rounded-lg flex justify-center items-center ms-auto bg-white">
+        <div className="text-gray-500
+        w-6 h-6 rounded-lg flex justify-center items-center ms-auto bg-white">
             /
         </div>
     </div>;
