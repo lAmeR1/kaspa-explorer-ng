@@ -6,10 +6,11 @@ import Github from '../assets/github.svg?react';
 import Telegram from '../assets/telegram.svg?react';
 // @ts-ignore
 import Twitter from '../assets/twitter.svg?react';
+import {Link} from "react-router";
 
 
 const Footer = () => {
-    return <div className="max-w-[1500px] w-full flex flex-col bg-black rounded-t-4xl items-start text-white
+    return <div className="w-full flex flex-col bg-black rounded-t-4xl items-start text-white
     pb-6 sm:pb-6
     px-4 sm:px-24
     mt-auto
@@ -30,16 +31,16 @@ const Footer = () => {
             </g>
         </svg>
 
-        <div className="w-full pt-9 flex flex-row justify-start">
+        <div className="w-full pt-9 flex flex-row justify-start text-gray-500">
             <span>Explore</span>
             <span className="hidden sm:block ms-auto">Help improve the service</span>
         </div>
-        <div className="mt-1 sm:mt-2 flex flex-row w-full flex-wrap jusitfy-around gap-x-6 sm:gap-x-10 gap-y-5 text-gray-500">
-            <span>Blocks</span>
-            <span>Transactions</span>
-            <span>Accounts</span>
-            <span>Tokens</span>
-            <span className="hidden sm:block ms-auto">Donate</span>
+        <div className="mt-1 sm:mt-2 flex flex-row w-full flex-wrap jusitfy-around gap-x-6 sm:gap-x-10 gap-y-5 text-white">
+            <Link to={"/blocks"}>Blocks</Link>
+            <Link to={"/transactipns"}>Transactions</Link>
+            <Link to={"/accounts"}>Accounts</Link>
+            <Link to={"/tokens"}>Tokens</Link>
+            <Link to={"/donate"} className="hidden sm:block ms-auto">Donate</Link>
         </div>
 
         <span className="block sm:hidden mt-4">Help improve the service</span>

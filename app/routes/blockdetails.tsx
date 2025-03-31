@@ -28,7 +28,7 @@ export default function Blocks({loaderData}: Route.ComponentProps) {
         <div
             className="grid grid-cols-1 text-nowrap sm:grid-cols-[auto_1fr] bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full
             gap-y-2 gap-x-18">
-            <div className="sm:col-span-2 text-xl flex flex-row items-center"><Box className="w-8 h-8 mr-2"/>Blocks
+            <div className="sm:col-span-2 text-2xl flex flex-row items-center"><Box className="w-8 h-8 mr-2"/>Blocks
                 details
             </div>
 
@@ -60,7 +60,7 @@ export default function Blocks({loaderData}: Route.ComponentProps) {
             </>}/>
             <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`}/>
             <div className="sm:col-span-2 text-black">Merkle and UTXO data</div>
-            <FieldName name="Markle root"/>
+            <FieldName name="Merkle root"/>
             <FieldValue value="26cb8cf11612de0ea6066bb8c31c0afc51d96cbfe35e1165f1beb23ae1794ad8"/>
             <FieldName name="Accepted merkle root"/>
             <FieldValue value="ac46f5d3d5cff91e5db9503827d4fdeb9067dfcb53d5ac0d6f1d77c81d9e9cf9"/>
@@ -88,7 +88,7 @@ export default function Blocks({loaderData}: Route.ComponentProps) {
         <div
             className="grid grid-cols-1 text-nowrap bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full
             gap-y-2 gap-x-18 overflow-x-auto">
-            <div className="sm:col-span-2 text-black mt-4 mb-2">Transactions ( 19 minutes ago )</div>
+            <div className="sm:col-span-2 text-black mt-4 mb-2">Transactions</div>
 
             <div className="w-full grid grid-cols-[auto_2fr_auto_2fr_auto_auto] gap-x-4 gap-y-2">
                 <div className="text-gray-500">TX-ID</div>

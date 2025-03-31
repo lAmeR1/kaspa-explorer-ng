@@ -16,7 +16,6 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Blocks() {
-    console.log("Render blocks..")
     return <>
         <div className="bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full">
             <div className="text-2xl mb-4">Blocks</div>

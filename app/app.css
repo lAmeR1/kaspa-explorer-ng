@@ -2,8 +2,15 @@
 
 @theme {
   --breakpoint-xs: 30rem;
-
   --font-mono: 'Roboto Mono', monospace;
+
+  --text-xs: 10px;
+  --text-sm: 12px;
+  --text-md: 14px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+  --text-2xl: 20px;
 
   --color-primary: #70C7BA;
   --color-alert: #D6341E;
@@ -33,5 +40,7 @@ body {
   background-color: #f3f3f3;
   display: block;
   font-family: Rubik, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+
   
 }

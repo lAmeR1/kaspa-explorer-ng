@@ -24,7 +24,7 @@ const Header = ({expanded, setExpanded, ref}: {
         id="header"
         className={`flex flex-col bg-white px-6 rounded-b-4xl
             items-stretch py-4 w-full gap-y-6
-            transition-all duration-600 max-w-[1500px]
+            transition-all duration-600
             ${expanded ? 'h-[100vh] sm:h-auto overflow-hidden rounded-b-none sm:rounded-b-4xl' : ''}`}>
         <div className="flex flex-row items-center w-full text-sm md:text-md">
             <NavLink to={"/"}><Logo/></NavLink>
