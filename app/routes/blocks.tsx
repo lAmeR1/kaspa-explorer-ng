@@ -3,6 +3,7 @@ import numeral from "numeral";
 
 // @ts-ignore
 import Box from "../assets/box.svg?react";
+import {Link} from "react-router";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -70,7 +71,7 @@ export default function Blocks() {
                         <td className="pr-2 text-nowrap">1 second ago</td>
                         <td className="text-link pr-2 font-mono">
                                     <span
-                                        className="hidden md:table-cell">{"330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7"}</span>
+                                        className="hidden md:table-cell"><Link to="/blocks/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7">{"330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7"}</Link></span>
                             <span
                                 className="hidden xs:table-cell md:hidden">{"330ecb081ea2093ffb...ef667d5fa0ce7dfccd7"}</span>
                             <span
