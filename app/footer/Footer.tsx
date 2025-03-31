@@ -37,7 +37,7 @@ const Footer = () => {
         </div>
         <div className="mt-1 sm:mt-2 flex flex-row w-full flex-wrap jusitfy-around gap-x-6 sm:gap-x-10 gap-y-5 text-white">
             <Link to={"/blocks"}>Blocks</Link>
-            <Link to={"/transactipns"}>Transactions</Link>
+            <Link to={"/transactions"}>Transactions</Link>
             <Link to={"/accounts"}>Accounts</Link>
             <Link to={"/tokens"}>Tokens</Link>
             <Link to={"/donate"} className="hidden sm:block ms-auto">Donate</Link>

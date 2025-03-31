@@ -50,7 +50,7 @@ export default function Blocks() {
 
         <div
             className="w-full flex flex-col bg-white rounded-4xl p-4 sm:p-8 text-left text-gray-500 ">
-            <div className="bg-primary/20 basis-full mb-2 p-6 rounded-2xl text-black text-left text-sm">
+            <div className="bg-primary/20 basis-full mb-2 p-6 rounded-2xl text-black text-left text-md">
                 Blocks are arriving with a speed of 10 blocks per second. The network is currently at block
                 119,762,579.
             </div>
@@ -58,9 +58,9 @@ export default function Blocks() {
             <table>
                 <thead>
                 <tr className="text-sm border-b border-gray-100">
-                    <th className="font-normal pl-1">Timestamp</th>
-                    <th className="font-normal pl-1">Hash</th>
-                    <th className="font-normal pl-1 text-left hidden sm:table-cell">BlueScore</th>
+                    <th className="font-normal pl-0.5">Timestamp</th>
+                    <th className="font-normal pl-0.5">Hash</th>
+                    <th className="font-normal pl-0.5 text-left hidden sm:table-cell">BlueScore</th>
                     <th className="text-right font-normal text-nowrap">TX Count</th>
                 </tr>
                 </thead>
