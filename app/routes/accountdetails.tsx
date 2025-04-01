@@ -37,7 +37,7 @@ export default function Accountdetails({loaderData}: Route.ComponentProps) {
     const isTabActive = (tab: string) => {
         const params = new URLSearchParams(location.search); // Lesen der Query-Parameter
 
-        if (tab === "general" && params.get("tab") === null) {
+        if (tab === "transactions" && params.get("tab") === null) {
             return true;
         }
 
