@@ -71,8 +71,8 @@ export default function Accounts() {
                                         to="/accounts/kaspa:qyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3">{"kaspa:qyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3"}</Link></span>
                         </td>
                         <td>
-                            <span className="bg-accent-yellow text-black rounded-full px-4 py-0.5 text-center text-base">
-                                bitget wallet
+                            <span className="bg-accent-yellow text-nowrap text-black rounded-full px-4 py-0.5 text-center text-base">
+                                exchange1 wallet
                             </span>
                         </td>
                         <td className="pr-2">1,124,124<span className="text-gray-500"> KAS</span></td>

@@ -38,12 +38,14 @@ const Header = ({expanded, setExpanded, ref}: {
 
             <div className="hidden sm:flex flex-row gap-x-4 ms-auto">
                 <div className="hover:cursor-pointer p-2">
-                    <NavLink to={"/blocks"}>BlockDAG</NavLink>
+                    <NavLink to={"/blocks"}>Blocks</NavLink>
                 </div>
                 <div className="hover:cursor-pointer p-2">
-                    <NavLink to={"/assets"}>Assets</NavLink>
+                    <NavLink to={"/transactions"}>Transactions</NavLink>
                 </div>
-                <div className="hover:cursor-pointer p-2" onClick={() => setExpanded(true)}>Analytics</div>
+                <div className="hover:cursor-pointer p-2">
+                    <NavLink to={"/accounts"}>Accounts</NavLink>
+                </div>
             </div>
             <div className="sm:hidden ms-auto">
                 <img src={!expanded ? menu : close} alt="open menu"
