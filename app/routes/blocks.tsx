@@ -57,7 +57,7 @@ export default function Blocks() {
 
             <table>
                 <thead>
-                <tr className="text-sm border-b border-gray-100">
+                <tr className="border-b border-gray-100">
                     <th className="font-normal pl-0.5">Timestamp</th>
                     <th className="font-normal pl-0.5">Hash</th>
                     <th className="font-normal pl-0.5 text-left hidden sm:table-cell">BlueScore</th>
@@ -66,9 +66,9 @@ export default function Blocks() {
                 </thead>
                 <tbody>
                 {[...Array(20)].map((_, index) => (
-                    <tr key={index} className="border-b border-gray-100 text-black text-sm">
+                    <tr key={index} className="border-b border-gray-100 text-black">
                         <td className="pr-2 text-nowrap">1 second ago</td>
-                        <td className="text-link pr-2 font-mono">
+                        <td className="text-link pr-2">
                                     <span
                                         className="hidden md:table-cell"><Link to="/blocks/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7">{"330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7"}</Link></span>
                             <span
