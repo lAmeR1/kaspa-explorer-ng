@@ -12,6 +12,7 @@ import ClockLoader from "../assets/clock_loader_10.svg?react";
 import ArrowRight from "../assets/arrow-right.svg?react";
 import {NavLink, useLocation} from "react-router";
 import Accepted from "~/Accepted";
+import KaspaAddress from "~/KaspaAddress";
 
 export async function loader({params}: Route.LoaderArgs) {
     const txId = params.blockId;
@@ -62,21 +63,21 @@ export default function TransactionDetails({loaderData}: Route.ComponentProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-y-2 gap-x-14">
                 <FieldName name="From"/>
-                <FieldValue value={<>
-                        <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span><br />
-                        <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span><br />
-                        <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span><br />
-                        <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span><br />
-                        <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span>
-                        </>} />
+                <FieldValue value={<div>
+                    <KaspaAddress copy qr link>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</KaspaAddress>
+                    <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span> fasf<br/>
+                    <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span><br/>
+                    <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span><br/>
+                    <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span>
+                </div>}/>
                 <FieldName name="To"/>
                 <FieldValue value={<>
-                        <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span><br />
-                        <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span><br />
-                        <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span><br />
-                        <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span><br />
-                        <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
-                        </>
+                    <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span><br/>
+                    <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span><br/>
+                    <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span><br/>
+                    <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span><br/>
+                    <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
+                </>
 
                 }/>
             </div>
@@ -214,7 +215,7 @@ export default function TransactionDetails({loaderData}: Route.ComponentProps) {
                 <FieldName name="Amount"/>
                 <FieldValue value={<><span>14,123.24045</span><span className="text-gray-500"> KAS</span></>}/>
                 <FieldName name="Script Public Key Type"/>
-                <FieldValue value="scripthash" />
+                <FieldValue value="scripthash"/>
                 <FieldName name="Script Public Key"/>
                 <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187"/>
                 <FieldName name="Script Public Key Address"/>
@@ -226,7 +227,7 @@ export default function TransactionDetails({loaderData}: Route.ComponentProps) {
                 <FieldName name="Amount"/>
                 <FieldValue value={<><span>14,123.24045</span><span className="text-gray-500"> KAS</span></>}/>
                 <FieldName name="Script Public Key Type"/>
-                <FieldValue value="scripthash" />
+                <FieldValue value="scripthash"/>
                 <FieldName name="Script Public Key"/>
                 <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187"/>
                 <FieldName name="Script Public Key Address"/>
@@ -238,7 +239,7 @@ export default function TransactionDetails({loaderData}: Route.ComponentProps) {
                 <FieldName name="Amount"/>
                 <FieldValue value={<><span>14,123.24045</span><span className="text-gray-500"> KAS</span></>}/>
                 <FieldName name="Script Public Key Type"/>
-                <FieldValue value="scripthash" />
+                <FieldValue value="scripthash"/>
                 <FieldName name="Script Public Key"/>
                 <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187"/>
                 <FieldName name="Script Public Key Address"/>
@@ -250,7 +251,7 @@ export default function TransactionDetails({loaderData}: Route.ComponentProps) {
                 <FieldName name="Amount"/>
                 <FieldValue value={<><span>14,123.24045</span><span className="text-gray-500"> KAS</span></>}/>
                 <FieldName name="Script Public Key Type"/>
-                <FieldValue value="scripthash" />
+                <FieldValue value="scripthash"/>
                 <FieldName name="Script Public Key"/>
                 <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187"/>
                 <FieldName name="Script Public Key Address"/>
@@ -262,7 +263,7 @@ export default function TransactionDetails({loaderData}: Route.ComponentProps) {
                 <FieldName name="Amount"/>
                 <FieldValue value={<><span>14,123.24045</span><span className="text-gray-500"> KAS</span></>}/>
                 <FieldName name="Script Public Key Type"/>
-                <FieldValue value="scripthash" />
+                <FieldValue value="scripthash"/>
                 <FieldName name="Script Public Key"/>
                 <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187"/>
                 <FieldName name="Script Public Key Address"/>
@@ -274,7 +275,7 @@ export default function TransactionDetails({loaderData}: Route.ComponentProps) {
                 <FieldName name="Amount"/>
                 <FieldValue value={<><span>14,123.24045</span><span className="text-gray-500"> KAS</span></>}/>
                 <FieldName name="Script Public Key Type"/>
-                <FieldValue value="scripthash" />
+                <FieldValue value="scripthash"/>
                 <FieldName name="Script Public Key"/>
                 <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187"/>
                 <FieldName name="Script Public Key Address"/>

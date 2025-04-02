@@ -59,6 +59,7 @@ export default function Transactions() {
             flex flex-row justify-around items-center">
                 Blocks and its transactions are arriving with a speed of 10 blocks per second. You can pause the update using the button.
                 <Button value={"Pause??"} primary />
+                <Button value="Ignore coinbase TXs" primary />
             </div>
 
             <table className="mt-4">
