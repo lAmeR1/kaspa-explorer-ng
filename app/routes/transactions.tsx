@@ -2,10 +2,15 @@ import type {Route} from "./+types/transactions";
 import numeral from "numeral";
 
 // @ts-ignore
-import Box from "../assets/box.svg?react";
+import Transaction from "../assets/transaction.svg?react";
 import {Link} from "react-router";
 import Accepted from "~/Accepted";
 import Button from "~/Button";
+import CardContainer from "~/layout/CardContainer";
+import Card from "~/layout/Card";
+import MainBox from "~/layout/MainBox";
+import HelperBox from "~/layout/HelperBox";
+import FooterHelper from "~/layout/FooterHelper";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -20,47 +25,35 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Transactions() {
     return <>
-        <div className="bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full">
-            <div className="text-2xl mb-4">Transactions</div>
-            <div
-                className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 justify-between items-stretch flex-wrap">
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Average TPS (24 hrs)</span>
-                    <span className="text-base sm:text-lg md:text-xl">{numeral(154.2).format("0.0")}</span>
-                </div>
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Volume transacted (30 days)</span>
-                    <span
-                        className="text-base sm:text-lg md:text-xl">{numeral(603123943).format("0,0")}
-                        <span className="text-gray-500 text-sm"> KAS</span>
-                    </span>
+        <MainBox>
+            <CardContainer title="Transactions">
+                <Card
+                    title="Average TPS (24 hrs)"
+                    value={`${numeral(154.2).format("0.0")}`}
+                />
+                <Card
+                    title="Volume transacted (30 days)"
+                    value={`${numeral(603123943).format("0,0")} KAS`}
+                />
+                <Card
+                    title="Volume transacted (24 hours)"
+                    value={`${numeral(69951282).format("0,0")} KAS`}
+                />
+                <Card
+                    title="Average Transaction Fee (24 hours)"
+                    value={`${numeral(0.02332).format("0.0000[0000]")} KAS`}
+                />
+            </CardContainer>
+        </MainBox>
 
-                </div>
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Volume transacted (24 hours)</span>
-                    <span
-                        className="text-base sm:text-lg md:text-xl">{numeral(69951282).format("0,0")}
-                        <span className="text-gray-500 text-sm"> KAS</span>
-                    </span>
-                </div>
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Average Transaction Fee (24 hours)</span>
-                    <span className="text-base sm:text-lg md:text-xl">{numeral(0.02332).format("0.0000[0000]")}
-                        <span className="text-gray-500 text-sm"> KAS</span>
-                            </span>
-                </div>
-            </div>
 
-        </div>
-
-        <div
-            className="w-full flex flex-col bg-white rounded-4xl p-4 sm:p-8 text-left text-gray-500 ">
-            <div className="bg-primary/20 basis-full mb-2 p-6 rounded-2xl text-black text-left text-base
-            flex flex-row justify-around items-center">
-                Blocks and its transactions are arriving with a speed of 10 blocks per second. You can pause the update using the button.
-                <Button value={"Pause??"} primary />
-                <Button value="Ignore coinbase TXs" primary />
-            </div>
+        <MainBox>
+            <HelperBox>
+                Blocks and its transactions are arriving with a speed of 10 blocks per second. You can pause the update
+                using the button.
+                <Button value={"Pause??"} primary/>
+                <Button value="Ignore coinbase TXs" primary/>
+            </HelperBox>
 
             <table className="mt-4">
                 <thead>
@@ -74,7 +67,7 @@ export default function Transactions() {
                 <tbody>
                 {[...Array(20)].map((_, index) => (
                     <tr key={index} className="border-b border-gray-100 text-black text-base">
-                        <td className="pr-2 text-nowrap">{(index+1) *2} second ago</td>
+                        <td className="pr-2 text-nowrap">{(index + 1) * 2} second ago</td>
                         <td className="text-link pr-2 font-mono">
                                     <span
                                         className="hidden md:table-cell"><Link
@@ -94,13 +87,10 @@ export default function Transactions() {
 
             </table>
 
-        </div>
-        <div
-            className="w-full flex flex-row bg-white rounded-4xl p-4 sm:p-8 text-left  text-gray-500">
-            <div className="h-5 w-5 me-2">
-                <Box className="h-5 w-5 fill-gray-500"/>
-            </div>
-            <span>A block is a secure, sequential record in the blockchain containing verified transactions, a unique hash, and a reference to the previous block, ensuring data integrity.</span>
-        </div>
-    </>;
+        </MainBox>
+        <FooterHelper icon={Transaction}>
+            A transaction is a cryptographically signed command that modifies the blockchain's state. Block explorers
+            monitor and display the details of every transaction within the network.
+        </FooterHelper>
+    </>
 }

@@ -4,6 +4,10 @@ import numeral from "numeral";
 // @ts-ignore
 import Box from "../assets/box.svg?react";
 import {Link} from "react-router";
+import CardContainer from "~/layout/CardContainer";
+import Card from "~/layout/Card";
+import MainBox from "~/layout/MainBox";
+import FooterHelper from "~/layout/FooterHelper";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -17,36 +21,26 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Blocks() {
     return <>
-        <div className="bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full">
-            <div className="text-2xl mb-4">Blocks</div>
-
-            <div
-                className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 justify-between items-stretch flex-wrap">
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Total blocks</span>
-                    <span
-                        className="text-base sm:text-lg md:text-xl">{numeral(100990000).format("0,0")}</span>
-                </div>
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Total transactions</span>
-                    <span
-                        className="text-base sm:text-lg md:text-xl">{numeral(11412419616).format("0,0")}</span>
-                </div>
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Average block time</span>
-                    <span className="text-base sm:text-lg md:text-xl">{numeral(0.140).format("0.00")}
-                        <span className="text-gray-500 text-sm"> s</span>
-                            </span>
-                </div>
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Block rewards</span>
-                    <span className="text-base sm:text-lg md:text-xl">{numeral(88.988).format("0.00")}
-                        <span
-                            className="text-gray-500 text-sm"> KAS</span></span>
-                </div>
-            </div>
-
-        </div>
+        <MainBox>
+            <CardContainer title="Blocks">
+                <Card
+                    title="Total blocks"
+                    value={`${numeral(100990000).format("0,0")}`}
+                />
+                <Card
+                    title="Total transactions"
+                    value={`${numeral(11412419616).format("0,0")}`}
+                />
+                <Card
+                    title="Average block time"
+                    value={`${numeral(0.140).format("0.00")} s`}
+                />
+                <Card
+                    title="Block rewards"
+                    value={`${numeral(88.988).format("0.00")} KAS`}
+                />
+            </CardContainer>
+        </MainBox>
 
         <div
             className="w-full flex flex-col bg-white rounded-4xl p-4 sm:p-8 text-left text-gray-500 ">
@@ -70,7 +64,8 @@ export default function Blocks() {
                         <td className="pr-2 text-nowrap">1 second ago</td>
                         <td className="text-link pr-2">
                                     <span
-                                        className="hidden md:table-cell"><Link to="/blocks/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7">{"330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7"}</Link></span>
+                                        className="hidden md:table-cell"><Link
+                                        to="/blocks/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7">{"330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7"}</Link></span>
                             <span
                                 className="hidden xs:table-cell md:hidden">{"330ecb081ea2093ffb...ef667d5fa0ce7dfccd7"}</span>
                             <span
@@ -86,12 +81,11 @@ export default function Blocks() {
             </table>
 
         </div>
-        <div
-            className="w-full flex flex-row bg-white rounded-4xl p-4 sm:p-8 text-left  text-gray-500">
+        <FooterHelper>
             <div className="h-5 w-5 me-2">
                 <Box className="h-5 w-5 fill-gray-500"/>
             </div>
             <span>A block is a secure, sequential record in the blockchain containing verified transactions, a unique hash, and a reference to the previous block, ensuring data integrity.</span>
-        </div>
+        </FooterHelper>
     </>;
 }

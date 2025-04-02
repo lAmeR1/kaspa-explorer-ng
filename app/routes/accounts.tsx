@@ -6,6 +6,10 @@ import AccountBalanceWallet from "../assets/account_balance_wallet.svg?react";
 import {Link} from "react-router";
 import Accepted from "~/Accepted";
 import Button from "~/Button";
+import MainBox from "~/layout/MainBox";
+import Card from "~/layout/Card";
+import CardContainer from "~/layout/CardContainer";
+import FooterHelper from "~/layout/FooterHelper";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -19,33 +23,31 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Accounts() {
     return <>
-        <div className="bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full">
-            <div className="text-2xl mb-4">Accounts</div>
-            <div
-                className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 justify-between items-stretch flex-wrap">
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Number of accounts</span>
-                    <span className="text-base sm:text-lg md:text-xl">{numeral(1541252).format("0,")}</span>
-                    <span className="text-base text-sm text-gray-500">with at least 1 KAS</span>
-                </div>
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Top 10 addresses</span>
-                    <span className="text-base sm:text-lg md:text-xl">{numeral(17.245).format("0.[00]")}%</span>
-                    <span className="text-base text-sm text-gray-500">of circulating supply</span>
-                </div>
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Top 100 addresses</span>
-                    <span className="text-base sm:text-lg md:text-xl">{numeral(34.245).format("0.[00]")}%</span>
-                    <span className="text-base text-sm text-gray-500">of circulating supply</span>
-                </div>
-                <div className="grow grid border border-gray-100 rounded-2xl p-4">
-                    <span className="text-xs sm:text-sm">Top 1000 addresses</span>
-                    <span className="text-base sm:text-lg md:text-xl">{numeral(58.2).format("0.0")}</span>
-                    <span className="text-base text-sm text-gray-500">of circulating supply</span>
-                </div>
-            </div>
+        <MainBox>
+            <CardContainer title="Accounts">
+                <Card
+                    title="Number of accounts"
+                    value={`${numeral(1541252).format("0,")}`}
+                    subtext="with at least 1 KAS"
+                />
+                <Card
+                    title="Top 10 addresses"
+                    value={`${numeral(0).format("0.[00]")}%`}
+                    subtext="of circulating supply"
+                />
+                <Card
+                    title="Top 100 addresses"
+                    value={`${numeral(34.245).format("0.[00]")}%`}
+                    subtext="of circulating supply"
+                />
+                <Card
+                    title="Top 1000 addresses"
+                    value={`${numeral(58.2).format("0.0")}`}
+                    subtext="of circulating supply"
+                />
+            </CardContainer>
 
-        </div>
+        </MainBox>
 
         <div
             className="w-full flex flex-col bg-white rounded-4xl p-4 sm:p-8 text-left text-gray-500 ">
@@ -85,12 +87,9 @@ export default function Accounts() {
             </table>
 
         </div>
-        <div
-            className="w-full flex flex-row bg-white rounded-4xl p-4 sm:p-8 text-left  text-gray-500">
-            <div className="h-5 w-5 me-2">
-                <AccountBalanceWallet className="h-4 w-4 fill-gray-500"/>
-            </div>
+        <FooterHelper
+          icon={AccountBalanceWallet}>
             <span className="text-sm">An account is a unique identifier on the blockchain used to send, receive, and store assets or data. It holds balances and interacts with the network securely.</span>
-        </div>
+        </FooterHelper>
     </>;
 }

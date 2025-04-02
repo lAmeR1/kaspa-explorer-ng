@@ -70,7 +70,7 @@ const Header = ({expanded, setExpanded, ref}: {
                                 Transactions
                             </div>
                         </NavLink>
-                        <NavLink to="/blocks">
+                        <NavLink to="/accounts">
                             <div className="w-full hover:bg-gray-25 py-2">
                                 Accounts
                             </div>
