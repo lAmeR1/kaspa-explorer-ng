@@ -9,15 +9,14 @@ import Close from './assets/close.svg?react'
 // @ts-ignore
 import Kaspa from './assets/kaspa.svg?react'
 
-import {type ReactNode, useState} from "react";
+import {useState} from "react";
 
 import {QRCodeSVG} from "qrcode.react"
 import {Link} from "react-router";
 
 const KaspaAddress = (
-    {children, copyValue, copy = false, qr = false, link = false}: {
-        children: string | ReactNode;
-        copyValue?: string;
+    {value, copy = false, qr = false, link = false}: {
+        value: string;
         copy?: boolean;
         qr?: boolean
         link?: boolean;
@@ -27,7 +26,6 @@ const KaspaAddress = (
     const [clicked, setClicked] = useState(false);
     const [showQr, setShowQr] = useState(false);
 
-    const value = copyValue || children?.toString() || "";
     const linkHref = "/accounts/" + value;
 
     const handleClick = () => {
@@ -36,27 +34,31 @@ const KaspaAddress = (
         setTimeout(() => setClicked(false), 1000);
     }
 
-    return <span className="fill-gray-500">
-        {(link && linkHref) ? <Link className="text-link" to={linkHref}>{children}</Link> : children}
-        {copy && (!clicked ? <Copy className="w-4 h-4 inline align-middle mx-1 hover:fill-primary"
-                                   onClick={handleClick}
-        /> : <CopyCheck className=" w-4 h-4 inline align-middle mx-1 animate-[spin_0.2s_linear_1]"/>)}
+    return <div className="grid grid-cols-[auto_1fr] overflow-hidden text-ellipsis">
 
-        {clicked &&
-            <div
-                className="inline absolute
+        <span className="overflow-hidden text-ellipsis">{value.substring(0, 54)}</span>
+
+        <span className="fill-gray-500 text-nowrap">
+        {(link && linkHref) ? <Link className="text-link" to={linkHref}>{value.substring(54)}</Link> : value}
+            {copy && (!clicked ? <Copy className="w-4 h-4 inline align-middle mx-1 hover:fill-primary"
+                                       onClick={handleClick}
+            /> : <CopyCheck className=" w-4 h-4 inline align-middle mx-1 animate-[spin_0.2s_linear_1]"/>)}
+
+            {clicked &&
+                <div
+                    className="inline absolute
                  -translate-y-full -translate-x-full
                  rounded-lg bg-primary text-white
                  p-2 z-10">copied</div>}
 
 
-        {qr && <QrCode
-            className="relative w-4 h-4 inline align-middle hover:fill-primary"
-            onClick={() => setShowQr(!showQr)}/>}
+            {qr && <QrCode
+                className="relative w-4 h-4 inline align-middle hover:fill-primary"
+                onClick={() => setShowQr(!showQr)}/>}
 
-        {showQr && <QrCodeModal value={value} setShowQr={setShowQr}/>}
+            {showQr && <QrCodeModal value={value} setShowQr={setShowQr}/>}
 
-        </span>;
+        </span></div>;
 };
 
 export default KaspaAddress;

@@ -15,6 +15,7 @@ import AccountBalanceWallet from "../assets/account_balance_wallet.svg?react"
 import {Link, NavLink, useLocation} from "react-router";
 import Accepted from "~/Accepted";
 import Button from "~/Button";
+import KaspaAddress from "~/KaspaAddress";
 
 export async function loader({params}: Route.LoaderArgs) {
     const txId = params.blockId;
@@ -66,7 +67,7 @@ export default function Accountdetails({loaderData}: Route.ComponentProps) {
             <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-y-2 gap-x-14">
 
                 <FieldName name="Address"/>
-                <FieldValue value="kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r" />
+                <FieldValue value={<KaspaAddress link value="kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r" />} />
                 <FieldName name="Transactions"/>
                 <FieldValue value="1,885" />
                 <FieldName name="UTXOs"/>

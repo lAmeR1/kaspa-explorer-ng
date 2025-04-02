@@ -64,7 +64,7 @@ export default function TransactionDetails({loaderData}: Route.ComponentProps) {
             <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-y-2 gap-x-14">
                 <FieldName name="From"/>
                 <FieldValue value={<div>
-                    <KaspaAddress copy qr link>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</KaspaAddress>
+                    <KaspaAddress copy qr link value="kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r" />
                     <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span> fasf<br/>
                     <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span><br/>
                     <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span><br/>
