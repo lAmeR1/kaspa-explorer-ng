@@ -23,11 +23,11 @@ const Header = ({expanded, setExpanded, ref}: {
 
     return <div
         id="header"
-        className={`flex flex-col bg-white px-6 rounded-b-4xl
+        className={`flex flex-col bg-white rounded-b-4xl
             items-stretch py-4 w-full gap-y-6
             transition-all duration-600
             ${expanded ? 'h-[100vh] sm:h-auto overflow-hidden rounded-b-none sm:rounded-b-4xl' : ''}`}>
-        <div className="flex flex-row items-center w-full text-sm md:text-md">
+        <div className="flex flex-row items-center w-full text-sm md:text-md px-6">
             <NavLink to={"/"}><Logo/></NavLink>
             <Price/>
 
@@ -37,7 +37,7 @@ const Header = ({expanded, setExpanded, ref}: {
                                onChange={setSearchValue}/>
                 )}
 
-            <div className="hidden  sm:flex flex-row gap-x-4 ms-auto">
+            <div className="hidden sm:flex flex-row gap-x-4 ms-auto">
                 <div className="hover:cursor-pointer relative p-2 group hover:text-primary hover:fill-primary">
                     <span className="flex flex-row justify-center items-center">
                         BlockDAG
@@ -144,8 +144,8 @@ const Header = ({expanded, setExpanded, ref}: {
         </div>
 
         {!expanded && typeof window !== "undefined" &&
-            window.location.pathname !== "/" && <SearchBox value={searchValue} className="lg:hidden w-full"
-                                                           onChange={(e) => setSearchValue(e.target.value)}/>}
+            window.location.pathname !== "/" && <div className="mx-6"><SearchBox value={searchValue} className="lg:hidden w-full"
+                                                                                 onChange={setSearchValue}/></div>}
 
         <MobileMenu showMenu={expanded} onCloseRequest={() => setExpanded(false)} />
 

@@ -13,9 +13,6 @@ interface Props {
 const SearchBox = (props: Props) => {
     const inputFieldRef = useRef<HTMLInputElement | null>(null)
 
-
-
-
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (
@@ -28,7 +25,6 @@ const SearchBox = (props: Props) => {
         };
 
         window.addEventListener("keydown", handleKeyDown);
-
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };

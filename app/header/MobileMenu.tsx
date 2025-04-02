@@ -44,7 +44,7 @@ const MenuItem = (props: MenuItemProps) => {
     const Wrapper = props.linkTo ? NavLink : "div";
 
     return <Wrapper to={props.linkTo || ""}>
-        <div key={props.name} className={`flex flex-row w-full items-center py-1 ${props.indent ? "pl-4" : ""}`}
+        <div key={props.name} className={`flex flex-row w-full items-center px-6 py-1 ${props.indent ? "pl-10" : ""}`}
 
              onClick={() => props.expandable && setIsOpen(!isOpen)}
         >
