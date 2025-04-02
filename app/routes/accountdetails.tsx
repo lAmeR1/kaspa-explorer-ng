@@ -67,7 +67,7 @@ export default function Accountdetails({loaderData}: Route.ComponentProps) {
             <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-y-2 gap-x-14">
 
                 <FieldName name="Address"/>
-                <FieldValue value={<KaspaAddress link value="kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r" />} />
+                <FieldValue value={<KaspaAddress copy link value="kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r" />} />
                 <FieldName name="Transactions"/>
                 <FieldValue value="1,885" />
                 <FieldName name="UTXOs"/>
