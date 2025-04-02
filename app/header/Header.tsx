@@ -12,6 +12,7 @@ import ChevronUp from '../assets/chevron-up.svg?react';
 import ChevronDown from '../assets/chevron-down.svg?react';
 import SearchBox from "./SearchBox";
 import {NavLink} from "react-router";
+import MobileMenu from "~/header/MobileMenu";
 
 const Header = ({expanded, setExpanded, ref}: {
     expanded: boolean;
@@ -38,10 +39,14 @@ const Header = ({expanded, setExpanded, ref}: {
 
             <div className="hidden  sm:flex flex-row gap-x-4 ms-auto">
                 <div className="hover:cursor-pointer relative p-2 group hover:text-primary hover:fill-primary">
-                    <span className="flex flex-row justify-center items-center">BlockDAG <ChevronUp className="h-4 duration-200
+                    <span className="flex flex-row justify-center items-center">
+                        BlockDAG
+                        <ChevronUp className="h-4 duration-200
                         group-hover:fill-primary
                           group-hover:block
-                          group-hover:rotate-180"/>
+                          group-hover:rotate-0
+                          rotate-180
+                          "/>
                     </span>
 
                     <div className="absolute
@@ -137,52 +142,13 @@ const Header = ({expanded, setExpanded, ref}: {
             </div>
 
         </div>
-        {expanded && <div className="hidden w-full sm:flex flex-row text-sm">
-            <div className="hidden sm:flex flex-row gap-x-4 ms-auto">
-                <div className="hover:cursor-pointer p-2 flex flex-col gap-y-2">
-                    <div>Blocks</div>
-                    <div>Transactions</div>
-                    <div>Accounts</div>
 
-                </div>
-                <div className="hover:cursor-pointer p-2">Assets</div>
-                <div className="hover:cursor-pointer p-2">Analytics</div>
-            </div>
-        </div>}
         {!expanded && typeof window !== "undefined" &&
             window.location.pathname !== "/" && <SearchBox value={searchValue} className="lg:hidden w-full"
                                                            onChange={(e) => setSearchValue(e.target.value)}/>}
 
-        {expanded && <div className="flex flex-col gap-y-3 sm:hidden">
-            <div className="">
-                <span>BlockDAG</span>
-                <span className=""></span>
-            </div>
-            <div className="flex flex-row w-full">
-                <span>Transactions</span>
-                <span className="ms-auto">
-                    <ChevronUp/>
-                </span>
-            </div>
-            <div className="">
-                <span>Accounts</span>
-                <span></span>
-            </div>
-            <div className="">
-                <span>Blocks</span>
-                <span></span>
-            </div>
-            <div className="flex flex-row w-full">
-                <span>Assets</span>
-                <span className="ms-auto">
-                    <ChevronDown/>
-                </span>
-            </div>
-            <div className="">
-                <span>Analytics</span>
-                <span className=""></span>
-            </div>
-        </div>}
+        <MobileMenu showMenu={expanded} onCloseRequest={() => setExpanded(false)} />
+
     </div>;
 };
 
