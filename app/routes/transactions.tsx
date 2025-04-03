@@ -1,4 +1,3 @@
-import type { Route } from "./+types/transactions";
 import numeral from "numeral";
 
 import Transaction from "../assets/transaction.svg";
@@ -11,7 +10,7 @@ import FooterHelper from "~/layout/FooterHelper";
 import HelperBox from "~/layout/HelperBox";
 import MainBox from "~/layout/MainBox";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Kaspa Explorer - Transactions" },
     {

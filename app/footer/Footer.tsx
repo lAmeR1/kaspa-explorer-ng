@@ -71,13 +71,13 @@ const Footer = () => {
         <Github className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
         <Telegram className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
         <Twitter className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
-        <span className="ms-auto hidden sm:block">
-          © 2025 Kaspa Explorer. All rights are reserved
+        <span className="ms-auto hidden text-nowrap sm:block">
+          © 2025 Kaspa Explorer. All rights are reserved
         </span>
       </div>
 
-      <span className="pt-4 text-gray-500 sm:hidden">
-        © 2025 Kaspa Explorer. All rights are reserved
+      <span className="pt-4 text-nowrap text-gray-500 sm:hidden">
+        © 2025 Kaspa Explorer. All rights are reserved
       </span>
     </div>
   );

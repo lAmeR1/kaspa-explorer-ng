@@ -12,7 +12,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   return { blockId };
 }
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Kaspa Explorer - Blocks" },
     {
@@ -23,7 +23,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Blocks({ loaderData }: Route.ComponentProps) {
+export default function Blocks() {
   return (
     <>
       <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:grid-cols-[auto_1fr] sm:p-8">

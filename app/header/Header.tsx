@@ -1,15 +1,9 @@
+import Close from "../assets/close.svg";
+import Menu from "../assets/menu.svg";
 import Logo from "./Logo";
 import Price from "./Price";
-import { useState } from "react";
-
-import menu from "../assets/menu.svg";
-
-import close from "../assets/close.svg";
-
-import ChevronUp from "../assets/chevron-up.svg";
-
-import ChevronDown from "../assets/chevron-down.svg";
 import SearchBox from "./SearchBox";
+import { useState } from "react";
 import { NavLink } from "react-router";
 import DesktopMenu from "~/header/DesktopMenu";
 import MobileMenu from "~/header/MobileMenu";
@@ -17,7 +11,6 @@ import MobileMenu from "~/header/MobileMenu";
 const Header = ({
   expanded,
   setExpanded,
-  ref,
 }: {
   expanded: boolean;
   setExpanded: (value: boolean) => void;
@@ -45,13 +38,11 @@ const Header = ({
         )}
 
         <DesktopMenu />
-        <div className="ms-auto sm:hidden">
-          <img
-            src={!expanded ? menu : close}
-            alt="open menu"
-            className={`transition-transform duration-300 hover:cursor-pointer ${expanded ? "rotate-360" : ""}`}
-            onClick={() => setExpanded(!expanded)}
-          />
+        <div
+          className={`hover:fill-primary ms-auto transition-transform duration-300 hover:cursor-pointer sm:hidden ${expanded ? "rotate-360" : ""}`}
+          onClick={() => setExpanded(!expanded)}
+        >
+          {!expanded ? <Menu /> : <Close />}
         </div>
       </div>
 

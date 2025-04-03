@@ -1,18 +1,12 @@
-import type { Route } from "./+types/accountdetails";
-
-import Swap from "../assets/swap.svg";
-
+import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
+import ArrowRight from "../assets/arrow-right.svg";
 import Info from "../assets/info.svg";
-
 import Kaspa from "../assets/kaspa.svg";
 
-import ArrowRight from "../assets/arrow-right.svg";
+import type { Route } from "./+types/accountdetails";
+import { NavLink, useLocation } from "react-router";
 
-import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
-
-import { Link, NavLink, useLocation } from "react-router";
 import Accepted from "~/Accepted";
-import Button from "~/Button";
 import KaspaAddress from "~/KaspaAddress";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -20,7 +14,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   return { txId };
 }
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Kaspa Explorer - Account Details" },
     {
@@ -31,7 +25,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Accountdetails({ loaderData }: Route.ComponentProps) {
+export default function Accountdetails() {
   const location = useLocation();
 
   const isTabActive = (tab: string) => {
@@ -112,7 +106,7 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
               <div className="text-gray-500">Status</div>
               <div className="text-right text-gray-500">Amount</div>
 
-              {Array.from({ length: 20 }).map((_, index) => (
+              {Array.from({ length: 20 }).map(() => (
                 <>
                   <div className="col-span-7 h-[1px] bg-gray-100" />
                   <div className="text-black">12 sec. ago</div>
@@ -161,7 +155,7 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
               <div className="text-gray-500">Block DAA score</div>
               <div className="text-right text-gray-500">Amount</div>
 
-              {Array.from({ length: 20 }).map((_, index) => (
+              {Array.from({ length: 20 }).map(() => (
                 <>
                   <div className="col-span-7 h-[1px] bg-gray-100" />
                   <div className="text-black">

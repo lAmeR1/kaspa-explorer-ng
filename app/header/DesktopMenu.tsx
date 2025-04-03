@@ -45,7 +45,7 @@ const MenuItem = (props: MenuItemProps) => {
   const [menuEnabled, setMenuEnabled] = useState(false);
 
   useEffect(() => {
-    !menuEnabled && setTimeout(() => setMenuEnabled(true), 100);
+    if (!menuEnabled) setTimeout(() => setMenuEnabled(true), 100);
   }, [menuEnabled]);
 
   const InnerLink = () => (

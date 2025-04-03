@@ -20,4 +20,7 @@ export default defineConfig([
     ...pluginReact.configs.flat.recommended,
     rules: { "react/react-in-jsx-scope": "off" },
   },
+  {
+    ignores: [".react-router/**"],
+  },
 ]);

@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react";
 interface Props {
   className?: string;
   value: string;
-  onChange: (e: any) => void;
+  onChange: (e: string) => void;
 }
 
 const SearchBox = (props: Props) => {

@@ -156,7 +156,7 @@ const DashboardBox = (props: DashboardBoxProps) => {
       <span className="text-base md:text-lg xl:text-xl">
         {props.value}
         {props.unit ? (
-          <span className="text-base text-gray-500"> {props.unit}</span>
+          <span className="text-base text-gray-500"> {props.unit}</span>
         ) : (
           ""
         )}

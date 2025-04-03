@@ -1,14 +1,12 @@
-import type { Route } from "./+types/blocks";
-import numeral from "numeral";
-
 import Box from "../assets/box.svg";
+import numeral from "numeral";
 import { Link } from "react-router";
 import Card from "~/layout/Card";
 import CardContainer from "~/layout/CardContainer";
 import FooterHelper from "~/layout/FooterHelper";
 import MainBox from "~/layout/MainBox";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Kaspa Explorer - Blocks" },
     {
@@ -86,10 +84,7 @@ export default function Blocks() {
           </tbody>
         </table>
       </div>
-      <FooterHelper>
-        <div className="me-2 h-5 w-5">
-          <Box className="h-5 w-5 fill-gray-500" />
-        </div>
+      <FooterHelper icon={Box}>
         <span>
           A block is a secure, sequential record in the blockchain containing
           verified transactions, a unique hash, and a reference to the previous

@@ -1,4 +1,3 @@
-import type { Route } from "./+types/donate";
 import { NavLink } from "react-router";
 
 export default function Donate() {

@@ -7,8 +7,6 @@ import Info from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 
 import ClockLoader from "../assets/clock_loader_10.svg";
-
-import ArrowRight from "../assets/arrow-right.svg";
 import { NavLink, useLocation } from "react-router";
 import Accepted from "~/Accepted";
 import KaspaAddress from "~/KaspaAddress";
@@ -18,7 +16,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   return { txId };
 }
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Kaspa Explorer - Blocks" },
     {
@@ -29,9 +27,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function TransactionDetails({
-  loaderData,
-}: Route.ComponentProps) {
+export default function TransactionDetails() {
   const location = useLocation();
 
   const isTabActive = (tab: string) => {
