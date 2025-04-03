@@ -1,8 +1,8 @@
-import logo from "../assets/logo.svg";
+import LogoIcon from "../assets/logo.svg";
 
 const Logo = () => (
   <div>
-    <img src={logo} alt="" className="h-7 md:h-10" />
+    <LogoIcon className="h-7 md:h-10" />
   </div>
 );
 
