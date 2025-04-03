@@ -2,7 +2,7 @@
 
 @theme {
   --breakpoint-xs: 30rem;
-  --font-mono: 'Roboto Mono', monospace;
+  --font-mono: "Roboto Mono", monospace;
 
   --text-xs: 10px;
   --text-sm: 12px;
@@ -12,29 +12,29 @@
   --text-xl: 18px;
   --text-2xl: 20px;
 
-  --color-primary: #70C7BA;
-  --color-alert: #D6341E;
-  --color-warning: #FC8908;
-  --color-success: #13893E;
-  --color-info: #1D6DCB;
-  --color-link: #2463EC;
+  --color-primary: #70c7ba;
+  --color-alert: #d6341e;
+  --color-warning: #fc8908;
+  --color-success: #13893e;
+  --color-info: #1d6dcb;
+  --color-link: #2463ec;
 
-  --color-accent-red: #FBEBE8;
-  --color-accent-blue: #E9EFFD;
-  --color-accent-green: #E8F5ED;
-  --color-accent-yellow: #FFF3E6;
+  --color-accent-red: #fbebe8;
+  --color-accent-blue: #e9effd;
+  --color-accent-green: #e8f5ed;
+  --color-accent-yellow: #fff3e6;
 
-  --color-gray-900: #1C1C1C;
-  --color-gray-800: #2F2F2F;
+  --color-gray-900: #1c1c1c;
+  --color-gray-800: #2f2f2f;
   --color-gray-700: #484848;
   --color-gray-600: #656565;
   --color-gray-500: #818181;
-  --color-gray-400: #9E9E9E;
-  --color-gray-300: #BABABA;
-  --color-gray-200: #D7D7D7;
-  --color-gray-100: #EBEBEB;
-  --color-gray-50: #F3F3F3;
-  --color-gray-25: #F9F9F9;
+  --color-gray-400: #9e9e9e;
+  --color-gray-300: #bababa;
+  --color-gray-200: #d7d7d7;
+  --color-gray-100: #ebebeb;
+  --color-gray-50: #f3f3f3;
+  --color-gray-25: #f9f9f9;
 }
 
 body {
@@ -42,8 +42,6 @@ body {
   display: block;
   font-family: Rubik, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 14px;
-
-  
 }
 
 .link-container {
@@ -52,7 +50,7 @@ body {
 }
 
 .link-container::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 2px;
