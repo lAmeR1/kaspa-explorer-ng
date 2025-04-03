@@ -34,7 +34,6 @@ const DesktopMenu = () => {
                         w-48"/>
                 <div className="absolute
                         hidden group-hover:flex
-                        flex
                         flex-col
                         -translate-x-1/2
                         left-1/2
