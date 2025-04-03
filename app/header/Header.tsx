@@ -29,12 +29,9 @@ const Header = ({
   return (
     <div
       id="header"
-      className={`flex flex-col bg-white rounded-b-4xl
-            items-stretch py-4 w-full
-            transition-all duration-600
-            ${expanded ? "h-[100vh] sm:h-auto overflow-hidden rounded-b-none sm:rounded-b-4xl" : ""}`}
+      className={`flex w-full flex-col items-stretch rounded-b-4xl bg-white py-4 transition-all duration-600 ${expanded ? "h-[100vh] overflow-hidden rounded-b-none sm:h-auto sm:rounded-b-4xl" : ""}`}
     >
-      <div className="flex flex-row items-center w-full text-sm md:text-md px-6">
+      <div className="md:text-md flex w-full flex-row items-center px-6 text-sm">
         <NavLink to={"/"}>
           <Logo />
         </NavLink>
@@ -43,17 +40,17 @@ const Header = ({
         {typeof window !== "undefined" && window.location.pathname !== "/" && (
           <SearchBox
             value={searchValue}
-            className="hidden lg:flex lg:ml-4 lg:mr-8"
+            className="hidden lg:mr-8 lg:ml-4 lg:flex"
             onChange={setSearchValue}
           />
         )}
 
         <DesktopMenu />
-        <div className="sm:hidden ms-auto">
+        <div className="ms-auto sm:hidden">
           <img
             src={!expanded ? menu : close}
             alt="open menu"
-            className={`hover:cursor-pointer transition-transform duration-300 ${expanded ? "rotate-360" : ""}`}
+            className={`transition-transform duration-300 hover:cursor-pointer ${expanded ? "rotate-360" : ""}`}
             onClick={() => setExpanded(!expanded)}
           />
         </div>
@@ -65,7 +62,7 @@ const Header = ({
           <div className="mx-6 mt-4">
             <SearchBox
               value={searchValue}
-              className="lg:hidden w-full"
+              className="w-full lg:hidden"
               onChange={setSearchValue}
             />
           </div>

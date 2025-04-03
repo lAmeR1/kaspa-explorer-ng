@@ -49,23 +49,21 @@ const MenuItem = (props: MenuItemProps) => {
     <Wrapper to={props.linkTo || ""}>
       <div
         key={props.name}
-        className={`flex flex-row w-full items-center px-6 py-1 ${props.indent ? "pl-10" : ""}`}
+        className={`flex w-full flex-row items-center px-6 py-1 ${props.indent ? "pl-10" : ""}`}
         onClick={() => props.expandable && setIsOpen(!isOpen)}
       >
         <span>{props.name}</span>
         <span className="ms-auto">
           {props.expandable && (
             <ChevronDown
-              className={`h-5 w-5 transform-all duration-250 fill-gray-500 ${!isOpen ? "rotate-180" : ""}`}
+              className={`transform-all h-5 w-5 fill-gray-500 duration-250 ${!isOpen ? "rotate-180" : ""}`}
             />
           )}
         </span>
       </div>
 
       <div
-        className={`flex flex-col py-1 overflow-hidden
-                 transition-all duration-250
-                 ${isOpen ? `max-h-50` : "max-h-0"}`}
+        className={`flex flex-col overflow-hidden py-1 transition-all duration-250 ${isOpen ? `max-h-50` : "max-h-0"}`}
       >
         {React.Children.map(props.children, (child) => {
           return <span>{child}</span>;

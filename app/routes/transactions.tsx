@@ -58,18 +58,18 @@ export default function Transactions() {
 
         <table className="mt-4">
           <thead>
-            <tr className="text-base border-b border-gray-100">
-              <th className="font-normal pl-0.5">Timestamp</th>
-              <th className="font-normal pl-0.5">TX ID</th>
-              <th className="font-normal pl-0.5">Amount</th>
-              <th className="font-normal text-right">Status</th>
+            <tr className="border-b border-gray-100 text-base">
+              <th className="pl-0.5 font-normal">Timestamp</th>
+              <th className="pl-0.5 font-normal">TX ID</th>
+              <th className="pl-0.5 font-normal">Amount</th>
+              <th className="text-right font-normal">Status</th>
             </tr>
           </thead>
           <tbody>
             {[...Array(20)].map((_, index) => (
               <tr
                 key={index}
-                className="border-b border-gray-100 text-black text-base"
+                className="border-b border-gray-100 text-base text-black"
               >
                 <td className="pr-2 text-nowrap">
                   {(index + 1) * 2} second ago
@@ -82,17 +82,17 @@ export default function Transactions() {
                       }
                     </Link>
                   </span>
-                  <span className="hidden xs:table-cell md:hidden">
+                  <span className="xs:table-cell hidden md:hidden">
                     {"330ecb081ea2093ffb...ef667d5fa0ce7dfccd7"}
                   </span>
-                  <span className="table-cell xs:hidden">
+                  <span className="xs:hidden table-cell">
                     {"330ecb08...d5fa0ce7dfccd7"}
                   </span>
                 </td>
                 <td className="hidden sm:table-cell">
-                  82.9981<span className="text-gray-500 text-sm"> KAS</span>
+                  82.9981<span className="text-sm text-gray-500"> KAS</span>
                 </td>
-                <td className="pl-5 py-3 flex flex-row justify-end">
+                <td className="flex flex-row justify-end py-3 pl-5">
                   <Accepted />
                 </td>
               </tr>

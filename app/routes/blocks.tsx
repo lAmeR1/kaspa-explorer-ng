@@ -44,8 +44,8 @@ export default function Blocks() {
         </CardContainer>
       </MainBox>
 
-      <div className="w-full flex flex-col bg-white rounded-4xl p-4 sm:p-8 text-left text-gray-500 ">
-        <div className="bg-primary/20 basis-full mb-2 p-6 rounded-2xl text-black text-left text-md">
+      <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left text-gray-500 sm:p-8">
+        <div className="bg-primary/20 text-md mb-2 basis-full rounded-2xl p-6 text-left text-black">
           Blocks are arriving with a speed of 10 blocks per second. The network
           is currently at block 119,762,579.
         </div>
@@ -53,9 +53,9 @@ export default function Blocks() {
         <table>
           <thead>
             <tr className="border-b border-gray-100">
-              <th className="font-normal pl-0.5">Timestamp</th>
-              <th className="font-normal pl-0.5">Hash</th>
-              <th className="font-normal pl-0.5 text-left hidden sm:table-cell">
+              <th className="pl-0.5 font-normal">Timestamp</th>
+              <th className="pl-0.5 font-normal">Hash</th>
+              <th className="hidden pl-0.5 text-left font-normal sm:table-cell">
                 BlueScore
               </th>
               <th className="text-right font-normal text-nowrap">TX Count</th>
@@ -73,22 +73,22 @@ export default function Blocks() {
                       }
                     </Link>
                   </span>
-                  <span className="hidden xs:table-cell md:hidden">
+                  <span className="xs:table-cell hidden md:hidden">
                     {"330ecb081ea2093ffb...ef667d5fa0ce7dfccd7"}
                   </span>
-                  <span className="table-cell xs:hidden">
+                  <span className="xs:hidden table-cell">
                     {"330ecb08...d5fa0ce7dfccd7"}
                   </span>
                 </td>
                 <td className="hidden sm:table-cell">124121225</td>
-                <td className="pl-5 py-3 text-right">55</td>
+                <td className="py-3 pl-5 text-right">55</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <FooterHelper>
-        <div className="h-5 w-5 me-2">
+        <div className="me-2 h-5 w-5">
           <Box className="h-5 w-5 fill-gray-500" />
         </div>
         <span>

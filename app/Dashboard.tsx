@@ -24,22 +24,15 @@ import BackToTab from "./assets/back_to_tab.svg?react";
 import VerifiedUser from "./assets/verified_user.svg?react";
 // @ts-ignore
 import FlashOn from "./assets/flash_on.svg?react";
-import Button from "~/Button";
-import PageSelector from "~/PageSelector";
 
 const Dashboard = () => {
   const [search, setSearch] = useState("");
 
   return (
     <>
-      <div
-        className="flex flex-col w-full bg-white rounded-4xl gap-y-3
-                px-4 sm:px-8 md:px-20 lg:px-24 xl:px-36
-                py-12 sm:py-12 md:py-20 lg:py-24 xl:py-38
-        "
-      >
+      <div className="flex w-full flex-col gap-y-3 rounded-4xl bg-white px-4 py-12 sm:px-8 sm:py-12 md:px-20 md:py-20 lg:px-24 lg:py-24 xl:px-36 xl:py-38">
         <span className="text-[54px]">Kaspa Explorer</span>
-        <span className="text-lg mb-6">
+        <span className="mb-6 text-lg">
           Kaspa is the fastest, open-source, decentralized & fully scalable
           Layer-1 PoW network in the world.
         </span>
@@ -49,16 +42,11 @@ const Dashboard = () => {
           className="w-full py-4"
         />
       </div>
-      <div
-        className="flex flex-col w-full bg-black text-white rounded-4xl
-                px-4 sm:px-8 md:px-20 lg:px-24 xl:px-36
-                py-12 sm:py-12 md:py-20 lg:py-24 xl:py-26
-        "
-      >
-        <span className="text-3xl md:text-4xl lg:text-5xl mb-7">
+      <div className="flex w-full flex-col rounded-4xl bg-black px-4 py-12 text-white sm:px-8 sm:py-12 md:px-20 md:py-20 lg:px-24 lg:py-24 xl:px-36 xl:py-26">
+        <span className="mb-7 text-3xl md:text-4xl lg:text-5xl">
           Kaspa by the numbers
         </span>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-4">
+        <div className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
           <DashboardBox
             description="Total transactions"
             value={numeral(566754156).format("0,0")}
@@ -105,44 +93,26 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <div
-        className="flex w-full text-black
-                flex-col sm:flex-row
-                gap-x-28 gap-y-14
-                px-4 sm:px-8 md:px-20 lg:px-24 xl:px-36
-                pt-10 sm:pt-12 md:pt-20 lg:pt-24 xl:pt-38
-                pb-4 sm:pb-6 md:pb-8 lg:pb-12 xl:pb-14
-                "
-      >
-        <div className="text-5xl flex-1/2">About Kaspa</div>
-        <div className="text-base flex-1/2">
+      <div className="flex w-full flex-col gap-x-28 gap-y-14 px-4 pt-10 pb-4 text-black sm:flex-row sm:px-8 sm:pt-12 sm:pb-6 md:px-20 md:pt-20 md:pb-8 lg:px-24 lg:pt-24 lg:pb-12 xl:px-36 xl:pt-38 xl:pb-14">
+        <div className="flex-1/2 text-5xl">About Kaspa</div>
+        <div className="flex-1/2 text-base">
           Kaspa is a community project – completely open source with no central
           governance – following in the ethos of coins like Bitcoin. The coin
           was fair-launched without pre-mining or any other pre-allocation of
           coins.
         </div>
       </div>
-      <div
-        className="flex flex-row w-full text-black
-        px-4 sm:px-8 md:px-20 lg:px-24 xl:px-36
-        "
-      >
-        <div className="w-full h-[1px] bg-gray-300" />
+      <div className="flex w-full flex-row px-4 text-black sm:px-8 md:px-20 lg:px-24 xl:px-36">
+        <div className="h-[1px] w-full bg-gray-300" />
       </div>
-      <div
-        className="flex flex-col lg:flex-row w-full gap-y-12 gap-x-28 text-black
-                px-4 sm:px-8 md:px-20 lg:px-24 xl:px-36
-                pt-4 sm:pt-6 md:pt-8 lg:pt-12 xl:pt-14
-                pb-10 sm:pb-12 md:pb-20 lg:pb-24 xl:pb-38
-                "
-      >
-        <div className="text-base flex-1/2">
+      <div className="flex w-full flex-col gap-x-28 gap-y-12 px-4 pt-4 pb-10 text-black sm:px-8 sm:pt-6 sm:pb-12 md:px-20 md:pt-8 md:pb-20 lg:flex-row lg:px-24 lg:pt-12 lg:pb-24 xl:px-36 xl:pt-14 xl:pb-38">
+        <div className="flex-1/2 text-base">
           The world’s first blockDAG – a digital ledger enabling parallel blocks
           and instant transaction confirmation – built on a robust proof-of-work
           engine with rapid single-second block intervals.
         </div>
-        <div className="text-base flex-1/2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-14 gap-y-16">
+        <div className="flex-1/2 text-base">
+          <div className="grid grid-cols-1 gap-x-14 gap-y-16 sm:grid-cols-2">
             <DashboardInfoBox
               description="Kaspa enables near-instant transaction confirmations, ensuring seamless and efficient user experiences for payments and transfers."
               title="Instant transactions"
@@ -179,8 +149,8 @@ interface DashboardBoxProps {
 
 const DashboardBox = (props: DashboardBoxProps) => {
   return (
-    <div className="flex flex-col gap-y-2 border border-gray-800 py-4 px-6 rounded-2xl">
-      <div className="text-lg flex flex-row items-center overflow-hidden">
+    <div className="flex flex-col gap-y-2 rounded-2xl border border-gray-800 px-6 py-4">
+      <div className="flex flex-row items-center overflow-hidden text-lg">
         <div className="fill-primary mr-1 w-5">{props.icon}</div>
         <span className="text-sm text-gray-500">{props.description}</span>
       </div>

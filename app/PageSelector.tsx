@@ -45,7 +45,7 @@ const PageSelector = ({
 
   return (
     <div className="flex flex-row items-center gap-x-[5px]">
-      <ChevronLeft className="fill-gray-500 h-8 w-8 p-1 hover:cursor-pointer hover:text-gray-800" />
+      <ChevronLeft className="h-8 w-8 fill-gray-500 p-1 hover:cursor-pointer hover:text-gray-800" />
       {showPages.map((i) => (
         <Button
           key={i}
@@ -58,7 +58,7 @@ const PageSelector = ({
           }
         />
       ))}
-      <ChevronRight className="fill-gray-500 h-8 w-8 p-1 hover:cursor-pointer hover:text-gray-800" />
+      <ChevronRight className="h-8 w-8 fill-gray-500 p-1 hover:cursor-pointer hover:text-gray-800" />
     </div>
   );
 };

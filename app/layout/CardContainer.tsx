@@ -5,8 +5,8 @@ interface Props {
 
 const CardContainer = (props: Props) => (
   <>
-    <div className="text-2xl mb-4">{props.title}</div>
-    <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 justify-between items-stretch flex-wrap">
+    <div className="mb-4 text-2xl">{props.title}</div>
+    <div className="grid w-full grid-cols-2 flex-wrap items-stretch justify-between gap-4 md:grid-cols-4">
       {props.children}
     </div>
   </>

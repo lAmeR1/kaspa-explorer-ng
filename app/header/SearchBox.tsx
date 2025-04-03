@@ -30,13 +30,13 @@ const SearchBox = (props: Props) => {
 
   return (
     <div
-      className={`grow text-sm w-96 flex flex-row items-center justify-start bg-gray-50 p-2 hover:cursor-text rounded-lg ${props.className || ""}`}
+      className={`flex w-96 grow flex-row items-center justify-start rounded-lg bg-gray-50 p-2 text-sm hover:cursor-text ${props.className || ""}`}
       onClick={() => {
         inputFieldRef.current?.focus();
       }}
     >
       <Search
-        className="w-5 mx-2 fill-gray-500"
+        className="mx-2 w-5 fill-gray-500"
         onClick={() => {
           inputFieldRef.current?.focus();
         }}
@@ -44,15 +44,12 @@ const SearchBox = (props: Props) => {
       <input
         type="text"
         ref={inputFieldRef}
-        className="grow focus:outline-none text-sm md:text-base lg:text-lg"
+        className="grow text-sm focus:outline-none md:text-base lg:text-lg"
         placeholder="Search for address, transaction, token..."
         onChange={(e) => props.onChange(e.target.value)}
         value={props.value}
       />
-      <div
-        className="text-gray-500
-        w-6 h-6 rounded-sm flex justify-center items-center ms-auto bg-white"
-      >
+      <div className="ms-auto flex h-6 w-6 items-center justify-center rounded-sm bg-white text-gray-500">
         /
       </div>
     </div>

@@ -47,23 +47,23 @@ export default function TransactionDetails({
 
   return (
     <>
-      <div className="flex flex-col bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full">
-        <div className="sm:col-span-2 text-2xl flex flex-row items-center">
-          <Swap className="w-8 h-8 mr-2" />
+      <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left text-black sm:p-8">
+        <div className="flex flex-row items-center text-2xl sm:col-span-2">
+          <Swap className="mr-2 h-8 w-8" />
           <span>Transaction details</span>
         </div>
 
         <span className="mt-4 mb-0">Transfer details</span>
 
-        <span className="text-[32px] flex flex-row items-center">
+        <span className="flex flex-row items-center text-[32px]">
           14,324
-          <Kaspa className="fill-primary w-8 h-8 ml-1" />
+          <Kaspa className="fill-primary ml-1 h-8 w-8" />
         </span>
-        <span className="text-gray-500 text-sm ml-1">$9,3213.32</span>
+        <span className="ml-1 text-sm text-gray-500">$9,3213.32</span>
         {/*horizontal rule*/}
-        <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+        <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-y-2 gap-x-14">
+        <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="From" />
           <FieldValue
             value={
@@ -122,16 +122,13 @@ export default function TransactionDetails({
         </div>
       </div>
 
-      <div
-        className="flex flex-col bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full
-            gap-y-2 gap-x-18 overflow-x-auto"
-      >
-        <div className="flex flex-row w-auto items-center justify-around bg-gray-50 rounded-full p-1 mr-auto gap-x-1 px-1">
+      <div className="flex w-full flex-col gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-black sm:p-8">
+        <div className="mr-auto flex w-auto flex-row items-center justify-around gap-x-1 rounded-full bg-gray-50 p-1 px-1">
           <NavLink
             to="/transactions/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7?tab=general"
             preventScrollReset={true}
             className={() =>
-              `hover:bg-white hover:cursor-pointer px-4 py-1.5 rounded-full ${isTabActive("general") ? "bg-white" : ""}`
+              `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("general") ? "bg-white" : ""}`
             }
           >
             General information
@@ -140,7 +137,7 @@ export default function TransactionDetails({
             to="/transactions/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7?tab=inputs"
             preventScrollReset={true}
             className={() =>
-              `hover:bg-white hover:cursor-pointer px-4 py-1.5 rounded-full ${isTabActive("inputs") ? "bg-white" : ""}`
+              `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("inputs") ? "bg-white" : ""}`
             }
           >
             Inputs
@@ -149,7 +146,7 @@ export default function TransactionDetails({
             to="/transactions/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7?tab=outputs"
             preventScrollReset={true}
             className={() =>
-              `hover:bg-white hover:cursor-pointer px-4 py-1.5 rounded-full ${isTabActive("outputs") ? "bg-white" : ""}`
+              `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("outputs") ? "bg-white" : ""}`
             }
           >
             Outputs
@@ -157,10 +154,7 @@ export default function TransactionDetails({
         </div>
 
         {isTabActive("general") && (
-          <div
-            className="grid grid-cols-1 text-nowrap sm:grid-cols-[auto_1fr] bg-white rounded-4xl text-black text-left w-full
-            gap-y-2 gap-x-18"
-          >
+          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
             <FieldName name="Transaction ID" />
             <FieldValue value="c071097c901709c70197c9017c0971097109c71907c1097c0917c097" />
             <FieldName name="Subnetwork ID" />
@@ -171,18 +165,18 @@ export default function TransactionDetails({
                 <div className="flex flex-row items-center gap-x-1">
                   <Accepted />
                   <span>470 confirmations</span>
-                  <ClockLoader className="w-4 h-4" />
+                  <ClockLoader className="h-4 w-4" />
                 </div>
               }
             />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Hash" />
             <FieldValue value="cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db" />
             <FieldName name="Compute mass" />
             <FieldValue value="2036" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Block hashes" />
             <FieldValue
               value={
@@ -203,7 +197,7 @@ export default function TransactionDetails({
                 <>
                   <div className="flex flex-col">
                     <span>20 minutes ago</span>
-                    <span className="text-gray-500 text-sm">
+                    <span className="text-sm text-gray-500">
                       Dec 14 2024 14:13:22
                     </span>
                   </div>
@@ -213,7 +207,7 @@ export default function TransactionDetails({
             <FieldName name="Accepting block hash" />
             <FieldValue value="cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Transaction fee" />
             <FieldValue
               value={
@@ -227,10 +221,7 @@ export default function TransactionDetails({
         )}
 
         {isTabActive("inputs") && (
-          <div
-            className="grid grid-cols-1 text-nowrap sm:grid-cols-[auto_1fr] bg-white rounded-4xl text-black text-left w-full
-            gap-y-2 gap-x-18"
-          >
+          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
             <FieldName name="Signature Op Count" />
             <FieldValue value="1" />
             <FieldName name="Signature Script" />
@@ -251,7 +242,7 @@ export default function TransactionDetails({
             <FieldName name="Address" />
             <FieldValue value="kaspa:qzapfmt7zeh0rzakhrce72rfm6c3r06nw6vxx6e8qjlxntdw7zcaxajep8w82" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Signature Op Count" />
             <FieldValue value="1" />
             <FieldName name="Signature Script" />
@@ -272,7 +263,7 @@ export default function TransactionDetails({
             <FieldName name="Address" />
             <FieldValue value="kaspa:qzapfmt7zeh0rzakhrce72rfm6c3r06nw6vxx6e8qjlxntdw7zcaxajep8w82" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Signature Op Count" />
             <FieldValue value="1" />
             <FieldName name="Signature Script" />
@@ -293,7 +284,7 @@ export default function TransactionDetails({
             <FieldName name="Address" />
             <FieldValue value="kaspa:qzapfmt7zeh0rzakhrce72rfm6c3r06nw6vxx6e8qjlxntdw7zcaxajep8w82" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Signature Op Count" />
             <FieldValue value="1" />
             <FieldName name="Signature Script" />
@@ -317,10 +308,7 @@ export default function TransactionDetails({
         )}
 
         {isTabActive("outputs") && (
-          <div
-            className="grid grid-cols-1 text-nowrap sm:grid-cols-[auto_1fr] bg-white rounded-4xl text-black text-left w-full
-            gap-y-2 gap-x-18"
-          >
+          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
             <FieldName name="Index" />
             <FieldValue value="1" />
             <FieldName name="Amount" />
@@ -339,7 +327,7 @@ export default function TransactionDetails({
             <FieldName name="Script Public Key Address" />
             <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Index" />
             <FieldValue value="1" />
             <FieldName name="Amount" />
@@ -358,7 +346,7 @@ export default function TransactionDetails({
             <FieldName name="Script Public Key Address" />
             <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Index" />
             <FieldValue value="1" />
             <FieldName name="Amount" />
@@ -377,7 +365,7 @@ export default function TransactionDetails({
             <FieldName name="Script Public Key Address" />
             <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Index" />
             <FieldValue value="1" />
             <FieldName name="Amount" />
@@ -396,7 +384,7 @@ export default function TransactionDetails({
             <FieldName name="Script Public Key Address" />
             <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Index" />
             <FieldValue value="1" />
             <FieldName name="Amount" />
@@ -415,7 +403,7 @@ export default function TransactionDetails({
             <FieldName name="Script Public Key Address" />
             <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
             {/*horizontal rule*/}
-            <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Index" />
             <FieldValue value="1" />
             <FieldName name="Amount" />
@@ -441,9 +429,9 @@ export default function TransactionDetails({
 }
 
 const FieldName = ({ name }: { name: string }) => (
-  <div className="flex flex-row items-start sm:col-start-1 text-gray-500 fill-gray-500">
+  <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
     <div className="flex flex-row items-center">
-      <Info className="w-4 h-4 mr-1" />
+      <Info className="mr-1 h-4 w-4" />
       <span>{name}</span>
     </div>
   </div>

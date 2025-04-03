@@ -10,14 +10,7 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <div
-      className="w-full flex flex-col bg-black rounded-t-4xl items-start text-white
-    pb-6 sm:pb-6
-    px-4 sm:px-24
-    mt-auto
-    text-sm sm:text-md
-    "
-    >
+    <div className="sm:text-md mt-auto flex w-full flex-col items-start rounded-t-4xl bg-black px-4 pb-6 text-sm text-white sm:px-24 sm:pb-6">
       <svg
         className="w-40 pt-12 sm:pt-14"
         viewBox="0 0 199 40"
@@ -48,13 +41,13 @@ const Footer = () => {
         </g>
       </svg>
 
-      <div className="w-full pt-9 flex flex-row justify-start text-gray-500">
+      <div className="flex w-full flex-row justify-start pt-9 text-gray-500">
         <span>Explore</span>
-        <span className="hidden sm:block ms-auto">
+        <span className="ms-auto hidden sm:block">
           Help improve the service
         </span>
       </div>
-      <div className="mt-1 sm:mt-2 flex flex-row w-full flex-wrap jusitfy-around gap-x-6 sm:gap-x-10 gap-y-5 text-white">
+      <div className="jusitfy-around mt-1 flex w-full flex-row flex-wrap gap-x-6 gap-y-5 text-white sm:mt-2 sm:gap-x-10">
         <Link to={"/blocks"} className="link-container">
           Blocks
         </Link>
@@ -67,27 +60,27 @@ const Footer = () => {
         <Link to={"/tokens"} className="link-container">
           Tokens
         </Link>
-        <Link to={"/donate"} className="link-container hidden sm:block ms-auto">
+        <Link to={"/donate"} className="link-container ms-auto hidden sm:block">
           Donate
         </Link>
       </div>
 
-      <span className="block sm:hidden mt-4">Help improve the service</span>
-      <span className="block sm:hidden mt-1 text-gray-500">Donate</span>
+      <span className="mt-4 block sm:hidden">Help improve the service</span>
+      <span className="mt-1 block text-gray-500 sm:hidden">Donate</span>
 
-      <div className="w-full h-[1px] bg-gray-900 my-4" />
+      <div className="my-4 h-[1px] w-full bg-gray-900" />
 
-      <div className="flex flex-row w-full jusitfy-start text-gray-500 gap-x-6 fill-gray-500">
-        <Discord className="h-6 w-6 hover:fill-white hover:cursor-pointer" />
-        <Github className="h-6 w-6 hover:fill-white hover:cursor-pointer" />
-        <Telegram className="h-6 w-6 hover:fill-white hover:cursor-pointer" />
-        <Twitter className="h-6 w-6 hover:fill-white hover:cursor-pointer" />
-        <span className="hidden sm:block ms-auto">
+      <div className="jusitfy-start flex w-full flex-row gap-x-6 fill-gray-500 text-gray-500">
+        <Discord className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
+        <Github className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
+        <Telegram className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
+        <Twitter className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
+        <span className="ms-auto hidden sm:block">
           © 2025 Kaspa Explorer. All rights are reserved
         </span>
       </div>
 
-      <span className="sm:hidden pt-4 text-gray-500">
+      <span className="pt-4 text-gray-500 sm:hidden">
         © 2025 Kaspa Explorer. All rights are reserved
       </span>
     </div>

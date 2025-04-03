@@ -49,22 +49,22 @@ export default function Accounts() {
         </CardContainer>
       </MainBox>
 
-      <div className="w-full flex flex-col bg-white rounded-4xl p-4 sm:p-8 text-left text-gray-500 ">
+      <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left text-gray-500 sm:p-8">
         <table className="mt-4">
           <thead>
-            <tr className="text-base border-b border-gray-100">
-              <th className="font-normal pl-0.5">Rank</th>
-              <th className="font-normal pl-0.5">Address</th>
-              <th className="font-normal pl-0.5">Label</th>
-              <th className="font-normal pl-0.5">Balance</th>
-              <th className="font-normal text-right">Percentage</th>
+            <tr className="border-b border-gray-100 text-base">
+              <th className="pl-0.5 font-normal">Rank</th>
+              <th className="pl-0.5 font-normal">Address</th>
+              <th className="pl-0.5 font-normal">Label</th>
+              <th className="pl-0.5 font-normal">Balance</th>
+              <th className="text-right font-normal">Percentage</th>
             </tr>
           </thead>
           <tbody>
             {[...Array(100)].map((_, index) => (
               <tr
                 key={index}
-                className="border-t border-gray-100 text-black text-base"
+                className="border-t border-gray-100 text-base text-black"
               >
                 <td className="pr-2 text-nowrap">{index + 1}</td>
                 <td className="text-link pr-2 font-mono">
@@ -77,14 +77,14 @@ export default function Accounts() {
                   </span>
                 </td>
                 <td>
-                  <span className="bg-accent-yellow text-nowrap text-black rounded-full px-4 py-0.5 text-center text-base">
+                  <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-base text-nowrap text-black">
                     exchange1 wallet
                   </span>
                 </td>
                 <td className="pr-2">
                   1,124,124<span className="text-gray-500"> KAS</span>
                 </td>
-                <td className="pl-5 py-3 flex flex-row justify-end">1.25%</td>
+                <td className="flex flex-row justify-end py-3 pl-5">1.25%</td>
               </tr>
             ))}
           </tbody>

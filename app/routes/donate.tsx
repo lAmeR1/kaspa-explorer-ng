@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 
 export default function Donate() {
   return (
-    <div className="bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full">
+    <div className="w-full rounded-4xl bg-white p-4 text-left text-black sm:p-8">
       <p className="text-xl">
         Kaspa is a vibrant, community-driven project fueled by the passion and
         dedication of contributors from all walks of life. This project thrives

@@ -38,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <div className="flex flex-col h-screen w-full items-center justify-start">
+        <div className="flex h-screen w-full flex-col items-center justify-start">
           {children}
         </div>
         <ScrollRestoration />
@@ -56,7 +56,7 @@ export default function App() {
       <Header expanded={expanded} setExpanded={setExpanded} />
       {!expanded && (
         <>
-          <div className="grow w-full max-w-[1600px] flex flex-col items-center justify-start px-2 py-2 gap-y-2">
+          <div className="flex w-full max-w-[1600px] grow flex-col items-center justify-start gap-y-2 px-2 py-2">
             <Outlet />
           </div>
           <Footer />

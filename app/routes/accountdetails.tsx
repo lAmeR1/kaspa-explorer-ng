@@ -47,23 +47,23 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-      <div className="flex flex-col bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full">
-        <div className="sm:col-span-2 text-2xl flex flex-row items-center">
-          <AccountBalanceWallet className="w-8 h-8 mr-2" />
+      <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left text-black sm:p-8">
+        <div className="flex flex-row items-center text-2xl sm:col-span-2">
+          <AccountBalanceWallet className="mr-2 h-8 w-8" />
           <span>Account details</span>
         </div>
 
         <span className="mt-4 mb-0">Balance</span>
 
-        <span className="text-[32px] flex flex-row items-center">
+        <span className="flex flex-row items-center text-[32px]">
           14,324,124
-          <Kaspa className="fill-primary w-8 h-8 ml-1" />
+          <Kaspa className="fill-primary ml-1 h-8 w-8" />
         </span>
-        <span className="text-gray-500 text-sm ml-1">$900,313.32</span>
+        <span className="ml-1 text-sm text-gray-500">$900,313.32</span>
         {/*horizontal rule*/}
-        <div className={`sm:col-span-2 h-[1px] bg-gray-100 my-4`} />
+        <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-y-2 gap-x-14">
+        <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="Address" />
           <FieldValue
             value={
@@ -81,16 +81,13 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
 
-      <div
-        className="flex flex-col bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full
-            gap-y-2 gap-x-18 overflow-x-auto"
-      >
-        <div className="flex flex-row w-auto items-center justify-around bg-gray-50 rounded-full p-1 mr-auto gap-x-1 px-1">
+      <div className="flex w-full flex-col gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-black sm:p-8">
+        <div className="mr-auto flex w-auto flex-row items-center justify-around gap-x-1 rounded-full bg-gray-50 p-1 px-1">
           <NavLink
             to="/accounts/kaspaqyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3?tab=transactions"
             preventScrollReset={true}
             className={() =>
-              `hover:bg-white hover:cursor-pointer px-4 py-1.5 rounded-full ${isTabActive("transactions") ? "bg-white" : ""}`
+              `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("transactions") ? "bg-white" : ""}`
             }
           >
             Transactions
@@ -99,7 +96,7 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
             to="/accounts/kaspaqyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3?tab=utxos"
             preventScrollReset={true}
             className={() =>
-              `hover:bg-white hover:cursor-pointer px-4 py-1.5 rounded-full ${isTabActive("utxos") ? "bg-white" : ""}`
+              `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("utxos") ? "bg-white" : ""}`
             }
           >
             UTXOs
@@ -107,17 +104,14 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
         </div>
 
         {isTabActive("transactions") && (
-          <div
-            className="grid grid-cols-1 text-nowrap bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full
-            gap-y-2 gap-x-18 overflow-x-auto"
-          >
-            <div className="w-full grid grid-cols-[auto_3fr_auto_2fr_auto_auto_auto] gap-x-4 gap-y-2">
+          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
+            <div className="grid w-full grid-cols-[auto_3fr_auto_2fr_auto_auto_auto] gap-x-4 gap-y-2">
               <div className="text-gray-500">Timestamp</div>
               <div className="text-gray-500">TX-ID</div>
-              <div className="text-gray-500 col-span-2">From</div>
+              <div className="col-span-2 text-gray-500">From</div>
               <div className="text-gray-500">To</div>
               <div className="text-gray-500">Status</div>
-              <div className="text-gray-500 text-right">Amount</div>
+              <div className="text-right text-gray-500">Amount</div>
 
               {Array.from({ length: 20 }).map((_, index) => (
                 <>
@@ -129,8 +123,8 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
                     <br />
                     kaspa:qzyzhlkd8thwywu...tfj222rtgcn
                   </div>
-                  <div className="text-black fill-black flex items-center">
-                    <ArrowRight className="w-5 h-5" />
+                  <div className="flex items-center fill-black text-black">
+                    <ArrowRight className="h-5 w-5" />
                   </div>
                   <div className="text-link text-sm">
                     kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
@@ -160,16 +154,13 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
         )}
 
         {isTabActive("utxos") && (
-          <div
-            className="grid grid-cols-1 text-nowrap bg-white rounded-4xl text-black p-4 sm:p-8 text-left w-full
-            gap-y-2 gap-x-18 overflow-x-auto"
-          >
-            <div className="w-full grid grid-cols-[auto_3fr_auto_auto_auto] gap-x-4 gap-y-2">
+          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
+            <div className="grid w-full grid-cols-[auto_3fr_auto_auto_auto] gap-x-4 gap-y-2">
               <div className="text-gray-500">Timestamp</div>
               <div className="text-gray-500">TX-ID</div>
               <div className="text-gray-500">Index</div>
               <div className="text-gray-500">Block DAA score</div>
-              <div className="text-gray-500 text-right">Amount</div>
+              <div className="text-right text-gray-500">Amount</div>
 
               {Array.from({ length: 20 }).map((_, index) => (
                 <>
@@ -179,7 +170,7 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
                   </div>
                   <div className="text-black">123b12....28b12b318293</div>
                   <div className="text-link text-sm">0</div>
-                  <div className="text-black fill-black flex items-center">
+                  <div className="flex items-center fill-black text-black">
                     9125185
                   </div>
                   <div className="text-black">
@@ -196,9 +187,9 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
 }
 
 const FieldName = ({ name }: { name: string }) => (
-  <div className="flex flex-row items-start sm:col-start-1 text-gray-500 fill-gray-500">
+  <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
     <div className="flex flex-row items-center">
-      <Info className="w-4 h-4 mr-1" />
+      <Info className="mr-1 h-4 w-4" />
       <span>{name}</span>
     </div>
   </div>

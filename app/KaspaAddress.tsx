@@ -53,27 +53,22 @@ const KaspaAddress = ({
         {copy &&
           (!clicked ? (
             <Copy
-              className="w-4 h-4 inline align-middle mx-1 hover:fill-primary"
+              className="hover:fill-primary mx-1 inline h-4 w-4 align-middle"
               onClick={handleClick}
             />
           ) : (
-            <CopyCheck className=" w-4 h-4 inline align-middle mx-1 animate-[spin_0.2s_linear_1]" />
+            <CopyCheck className="mx-1 inline h-4 w-4 animate-[spin_0.2s_linear_1] align-middle" />
           ))}
 
         {clicked && (
-          <div
-            className="inline absolute
-                 -translate-y-full -translate-x-full
-                 rounded-lg bg-primary text-white
-                 p-2 z-10"
-          >
+          <div className="bg-primary absolute z-10 inline -translate-x-full -translate-y-full rounded-lg p-2 text-white">
             copied
           </div>
         )}
 
         {qr && (
           <QrCode
-            className="relative w-4 h-4 inline align-middle hover:fill-primary"
+            className="hover:fill-primary relative inline h-4 w-4 align-middle"
             onClick={() => setShowQr(!showQr)}
           />
         )}
@@ -93,29 +88,28 @@ interface QrCodeModalProps {
 
 const QrCodeModal = (props: QrCodeModalProps) => (
   <div
-    className="fixed top-0 left-0 w-full z-10 h-screen flex justify-center items-center
-                  bg-black/80"
+    className="fixed top-0 left-0 z-10 flex h-screen w-full items-center justify-center bg-black/80"
     onClick={() => props.setShowQr(false)}
     id="qr-code"
   >
     <div
-      className="relative bg-white rounded-4xl opacity-100 z-200 flex flex-col justify-around items-center"
+      className="relative z-200 flex flex-col items-center justify-around rounded-4xl bg-white opacity-100"
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
       <Close
-        className="m-3 hover:cursor-pointer self-end"
+        className="m-3 self-end hover:cursor-pointer"
         onClick={() => props.setShowQr(false)}
       />
 
-      <span className="text-2xl mb-4">Scan or copy the Kaspa address</span>
+      <span className="mb-4 text-2xl">Scan or copy the Kaspa address</span>
       <div className="relative mx-8 mb-6">
         <QRCodeSVG className="block" value={props.value} level="M" size={180} />
-        <Kaspa className="absolute bg-white w-8 h-8 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <Kaspa className="absolute top-1/2 left-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 bg-white" />
       </div>
 
-      <div className="mx-8 mb-8 mt-4 w-128 text-sm flex flex-row items-center justify-center bg-gray-50 p-2 hover:cursor-text rounded-lg ">
+      <div className="mx-8 mt-4 mb-8 flex w-128 flex-row items-center justify-center rounded-lg bg-gray-50 p-2 text-sm hover:cursor-text">
         {props.value}
       </div>
     </div>

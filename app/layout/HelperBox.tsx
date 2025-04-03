@@ -4,8 +4,7 @@ interface Props {
 
 const HelperBox = (props: Props) => (
   <div
-    className="bg-primary/20 basis-full mb-2 p-6 rounded-2xl text-black text-left text-base
-            flex flex-row justify-start items-center"
+    className={`bg-primary/20 mb-2 flex basis-full flex-row items-center justify-start rounded-2xl p-6 text-left text-base text-black`}
   >
     {props.children}
   </div>
