@@ -1,15 +1,14 @@
 import type { Route } from "./+types/transactions";
 import numeral from "numeral";
 
-// @ts-ignore
-import AccountBalanceWallet from "../assets/account_balance_wallet.svg?react";
+import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
 import { Link } from "react-router";
 import Accepted from "~/Accepted";
 import Button from "~/Button";
-import MainBox from "~/layout/MainBox";
 import Card from "~/layout/Card";
 import CardContainer from "~/layout/CardContainer";
 import FooterHelper from "~/layout/FooterHelper";
+import MainBox from "~/layout/MainBox";
 
 export function meta({}: Route.MetaArgs) {
   return [

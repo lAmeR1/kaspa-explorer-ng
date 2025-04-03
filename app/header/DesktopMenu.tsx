@@ -1,8 +1,7 @@
-// @ts-ignore
-import ChevronUp from "../assets/chevron-up.svg?react";
+import ChevronUp from "../assets/chevron-up.svg";
 
-import { NavLink } from "react-router";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router";
 
 const MAIN_MENU = [
   {

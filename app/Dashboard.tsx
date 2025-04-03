@@ -1,29 +1,28 @@
-import SearchBox from "~/header/SearchBox";
-import { useState } from "react";
 import numeral from "numeral";
+import { useState } from "react";
+import SearchBox from "~/header/SearchBox";
 
-// @ts-ignore
-import Swap from "./assets/swap.svg?react";
-// @ts-ignore
-import Box from "./assets/box.svg?react";
-// @ts-ignore
-import Coins from "./assets/coins.svg?react";
-// @ts-ignore
-import Landslide from "./assets/landslide.svg?react";
-// @ts-ignore
-import Time from "./assets/time.svg?react";
-// @ts-ignore
-import AccountBalanceWallet from "./assets/account_balance_wallet.svg?react";
-// @ts-ignore
-import Trophy from "./assets/trophy.svg?react";
-// @ts-ignore
-import Rocket from "./assets/rocket_launch.svg?react";
-// @ts-ignore
-import BackToTab from "./assets/back_to_tab.svg?react";
-// @ts-ignore
-import VerifiedUser from "./assets/verified_user.svg?react";
-// @ts-ignore
-import FlashOn from "./assets/flash_on.svg?react";
+import Swap from "./assets/swap.svg";
+
+import Box from "./assets/box.svg";
+
+import Coins from "./assets/coins.svg";
+
+import Landslide from "./assets/landslide.svg";
+
+import Time from "./assets/time.svg";
+
+import AccountBalanceWallet from "./assets/account_balance_wallet.svg";
+
+import Trophy from "./assets/trophy.svg";
+
+import Rocket from "./assets/rocket_launch.svg";
+
+import BackToTab from "./assets/back_to_tab.svg";
+
+import VerifiedUser from "./assets/verified_user.svg";
+
+import FlashOn from "./assets/flash_on.svg";
 
 const Dashboard = () => {
   const [search, setSearch] = useState("");

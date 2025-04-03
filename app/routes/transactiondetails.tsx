@@ -1,15 +1,14 @@
 import type { Route } from "./+types/transactiondetails";
 
-// @ts-ignore
-import Swap from "../assets/swap.svg?react";
-// @ts-ignore
-import Info from "../assets/info.svg?react";
-// @ts-ignore
-import Kaspa from "../assets/kaspa.svg?react";
-// @ts-ignore
-import ClockLoader from "../assets/clock_loader_10.svg?react";
-// @ts-ignore
-import ArrowRight from "../assets/arrow-right.svg?react";
+import Swap from "../assets/swap.svg";
+
+import Info from "../assets/info.svg";
+
+import Kaspa from "../assets/kaspa.svg";
+
+import ClockLoader from "../assets/clock_loader_10.svg";
+
+import ArrowRight from "../assets/arrow-right.svg";
 import { NavLink, useLocation } from "react-router";
 import Accepted from "~/Accepted";
 import KaspaAddress from "~/KaspaAddress";

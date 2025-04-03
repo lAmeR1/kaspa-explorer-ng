@@ -1,5 +1,4 @@
-// @ts-ignore
-import ChevronDown from "../assets/chevron-down.svg?react";
+import ChevronDown from "../assets/chevron-down.svg";
 import React, { type ReactNode, useEffect } from "react";
 import { NavLink, useLocation } from "react-router";
 

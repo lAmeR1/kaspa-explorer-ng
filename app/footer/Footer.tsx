@@ -1,11 +1,7 @@
-// @ts-ignore
-import Discord from "../assets/discord.svg?react";
-// @ts-ignore
-import Github from "../assets/github.svg?react";
-// @ts-ignore
-import Telegram from "../assets/telegram.svg?react";
-// @ts-ignore
-import Twitter from "../assets/twitter.svg?react";
+import Discord from "../assets/discord.svg";
+import Github from "../assets/github.svg";
+import Telegram from "../assets/telegram.svg";
+import Twitter from "../assets/twitter.svg";
 import { Link } from "react-router";
 
 const Footer = () => {

@@ -1,11 +1,10 @@
 import type { Route } from "./+types/blocks";
 
-// @ts-ignore
-import Box from "../assets/box.svg?react";
-// @ts-ignore
-import Info from "../assets/info.svg?react";
-// @ts-ignore
-import ArrowRight from "../assets/arrow-right.svg?react";
+import Box from "../assets/box.svg";
+
+import Info from "../assets/info.svg";
+
+import ArrowRight from "../assets/arrow-right.svg";
 import Accepted from "~/Accepted";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -53,8 +52,12 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <FieldValue
           value={
             <>
-              <div>ac46f5d3d5cff91e5db9503827d4fdeb9067dfcb53d5ac0d6f1d77c81d9e9cf9</div>
-              <div>ac46f5d3d5cff91e5db9503827d4fdeb9067dfcb53d5ac0d6f1d77c81d9e9cf9</div>
+              <div>
+                ac46f5d3d5cff91e5db9503827d4fdeb9067dfcb53d5ac0d6f1d77c81d9e9cf9
+              </div>
+              <div>
+                ac46f5d3d5cff91e5db9503827d4fdeb9067dfcb53d5ac0d6f1d77c81d9e9cf9
+              </div>
             </>
           }
         />
@@ -62,8 +65,12 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <FieldValue
           value={
             <>
-              <div>a6b668a689b698a698ba698b698a6b986a67dfcb53d5ac0d6f1d77c81d9e9cf9</div>
-              <div>ef7e009e790709e709e7f09e709f790ef790ef9073d5ac0d6f1d77c81d9e9cf9</div>
+              <div>
+                a6b668a689b698a698ba698b698a6b986a67dfcb53d5ac0d6f1d77c81d9e9cf9
+              </div>
+              <div>
+                ef7e009e790709e709e7f09e709f790ef790ef9073d5ac0d6f1d77c81d9e9cf9
+              </div>
             </>
           }
         />
@@ -76,7 +83,9 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <FieldName name="UTXO commitment" />
         <FieldValue value="f9a50119f1d03ca736926e39b683467d6c65ea397deba49ccc79d86cf852ac70" />
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-        <div className="flex flex-row items-start text-black sm:col-span-2">Difficulty and computation</div>
+        <div className="flex flex-row items-start text-black sm:col-span-2">
+          Difficulty and computation
+        </div>
         <FieldName name="Nonce" />
         <FieldValue value="14209147295666810466" />
         <FieldName name="DAA score" />
@@ -91,8 +100,12 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <FieldValue
           value={
             <>
-              <div className="text-link">kaspa:qrelgny7sr3vahq69yykxx36m65gvmhryxrlwngfzgu8xkdslum2yxjp3ap8m</div>
-              <div className="text-sm text-gray-500">GreatPool 0.15.1/1.0.2</div>
+              <div className="text-link">
+                kaspa:qrelgny7sr3vahq69yykxx36m65gvmhryxrlwngfzgu8xkdslum2yxjp3ap8m
+              </div>
+              <div className="text-sm text-gray-500">
+                GreatPool 0.15.1/1.0.2
+              </div>
             </>
           }
         />
@@ -279,4 +292,6 @@ const FieldName = ({ name }: { name: string }) => (
   </div>
 );
 
-const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span className="overflow-hidden">{value}</span>;
+const FieldValue = ({ value }: { value: string | React.ReactNode }) => (
+  <span className="overflow-hidden">{value}</span>
+);

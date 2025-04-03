@@ -1,8 +1,8 @@
 import Button from "~/Button";
-// @ts-ignore
-import ChevronLeft from "./assets/chevron-left.svg?react";
-// @ts-ignore
-import ChevronRight from "./assets/chevron-right.svg?react";
+
+import ChevronLeft from "./assets/chevron-left.svg";
+
+import ChevronRight from "./assets/chevron-right.svg";
 
 interface PageSelectorProps {
   currentPage: number;

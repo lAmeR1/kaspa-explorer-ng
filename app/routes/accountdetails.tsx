@@ -1,15 +1,14 @@
 import type { Route } from "./+types/accountdetails";
 
-// @ts-ignore
-import Swap from "../assets/swap.svg?react";
-// @ts-ignore
-import Info from "../assets/info.svg?react";
-// @ts-ignore
-import Kaspa from "../assets/kaspa.svg?react";
-// @ts-ignore
-import ArrowRight from "../assets/arrow-right.svg?react";
-// @ts-ignore
-import AccountBalanceWallet from "../assets/account_balance_wallet.svg?react";
+import Swap from "../assets/swap.svg";
+
+import Info from "../assets/info.svg";
+
+import Kaspa from "../assets/kaspa.svg";
+
+import ArrowRight from "../assets/arrow-right.svg";
+
+import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
 
 import { Link, NavLink, useLocation } from "react-router";
 import Accepted from "~/Accepted";

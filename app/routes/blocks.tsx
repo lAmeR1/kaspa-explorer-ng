@@ -1,13 +1,12 @@
 import type { Route } from "./+types/blocks";
 import numeral from "numeral";
 
-// @ts-ignore
-import Box from "../assets/box.svg?react";
+import Box from "../assets/box.svg";
 import { Link } from "react-router";
-import CardContainer from "~/layout/CardContainer";
 import Card from "~/layout/Card";
-import MainBox from "~/layout/MainBox";
+import CardContainer from "~/layout/CardContainer";
 import FooterHelper from "~/layout/FooterHelper";
+import MainBox from "~/layout/MainBox";
 
 export function meta({}: Route.MetaArgs) {
   return [

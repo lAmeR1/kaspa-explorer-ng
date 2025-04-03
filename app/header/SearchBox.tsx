@@ -1,5 +1,4 @@
-// @ts-ignore
-import Search from "../assets/search.svg?react";
+import Search from "../assets/search.svg";
 import { useRef, useEffect } from "react";
 
 interface Props {

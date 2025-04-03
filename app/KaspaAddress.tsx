@@ -1,13 +1,12 @@
-// @ts-ignore
-import Copy from "./assets/copy.svg?react";
-// @ts-ignore
-import QrCode from "./assets/qr_code.svg?react";
-// @ts-ignore
-import CopyCheck from "./assets/copycheck.svg?react";
-// @ts-ignore
-import Close from "./assets/close.svg?react";
-// @ts-ignore
-import Kaspa from "./assets/kaspa.svg?react";
+import Copy from "./assets/copy.svg";
+
+import QrCode from "./assets/qr_code.svg";
+
+import CopyCheck from "./assets/copycheck.svg";
+
+import Close from "./assets/close.svg";
+
+import Kaspa from "./assets/kaspa.svg";
 
 import { useState } from "react";
 

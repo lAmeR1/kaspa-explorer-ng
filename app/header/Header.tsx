@@ -1,19 +1,18 @@
 import Logo from "./Logo";
 import Price from "./Price";
 import { useState } from "react";
-// @ts-ignore
+
 import menu from "../assets/menu.svg";
-// @ts-ignore
+
 import close from "../assets/close.svg";
 
-// @ts-ignore
-import ChevronUp from "../assets/chevron-up.svg?react";
-// @ts-ignore
-import ChevronDown from "../assets/chevron-down.svg?react";
+import ChevronUp from "../assets/chevron-up.svg";
+
+import ChevronDown from "../assets/chevron-down.svg";
 import SearchBox from "./SearchBox";
 import { NavLink } from "react-router";
-import MobileMenu from "~/header/MobileMenu";
 import DesktopMenu from "~/header/DesktopMenu";
+import MobileMenu from "~/header/MobileMenu";
 
 const Header = ({
   expanded,

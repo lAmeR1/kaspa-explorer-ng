@@ -1,16 +1,15 @@
 import type { Route } from "./+types/transactions";
 import numeral from "numeral";
 
-// @ts-ignore
-import Transaction from "../assets/transaction.svg?react";
+import Transaction from "../assets/transaction.svg";
 import { Link } from "react-router";
 import Accepted from "~/Accepted";
 import Button from "~/Button";
-import CardContainer from "~/layout/CardContainer";
 import Card from "~/layout/Card";
-import MainBox from "~/layout/MainBox";
-import HelperBox from "~/layout/HelperBox";
+import CardContainer from "~/layout/CardContainer";
 import FooterHelper from "~/layout/FooterHelper";
+import HelperBox from "~/layout/HelperBox";
+import MainBox from "~/layout/MainBox";
 
 export function meta({}: Route.MetaArgs) {
   return [

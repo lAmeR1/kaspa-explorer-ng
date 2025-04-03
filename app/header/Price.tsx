@@ -1,4 +1,3 @@
-// @ts-ignore
 import KaspaIcon from "../assets/kaspa.svg";
 
 const PriceLabel = () => (
