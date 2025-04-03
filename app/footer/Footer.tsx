@@ -35,12 +35,13 @@ const Footer = () => {
             <span>Explore</span>
             <span className="hidden sm:block ms-auto">Help improve the service</span>
         </div>
-        <div className="mt-1 sm:mt-2 flex flex-row w-full flex-wrap jusitfy-around gap-x-6 sm:gap-x-10 gap-y-5 text-white">
-            <Link to={"/blocks"}>Blocks</Link>
-            <Link to={"/transactions"}>Transactions</Link>
-            <Link to={"/accounts"}>Accounts</Link>
-            <Link to={"/tokens"}>Tokens</Link>
-            <Link to={"/donate"} className="hidden sm:block ms-auto">Donate</Link>
+        <div
+            className="mt-1 sm:mt-2 flex flex-row w-full flex-wrap jusitfy-around gap-x-6 sm:gap-x-10 gap-y-5 text-white">
+            <Link to={"/blocks"} className="link-container">Blocks</Link>
+            <Link to={"/transactions"} className="link-container">Transactions</Link>
+            <Link to={"/accounts"} className="link-container">Accounts</Link>
+            <Link to={"/tokens"} className="link-container">Tokens</Link>
+            <Link to={"/donate"} className="link-container hidden sm:block ms-auto">Donate</Link>
         </div>
 
         <span className="block sm:hidden mt-4">Help improve the service</span>
@@ -49,10 +50,10 @@ const Footer = () => {
         <div className="w-full h-[1px] bg-gray-900 my-4"/>
 
         <div className="flex flex-row w-full jusitfy-start text-gray-500 gap-x-6 fill-gray-500">
-            <Discord className="h-6 w-6 hover:fill-white hover:cursor-pointer" />
-            <Github className="h-6 w-6 hover:fill-white hover:cursor-pointer" />
-            <Telegram className="h-6 w-6 hover:fill-white hover:cursor-pointer" />
-            <Twitter className="h-6 w-6 hover:fill-white hover:cursor-pointer" />
+            <Discord className="h-6 w-6 hover:fill-white hover:cursor-pointer"/>
+            <Github className="h-6 w-6 hover:fill-white hover:cursor-pointer"/>
+            <Telegram className="h-6 w-6 hover:fill-white hover:cursor-pointer"/>
+            <Twitter className="h-6 w-6 hover:fill-white hover:cursor-pointer"/>
             <span className="hidden sm:block ms-auto">© 2025 Kaspa Explorer. All rights are reserved</span>
         </div>
 

@@ -45,3 +45,23 @@ body {
 
   
 }
+
+.link-container {
+  position: relative;
+  display: inline-block;
+}
+
+.link-container::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  left: 0;
+  bottom: 0;
+  transition: all 0.1s ease-out;
+}
+
+.link-container:hover::after {
+  width: 100%;
+}
