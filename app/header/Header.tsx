@@ -13,6 +13,7 @@ import ChevronDown from '../assets/chevron-down.svg?react';
 import SearchBox from "./SearchBox";
 import {NavLink} from "react-router";
 import MobileMenu from "~/header/MobileMenu";
+import DesktopMenu from "~/header/DesktopMenu";
 
 const Header = ({expanded, setExpanded, ref}: {
     expanded: boolean;
@@ -37,103 +38,7 @@ const Header = ({expanded, setExpanded, ref}: {
                                onChange={setSearchValue}/>
                 )}
 
-            <div className="hidden sm:flex flex-row gap-x-4 ms-auto">
-                <div className="hover:cursor-pointer relative p-2 group hover:text-primary hover:fill-primary">
-                    <span className="flex flex-row justify-center items-center">
-                        BlockDAG
-                        <ChevronUp className="h-4 duration-200
-                        group-hover:fill-primary
-                          group-hover:block
-                          group-hover:rotate-0
-                          rotate-180
-                          "/>
-                    </span>
-
-                    <div className="absolute
-                        hidden group-hover:flex
-                        flex-col
-                        -translate-x-1/2
-                        left-1/2
-                        mt-2
-                        h-6
-                        w-48"/>
-                    <div className="absolute
-                        hidden group-hover:flex
-                        flex
-                        flex-col
-                        -translate-x-1/2
-                        left-1/2
-                        w-48 bg-white text-black z-2 mt-4
-                     p-4 rounded-2xl shadow-[#00000012] shadow-[0px_4px_32px_0px]">
-                        <NavLink to="/blocks">
-                            <div className="w-full hover:bg-gray-25 py-2">
-                                Blocks
-                            </div>
-                        </NavLink>
-                        <NavLink to="/transactions">
-                            <div className="w-full hover:bg-gray-25 py-2">
-                                Transactions
-                            </div>
-                        </NavLink>
-                        <NavLink to="/accounts">
-                            <div className="w-full hover:bg-gray-25 py-2">
-                                Accounts
-                            </div>
-                        </NavLink>
-
-                    </div>
-
-                </div>
-                <div className="relative group hover:cursor-pointer p-2">
-                    <NavLink to={"/transactions"}>Assets</NavLink>
-                    <div className="absolute
-                        hidden group-hover:flex
-                        flex-col
-                        -translate-x-1/2
-                        left-1/2
-                        mt-2
-                        h-6
-                        w-48"/>
-                    <div className="absolute
-                        hidden group-hover:flex
-                        flex
-                        flex-col
-                        -translate-x-1/2
-                        left-1/2
-                        w-48 bg-white text-black z-2 mt-4
-                     p-4 rounded-2xl shadow-[#00000012] shadow-[0px_4px_32px_0px]">
-                        <div className="w-full hover:bg-gray-25 py-2">Blocks</div>
-                        <div className="w-full hover:bg-gray-25 py-2">Transactions</div>
-                        <div className="w-full hover:bg-gray-25 py-2">Accounts..</div>
-
-                    </div>
-                </div>
-                <div className="hover:cursor-pointer relative p-2 group hover:text-primary">
-                    <NavLink to={"/blocks"}>Analytics</NavLink>
-                    <div className="absolute
-                        hidden group-hover:flex
-                        flex-col
-                        -translate-x-1/2
-                        left-1/2
-                        mt-2
-                        h-6
-                        w-48"/>
-                    <div className="absolute
-                        hidden group-hover:flex
-                        flex
-                        flex-col
-                        -translate-x-1/2
-                        left-1/2
-                        w-48 bg-white text-black z-2 mt-4
-                     p-4 rounded-2xl shadow-[#00000012] shadow-[0px_4px_32px_0px]">
-                        <div className="w-full hover:bg-gray-25 py-2">Blocks</div>
-                        <div className="w-full hover:bg-gray-25 py-2">Transactions</div>
-                        <div className="w-full hover:bg-gray-25 py-2">Accounts</div>
-
-                    </div>
-
-                </div>
-            </div>
+            <DesktopMenu />
             <div className="sm:hidden ms-auto">
                 <img src={!expanded ? menu : close} alt="open menu"
                      className={`hover:cursor-pointer transition-transform duration-300 ${expanded ? 'rotate-360' : ''}`}
