@@ -1,11 +1,26 @@
 import KaspaIcon from "../assets/kaspa.svg";
+import numeral from "numeral";
+import { useContext } from "react";
+import { MarketDataContext } from "~/context/MarketDataProvider";
 
-const PriceLabel = () => (
-  <div className="ms-4 hidden flex-row items-center justify-around gap-x-1 rounded-4xl border-[1px] border-gray-100 bg-white p-1 pr-2 sm:flex">
-    <KaspaIcon className="h-4 w-4" />
-    <span className="text-sm">$0.3122</span>
-    <span className="text-success text-sm">+4.81%</span>
-  </div>
-);
+const PriceLabel = () => {
+  const marketData = useContext(MarketDataContext);
+  const price = marketData?.price
+    ? numeral(marketData?.price).format("0.0000")
+    : "-.----";
+
+  const isPositive = marketData?.change24h?.startsWith("+");
+
+  return (
+    <div className="ms-4 hidden h-6 flex-row items-center justify-around gap-x-1 rounded-4xl border-[1px] border-gray-100 bg-white p-1 pr-2 sm:flex">
+      <KaspaIcon className="h-4 w-4" />
+      <span className="text-sm">${price}</span>
+      <span className={`${isPositive ? "text-success" : "text-alert"} text-sm`}>
+        {marketData?.change24h || "-.--"}
+        <span className="ms-[1px]">%</span>
+      </span>
+    </div>
+  );
+};
 
 export default PriceLabel;

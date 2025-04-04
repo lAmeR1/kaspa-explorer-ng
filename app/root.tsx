@@ -1,8 +1,8 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-
 import type { Route } from "./+types/root";
 import "./app.css";
 import { useState } from "react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import { MarketDataProvider } from "~/context/MarketDataProvider";
 import Footer from "~/footer/Footer";
 import Header from "~/header/Header";
 
@@ -52,7 +52,7 @@ export default function App() {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <>
+    <MarketDataProvider>
       <Header expanded={expanded} setExpanded={setExpanded} />
       {!expanded && (
         <>
@@ -62,6 +62,6 @@ export default function App() {
           <Footer />
         </>
       )}
-    </>
+    </MarketDataProvider>
   );
 }
