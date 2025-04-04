@@ -1,12 +1,8 @@
-import type { Route } from "./+types/transactiondetails";
-
-import Swap from "../assets/swap.svg";
-
-import Info from "../assets/info.svg";
-
-import Kaspa from "../assets/kaspa.svg";
-
 import ClockLoader from "../assets/clock_loader_10.svg";
+import Info from "../assets/info.svg";
+import Kaspa from "../assets/kaspa.svg";
+import Swap from "../assets/swap.svg";
+import type { Route } from "./+types/transactiondetails";
 import { NavLink, useLocation } from "react-router";
 import Accepted from "~/Accepted";
 import KaspaAddress from "~/KaspaAddress";

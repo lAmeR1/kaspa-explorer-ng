@@ -18,7 +18,7 @@ export default defineConfig([
   tseslint.configs.recommended,
   {
     ...pluginReact.configs.flat.recommended,
-    rules: { "react/react-in-jsx-scope": "off" },
+    rules: { "react/react-in-jsx-scope": "off", "max-len": ["warn", 120] },
   },
   {
     ignores: [".react-router/**"],

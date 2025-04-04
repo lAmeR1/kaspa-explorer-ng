@@ -1,5 +1,6 @@
 import type { Route } from "./+types/root";
 import "./app.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { MarketDataProvider } from "~/context/MarketDataProvider";
@@ -48,20 +49,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+// Create a client
+const queryClient = new QueryClient();
+
 export default function App() {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <MarketDataProvider>
-      <Header expanded={expanded} setExpanded={setExpanded} />
-      {!expanded && (
-        <>
-          <div className="flex w-full max-w-[1600px] grow flex-col items-center justify-start gap-y-2 px-2 py-2">
-            <Outlet />
-          </div>
-          <Footer />
-        </>
-      )}
-    </MarketDataProvider>
+    <QueryClientProvider client={queryClient}>
+      <MarketDataProvider>
+        <Header expanded={expanded} setExpanded={setExpanded} />
+        {!expanded && (
+          <>
+            <div className="flex w-full max-w-[1600px] grow flex-col items-center justify-start gap-y-2 px-2 py-2">
+              <Outlet />
+            </div>
+            <Footer />
+          </>
+        )}
+      </MarketDataProvider>
+    </QueryClientProvider>
   );
 }

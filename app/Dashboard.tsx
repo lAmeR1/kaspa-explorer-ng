@@ -1,31 +1,31 @@
+import AccountBalanceWallet from "./assets/account_balance_wallet.svg";
+import BackToTab from "./assets/back_to_tab.svg";
+import Box from "./assets/box.svg";
+import Coins from "./assets/coins.svg";
+import FlashOn from "./assets/flash_on.svg";
+import Landslide from "./assets/landslide.svg";
+import Rocket from "./assets/rocket_launch.svg";
+import Swap from "./assets/swap.svg";
+import Time from "./assets/time.svg";
+import Trophy from "./assets/trophy.svg";
+import VerifiedUser from "./assets/verified_user.svg";
 import numeral from "numeral";
 import { useState } from "react";
 import SearchBox from "~/header/SearchBox";
+import { useBlockdagInfo } from "~/hooks/useBlockDagInfo";
+import { useBlockReward } from "~/hooks/useBlockReward";
+import { useCoinSupply } from "~/hooks/useCoinSupply";
+import { useHalving } from "~/hooks/useHalving";
 
-import Swap from "./assets/swap.svg";
-
-import Box from "./assets/box.svg";
-
-import Coins from "./assets/coins.svg";
-
-import Landslide from "./assets/landslide.svg";
-
-import Time from "./assets/time.svg";
-
-import AccountBalanceWallet from "./assets/account_balance_wallet.svg";
-
-import Trophy from "./assets/trophy.svg";
-
-import Rocket from "./assets/rocket_launch.svg";
-
-import BackToTab from "./assets/back_to_tab.svg";
-
-import VerifiedUser from "./assets/verified_user.svg";
-
-import FlashOn from "./assets/flash_on.svg";
+const TOTAL_SUPPLY = 28_700_000_000;
 
 const Dashboard = () => {
   const [search, setSearch] = useState("");
+
+  const { data: blockDagInfo } = useBlockdagInfo();
+  const { data: coinSupply } = useCoinSupply();
+  const { data: blockReward } = useBlockReward();
+  const { data: halving } = useHalving();
 
   return (
     <>
@@ -48,46 +48,52 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
           <DashboardBox
             description="Total transactions"
-            value={numeral(566754156).format("0,0")}
+            value="> 120M"
             icon={<Swap className="w-5" />}
           />
           <DashboardBox
             description="Total blocks"
-            value={numeral(566754156).format("0,0")}
+            value={numeral(blockDagInfo?.virtualDaaScore || 0).format("0,0")}
             icon={<Box className="w-5" />}
           />
           <DashboardBox
             description="Total supply"
-            value={numeral(21588635122).format("0,0")}
+            value={numeral(
+              (coinSupply?.circulatingSupply || 0) / 1_0000_0000,
+            ).format("0,0")}
             unit="KAS"
             icon={<Coins className="w-5" />}
           />
           <DashboardBox
             description="Mined"
-            value={90.12}
+            value={(
+              (coinSupply?.circulatingSupply || 0) /
+              TOTAL_SUPPLY /
+              1000000
+            ).toFixed(2)}
             unit="%"
             icon={<Landslide className="w-5" />}
           />
           <DashboardBox
             description="Average block time"
-            value={"1.7"}
+            value={"10.0"}
             unit="s"
             icon={<Time className="w-5" />}
           />
           <DashboardBox
             description="Wallet addresses"
-            value={numeral(349212812).format("0,0")}
+            value="~ 520,000"
             icon={<AccountBalanceWallet className="w-5" />}
           />
           <DashboardBox
             description="Block reward"
-            value={77.76}
+            value={blockReward?.blockreward || 0}
             unit="KAS"
             icon={<Trophy className="w-5" />}
           />
           <DashboardBox
             description="Reward reduction"
-            value={"12 Dec 2024 19:20"}
+            value={halving?.nextHalvingDate || ""}
             icon={<Swap className="w-5" />}
           />
         </div>
