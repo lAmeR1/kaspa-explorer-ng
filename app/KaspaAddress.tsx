@@ -1,16 +1,10 @@
-import Copy from "./assets/copy.svg";
-
-import QrCode from "./assets/qr_code.svg";
-
-import CopyCheck from "./assets/copycheck.svg";
-
 import Close from "./assets/close.svg";
-
+import Copy from "./assets/copy.svg";
+import CopyCheck from "./assets/copycheck.svg";
 import Kaspa from "./assets/kaspa.svg";
-
-import { useState } from "react";
-
+import QrCode from "./assets/qr_code.svg";
 import { QRCodeSVG } from "qrcode.react";
+import { useState } from "react";
 import { Link } from "react-router";
 
 const KaspaAddress = ({
@@ -38,7 +32,9 @@ const KaspaAddress = ({
   return (
     <div className="grid grid-cols-[auto_1fr] overflow-hidden text-ellipsis">
       <span className="overflow-hidden text-ellipsis">
-        {value.substring(0, 54)}
+        <Link className="text-link" to={linkHref}>
+          {value.substring(0, 54)}
+        </Link>
       </span>
 
       <span className="fill-gray-500 text-nowrap">
@@ -51,10 +47,7 @@ const KaspaAddress = ({
         )}
         {copy &&
           (!clicked ? (
-            <Copy
-              className="hover:fill-primary mx-1 inline h-4 w-4 align-middle"
-              onClick={handleClick}
-            />
+            <Copy className="hover:fill-primary mx-1 inline h-4 w-4 align-middle" onClick={handleClick} />
           ) : (
             <CopyCheck className="mx-1 inline h-4 w-4 animate-[spin_0.2s_linear_1] align-middle" />
           ))}
@@ -97,10 +90,7 @@ const QrCodeModal = (props: QrCodeModalProps) => (
         e.stopPropagation();
       }}
     >
-      <Close
-        className="m-3 self-end hover:cursor-pointer"
-        onClick={() => props.setShowQr(false)}
-      />
+      <Close className="m-3 self-end hover:cursor-pointer" onClick={() => props.setShowQr(false)} />
 
       <span className="mb-4 text-2xl">Scan or copy the Kaspa address</span>
       <div className="relative mx-8 mb-6">

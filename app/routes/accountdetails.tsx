@@ -2,16 +2,20 @@ import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
 import ArrowRight from "../assets/arrow-right.svg";
 import Info from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
-
 import type { Route } from "./+types/accountdetails";
+import numeral from "numeral";
+import { useContext } from "react";
 import { NavLink, useLocation } from "react-router";
-
 import Accepted from "~/Accepted";
 import KaspaAddress from "~/KaspaAddress";
+import { MarketDataContext } from "~/context/MarketDataProvider";
+import { useAccountBalance } from "~/hooks/useAccountBalance";
+import { useAccountTxCount } from "~/hooks/useAccountTxCount";
+import { useAccountUtxos } from "~/hooks/useAccountUtxos";
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const txId = params.blockId;
-  return { txId };
+  const address = params.address;
+  return { address };
 }
 
 export function meta() {
@@ -25,18 +29,21 @@ export function meta() {
   ];
 }
 
-export default function Accountdetails() {
+export default function Accountdetails({ loaderData }: Route.ComponentProps) {
   const location = useLocation();
+  const { data } = useAccountBalance(loaderData.address);
+  const { data: utxoData } = useAccountUtxos(loaderData.address);
+  const { data: txCount } = useAccountTxCount(loaderData.address);
+
+  const marketData = useContext(MarketDataContext);
 
   const isTabActive = (tab: string) => {
-    const params = new URLSearchParams(location.search); // Lesen der Query-Parameter
-
-    if (tab === "transactions" && params.get("tab") === null) {
-      return true;
-    }
-
+    const params = new URLSearchParams(location.search);
+    if (tab === "transactions" && params.get("tab") === null) return true;
     return params.get("tab") === tab;
   };
+
+  const balance = numeral((data?.balance || 0) / 1_0000_0000).format("0,0.00[000000]");
 
   return (
     <>
@@ -49,35 +56,36 @@ export default function Accountdetails() {
         <span className="mt-4 mb-0">Balance</span>
 
         <span className="flex flex-row items-center text-[32px]">
-          14,324,124
+          {balance.split(".")[0]}.<span className="self-end pb-[0.4rem] text-2xl">{balance.split(".")[1]}</span>
           <Kaspa className="fill-primary ml-1 h-8 w-8" />
         </span>
-        <span className="ml-1 text-sm text-gray-500">$900,313.32</span>
+        <span className="ml-1 text-sm text-gray-500">
+          {numeral(((data?.balance || 0) / 1_0000_0000) * (marketData?.price || 0)).format("$0,0.00")}
+        </span>
         {/*horizontal rule*/}
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
 
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="Address" />
+          <FieldValue value={<KaspaAddress copy link qr value={loaderData.address} />} />
+          <FieldName name="Transactions" />
           <FieldValue
             value={
-              <KaspaAddress
-                copy
-                link
-                value="kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r"
-              />
+              <>
+                {txCount?.limit_exceeded && "> "}
+                {txCount?.total || 0}
+              </>
             }
           />
-          <FieldName name="Transactions" />
-          <FieldValue value="1,885" />
           <FieldName name="UTXOs" />
-          <FieldValue value="102" />
+          <FieldValue value={utxoData?.length || 0} />
         </div>
       </div>
 
       <div className="flex w-full flex-col gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-black sm:p-8">
         <div className="mr-auto flex w-auto flex-row items-center justify-around gap-x-1 rounded-full bg-gray-50 p-1 px-1">
           <NavLink
-            to="/accounts/kaspaqyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3?tab=transactions"
+            to={`/accounts/${loaderData.address}?tab=transactions`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("transactions") ? "bg-white" : ""}`
@@ -86,7 +94,7 @@ export default function Accountdetails() {
             Transactions
           </NavLink>
           <NavLink
-            to="/accounts/kaspaqyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3?tab=utxos"
+            to={`/accounts/${loaderData.address}?tab=utxos`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("utxos") ? "bg-white" : ""}`
@@ -158,14 +166,10 @@ export default function Accountdetails() {
               {Array.from({ length: 20 }).map(() => (
                 <>
                   <div className="col-span-7 h-[1px] bg-gray-100" />
-                  <div className="text-black">
-                    12 sec. ago - Dec 01 2025 14:12:22
-                  </div>
+                  <div className="text-black">12 sec. ago - Dec 01 2025 14:12:22</div>
                   <div className="text-black">123b12....28b12b318293</div>
                   <div className="text-link text-sm">0</div>
-                  <div className="flex items-center fill-black text-black">
-                    9125185
-                  </div>
+                  <div className="flex items-center fill-black text-black">9125185</div>
                   <div className="text-black">
                     1234<span className="text-sm text-gray-500"> KAS</span>
                   </div>
@@ -188,6 +192,4 @@ const FieldName = ({ name }: { name: string }) => (
   </div>
 );
 
-const FieldValue = ({ value }: { value: string | React.ReactNode }) => (
-  <span className="overflow-hidden">{value}</span>
-);
+const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span className="overflow-hidden">{value}</span>;
