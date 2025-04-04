@@ -13,15 +13,13 @@ interface BlockdagInfo {
   virtualDaaScore: string;
 }
 
-export const useBlockdagInfo = () => {
-  const { data, isLoading } = useQuery({
+export const useBlockdagInfo = () =>
+  useQuery({
     queryKey: ["blockdagInfo"],
     queryFn: async () => {
       const { data } = await axios.get("https://api.kaspa.org/info/blockdag");
       return data as BlockdagInfo;
     },
     refetchInterval: 2000,
+    staleTime: Infinity,
   });
-
-  return { data, isLoading };
-};

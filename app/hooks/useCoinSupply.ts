@@ -6,22 +6,12 @@ interface CoinSupplyInfo {
   maxSupply: number;
 }
 
-export const useCoinSupply = () => {
-  const { data, isLoading } = useQuery({
+export const useCoinSupply = () =>
+  useQuery({
     queryKey: ["coinSupply"],
     queryFn: async () => {
-      const { data } = await axios.get(
-        "https://api.kaspa.org/info/coinsupply",
-        {
-          headers: {
-            "Cache-Control": "no-cache",
-          },
-        },
-      );
+      const { data } = await axios.get("https://api.kaspa.org/info/coinsupply");
       return data as CoinSupplyInfo;
     },
     refetchInterval: 60000,
   });
-
-  return { data, isLoading };
-};

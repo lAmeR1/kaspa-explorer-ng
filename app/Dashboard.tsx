@@ -87,7 +87,7 @@ const Dashboard = () => {
           />
           <DashboardBox
             description="Block reward"
-            value={blockReward?.blockreward || 0}
+            value={(blockReward?.blockreward || 0).toFixed(3)}
             unit="KAS"
             icon={<Trophy className="w-5" />}
           />

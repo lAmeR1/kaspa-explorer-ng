@@ -1,6 +1,10 @@
 import Box from "../assets/box.svg";
 import numeral from "numeral";
 import { Link } from "react-router";
+import { useBlockdagInfo } from "~/hooks/useBlockDagInfo";
+import { useBlockReward } from "~/hooks/useBlockReward";
+import { useCoinSupply } from "~/hooks/useCoinSupply";
+import { useHalving } from "~/hooks/useHalving";
 import Card from "~/layout/Card";
 import CardContainer from "~/layout/CardContainer";
 import FooterHelper from "~/layout/FooterHelper";
@@ -18,25 +22,25 @@ export function meta() {
 }
 
 export default function Blocks() {
+  const { data: blockDagInfo } = useBlockdagInfo();
+  const { data: blockReward } = useBlockReward();
+
   return (
     <>
       <MainBox>
         <CardContainer title="Blocks">
           <Card
             title="Total blocks"
-            value={`${numeral(100990000).format("0,0")}`}
+            value={`${numeral(blockDagInfo?.virtualDaaScore).format("0,0")}`}
           />
-          <Card
-            title="Total transactions"
-            value={`${numeral(11412419616).format("0,0")}`}
-          />
+          <Card title="Total transactions" value="> 120M" />
           <Card
             title="Average block time"
-            value={`${numeral(0.14).format("0.00")} s`}
+            value={`${numeral(9.92).format("0.00")} s`}
           />
           <Card
             title="Block rewards"
-            value={`${numeral(88.988).format("0.00")} KAS`}
+            value={`${numeral(blockReward?.blockreward).format("0.00")} KAS`}
           />
         </CardContainer>
       </MainBox>

@@ -7,18 +7,11 @@ interface HalvingInfo {
   nextHalvingAmount: number;
 }
 
-export const useHalving = () => {
-  const { data, isLoading } = useQuery({
+export const useHalving = () =>
+  useQuery({
     queryKey: ["halving"],
     queryFn: async () => {
-      const { data } = await axios.get("https://api.kaspa.org/info/halving", {
-        headers: {
-          "Cache-Control": "no-cache",
-        },
-      });
+      const { data } = await axios.get("https://api.kaspa.org/info/halving");
       return data as HalvingInfo;
     },
   });
-
-  return { data, isLoading };
-};

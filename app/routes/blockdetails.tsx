@@ -1,11 +1,10 @@
-import type { Route } from "./+types/blocks";
-
-import Box from "../assets/box.svg";
-
-import Info from "../assets/info.svg";
-
 import ArrowRight from "../assets/arrow-right.svg";
+import Box from "../assets/box.svg";
+import Info from "../assets/info.svg";
+import type { Route } from "./+types/blockdetails";
+import { Link } from "react-router";
 import Accepted from "~/Accepted";
+import { useBlockById } from "~/hooks/useBlockById";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const blockId = params.blockId;
@@ -23,7 +22,17 @@ export function meta() {
   ];
 }
 
-export default function Blocks() {
+export default function Blocks({ loaderData }: Route.ComponentProps) {
+  const { data: block, isLoading, isError } = useBlockById(loaderData.blockId);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>ERROR! Loading...</div>;
+  }
+
   return (
     <>
       <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:grid-cols-[auto_1fr] sm:p-8">
@@ -34,83 +43,76 @@ export default function Blocks() {
 
         <div className="mt-4 text-black sm:col-span-2">Main information</div>
         <FieldName name="Block Hash" />
-        <FieldValue value="aeb12eb8a2e89e1a282e18e9b28a2eb81b28a9eb18eb9128eb12b9e81b28be8a982be" />
+        <FieldValue value={loaderData.blockId} />
         <FieldName name="Blue score" />
-        <FieldValue value="123125156" />
+        <FieldValue value={block?.header.blueScore} />
         <FieldName name="Bits" />
-        <FieldValue value="123125156" />
+        <FieldValue value={block?.header.bits} />
         <FieldName name="Timestamp" />
-        <FieldValue value="19 minutes ago" />
+        <FieldValue value={block?.header.timestamp} />
         <FieldName name="Version" />
-        <FieldValue value="1" />
+        <FieldValue value={block?.header.version} />
         <FieldName name="Is chain block" />
-        <FieldValue value="true" />
+        <FieldValue value={block?.verboseData.isChainBlock ? "Yes" : "No"} />
         {/*horizontal rule*/}
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
         <div className="text-black sm:col-span-2">Connections</div>
         <FieldName name="Parents" />
         <FieldValue
-          value={
-            <>
-              <div>
-                ac46f5d3d5cff91e5db9503827d4fdeb9067dfcb53d5ac0d6f1d77c81d9e9cf9
-              </div>
-              <div>
-                ac46f5d3d5cff91e5db9503827d4fdeb9067dfcb53d5ac0d6f1d77c81d9e9cf9
-              </div>
-            </>
-          }
+          value={block?.header.parents[0].parentHashes.map((parentHash) => (
+            <div>
+              <Link className="hover:text-primary" to={`/blocks/${parentHash}`}>
+                {parentHash}
+              </Link>
+            </div>
+          ))}
         />
         <FieldName name="Children" />
         <FieldValue
-          value={
-            <>
-              <div>
-                a6b668a689b698a698ba698b698a6b986a67dfcb53d5ac0d6f1d77c81d9e9cf9
-              </div>
-              <div>
-                ef7e009e790709e709e7f09e709f790ef790ef9073d5ac0d6f1d77c81d9e9cf9
-              </div>
-            </>
-          }
+          value={block?.verboseData.childrenHashes.map((child) => (
+            <div>
+              <Link className="hover:text-primary" to={`/blocks/${child}`}>
+                {child}
+              </Link>
+            </div>
+          ))}
         />
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
         <div className="text-black sm:col-span-2">Merkle and UTXO data</div>
         <FieldName name="Merkle root" />
-        <FieldValue value="26cb8cf11612de0ea6066bb8c31c0afc51d96cbfe35e1165f1beb23ae1794ad8" />
+        <FieldValue value={block?.header.hashMerkleRoot} />
         <FieldName name="Accepted merkle root" />
-        <FieldValue value="ac46f5d3d5cff91e5db9503827d4fdeb9067dfcb53d5ac0d6f1d77c81d9e9cf9" />
+        <FieldValue value={block?.header.acceptedIdMerkleRoot} />
         <FieldName name="UTXO commitment" />
-        <FieldValue value="f9a50119f1d03ca736926e39b683467d6c65ea397deba49ccc79d86cf852ac70" />
+        <FieldValue value={block?.header.utxoCommitment} />
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-        <div className="flex flex-row items-start text-black sm:col-span-2">
-          Difficulty and computation
-        </div>
+        <div className="flex flex-row items-start text-black sm:col-span-2">Difficulty and computation</div>
         <FieldName name="Nonce" />
-        <FieldValue value="14209147295666810466" />
+        <FieldValue value={block?.header.nonce} />
         <FieldName name="DAA score" />
-        <FieldValue value="97998764589" />
+        <FieldValue value={block?.header.daaScore} />
         <FieldName name="Blue work" />
-        <FieldValue value="f0d242482d43c49ab4791" />
+        <FieldValue value={block?.header.blueWork} />
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
         <div className="text-black sm:col-span-2">Additional data</div>
         <FieldName name="Pruning point" />
-        <FieldValue value="97998764589" />
-        <FieldName name="Miner info" />
-        <FieldValue
-          value={
-            <>
-              <div className="text-link">
-                kaspa:qrelgny7sr3vahq69yykxx36m65gvmhryxrlwngfzgu8xkdslum2yxjp3ap8m
-              </div>
-              <div className="text-sm text-gray-500">
-                GreatPool 0.15.1/1.0.2
-              </div>
-            </>
-          }
-        />
+        <FieldValue value={block?.header.pruningPoint} />
+        {block?.extra.minerInfo && (
+          <>
+            <FieldName name="Miner info" />
+            <FieldValue
+              value={
+                <>
+                  <div className="text-link">
+                    <Link to={`/accounts/${block.extra.minerAddress}`}>{block.extra.minerAddress}</Link>
+                  </div>
+                  <div className="text-sm text-gray-500">{block.extra.minerInfo}</div>
+                </>
+              }
+            />
+          </>
+        )}
       </div>
-
       <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
         <div className="mt-4 mb-2 text-black sm:col-span-2">Transactions</div>
 
@@ -292,6 +294,4 @@ const FieldName = ({ name }: { name: string }) => (
   </div>
 );
 
-const FieldValue = ({ value }: { value: string | React.ReactNode }) => (
-  <span className="overflow-hidden">{value}</span>
-);
+const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span className="overflow-hidden">{value}</span>;

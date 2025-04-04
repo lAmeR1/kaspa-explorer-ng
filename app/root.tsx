@@ -50,7 +50,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 // Create a client
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: "always",
+      staleTime: Infinity,
+    },
+  },
+});
 
 export default function App() {
   const [expanded, setExpanded] = useState(false);

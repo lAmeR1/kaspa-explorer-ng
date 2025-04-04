@@ -65,22 +65,13 @@ export default function TransactionDetails() {
                   link
                   value="kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r"
                 />
-                <span>
-                  kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r
-                </span>{" "}
-                fasf
+                <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span> fasf
                 <br />
-                <span>
-                  kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r
-                </span>
+                <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span>
                 <br />
-                <span>
-                  kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r
-                </span>
+                <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span>
                 <br />
-                <span>
-                  kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r
-                </span>
+                <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span>
               </div>
             }
           />
@@ -88,25 +79,15 @@ export default function TransactionDetails() {
           <FieldValue
             value={
               <>
-                <span>
-                  kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022
-                </span>
+                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
                 <br />
-                <span>
-                  kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022
-                </span>
+                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
                 <br />
-                <span>
-                  kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022
-                </span>
+                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
                 <br />
-                <span>
-                  kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022
-                </span>
+                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
                 <br />
-                <span>
-                  kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022
-                </span>
+                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
               </>
             }
           />
@@ -172,13 +153,9 @@ export default function TransactionDetails() {
             <FieldValue
               value={
                 <>
-                  <span>
-                    cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db
-                  </span>
+                  <span>cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db</span>
                   <br />
-                  <span>
-                    cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db
-                  </span>
+                  <span>cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db</span>
                 </>
               }
             />
@@ -188,9 +165,7 @@ export default function TransactionDetails() {
                 <>
                   <div className="flex flex-col">
                     <span>20 minutes ago</span>
-                    <span className="text-sm text-gray-500">
-                      Dec 14 2024 14:13:22
-                    </span>
+                    <span className="text-sm text-gray-500">Dec 14 2024 14:13:22</span>
                   </div>
                 </>
               }
@@ -428,6 +403,4 @@ const FieldName = ({ name }: { name: string }) => (
   </div>
 );
 
-const FieldValue = ({ value }: { value: string | React.ReactNode }) => (
-  <span className="overflow-hidden">{value}</span>
-);
+const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span className="overflow-hidden">{value}</span>;

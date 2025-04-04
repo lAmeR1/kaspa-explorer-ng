@@ -5,21 +5,12 @@ interface BlockRewardInfo {
   blockreward: number;
 }
 
-export const useBlockReward = () => {
-  const { data, isLoading } = useQuery({
+export const useBlockReward = () =>
+  useQuery({
+    staleTime: 60000,
     queryKey: ["blockReward"],
     queryFn: async () => {
-      const { data } = await axios.get(
-        "https://api.kaspa.org/info/blockreward",
-        {
-          headers: {
-            "Cache-Control": "no-cache",
-          },
-        },
-      );
+      const { data } = await axios.get("https://api.kaspa.org/info/blockreward");
       return data as BlockRewardInfo;
     },
   });
-
-  return { data, isLoading };
-};
