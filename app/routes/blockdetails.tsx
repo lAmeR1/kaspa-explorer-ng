@@ -2,9 +2,18 @@ import ArrowRight from "../assets/arrow-right.svg";
 import Box from "../assets/box.svg";
 import Info from "../assets/info.svg";
 import type { Route } from "./+types/blockdetails";
+import dayjs from "dayjs";
+import localeData from "dayjs/plugin/localeData";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { Link } from "react-router";
 import { Accepted } from "~/Accepted";
 import { useBlockById } from "~/hooks/useBlockById";
+
+dayjs().locale("en");
+dayjs.extend(relativeTime);
+dayjs.extend(localeData);
+dayjs.extend(localizedFormat);
 
 export async function loader({ params }: Route.LoaderArgs) {
   const blockId = params.blockId;
@@ -24,7 +33,7 @@ export function meta() {
 
 export default function Blocks({ loaderData }: Route.ComponentProps) {
   const { data: block, isLoading, isError } = useBlockById(loaderData.blockId);
-
+  const blockTime = dayjs(Number(block?.header.timestamp));
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -49,7 +58,14 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <FieldName name="Bits" />
         <FieldValue value={block?.header.bits} />
         <FieldName name="Timestamp" />
-        <FieldValue value={block?.header.timestamp} />
+        <FieldValue
+          value={
+            <div className="flex flex-col">
+              <span>{blockTime.fromNow()}</span>
+              <span className="text-sm text-gray-500">{blockTime.format("ll LTS")}</span>
+            </div>
+          }
+        />
         <FieldName name="Version" />
         <FieldValue value={block?.header.version} />
         <FieldName name="Is chain block" />
@@ -97,7 +113,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <div className="text-black sm:col-span-2">Additional data</div>
         <FieldName name="Pruning point" />
         <FieldValue value={block?.header.pruningPoint} />
-        {block?.extra.minerInfo && (
+        {block?.extra?.minerInfo && (
           <>
             <FieldName name="Miner info" />
             <FieldValue
