@@ -1,20 +1,35 @@
 import ClockLoader from "../assets/clock_loader_10.svg";
-import Info from "../assets/info.svg";
+import InfoIcon from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 import Swap from "../assets/swap.svg";
 import type { Route } from "./+types/transactiondetails";
+import dayjs from "dayjs";
+import localeData from "dayjs/plugin/localeData";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import relativeTime from "dayjs/plugin/relativeTime";
+import numeral from "numeral";
+import { useContext } from "react";
 import { NavLink, useLocation } from "react-router";
-import Accepted from "~/Accepted";
+import { Accepted, Confirmed, NotAccepted } from "~/Accepted";
+import KasLink from "~/KasLink";
 import KaspaAddress from "~/KaspaAddress";
+import { MarketDataContext } from "~/context/MarketDataProvider";
+import { useTransactionById } from "~/hooks/useTansactionById";
+import { useVirtualChainBlueScore } from "~/hooks/useVirtualChainBlueScore";
+
+dayjs().locale("en");
+dayjs.extend(relativeTime);
+dayjs.extend(localeData);
+dayjs.extend(localizedFormat);
 
 export async function loader({ params }: Route.LoaderArgs) {
-  const txId = params.blockId;
-  return { txId };
+  const transactionId = params.transactionId as string;
+  return { transactionId };
 }
 
 export function meta() {
   return [
-    { title: "Kaspa Explorer - Blocks" },
+    { title: "Kaspa Explorer - Transaction Details" },
     {
       name: "description",
       content:
@@ -23,8 +38,15 @@ export function meta() {
   ];
 }
 
-export default function TransactionDetails() {
+export default function TransactionDetails({ loaderData }: Route.ComponentProps) {
   const location = useLocation();
+  const { data: transaction } = useTransactionById(loaderData.transactionId);
+  const { data: virtualChainBlueScore } = useVirtualChainBlueScore();
+  const marketData = useContext(MarketDataContext);
+
+  if (transaction === undefined) {
+    return <>Loading Transaction</>;
+  }
 
   const isTabActive = (tab: string) => {
     const params = new URLSearchParams(location.search); // Lesen der Query-Parameter
@@ -35,6 +57,15 @@ export default function TransactionDetails() {
 
     return params.get("tab") === tab;
   };
+
+  const confirmations = (virtualChainBlueScore?.blueScore || 0) - (transaction?.accepting_block_blue_score || 0);
+  const transactionSum = transaction.outputs.reduce((sum, output) => sum + output.amount, 0);
+  const displaySum = numeral((transactionSum || 0) / 1_0000_0000).format("0,0.00[000000]");
+  const inputSum = transaction?.inputs.reduce((sum, input) => sum + input.previous_outpoint_amount, 0);
+
+  const blockTime = dayjs(transaction?.block_time);
+
+  const fee = (inputSum - transactionSum) / 1_0000_0000;
 
   return (
     <>
@@ -47,49 +78,27 @@ export default function TransactionDetails() {
         <span className="mt-4 mb-0">Transfer details</span>
 
         <span className="flex flex-row items-center text-[32px]">
-          14,324
+          {displaySum.split(".")[0]}.<span className="self-end pb-[0.4rem] text-2xl">{displaySum.split(".")[1]}</span>
           <Kaspa className="fill-primary ml-1 h-8 w-8" />
         </span>
-        <span className="ml-1 text-sm text-gray-500">$9,3213.32</span>
+        <span className="ml-1 text-sm text-gray-500">
+          {numeral(((transactionSum || 0) / 1_0000_0000) * (marketData?.price || 0)).format("$0,0.00")}
+        </span>
         {/*horizontal rule*/}
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
 
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="From" />
           <FieldValue
-            value={
-              <div>
-                <KaspaAddress
-                  copy
-                  qr
-                  link
-                  value="kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r"
-                />
-                <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span> fasf
-                <br />
-                <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span>
-                <br />
-                <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span>
-                <br />
-                <span>kaspa:qqscm7geuuc26ffneeyslsfcytg0vzf9848slkxchzdkgx3mn5mdx4dcavk2r</span>
-              </div>
-            }
+            value={transaction?.inputs.map((input) => (
+              <KaspaAddress copy qr link value={input.previous_outpoint_address} />
+            ))}
           />
           <FieldName name="To" />
           <FieldValue
-            value={
-              <>
-                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
-                <br />
-                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
-                <br />
-                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
-                <br />
-                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
-                <br />
-                <span>kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022</span>
-              </>
-            }
+            value={transaction?.outputs.map((output) => (
+              <KaspaAddress copy qr link value={output.script_public_key_address} />
+            ))}
           />
         </div>
       </div>
@@ -125,64 +134,72 @@ export default function TransactionDetails() {
           </NavLink>
         </div>
 
-        {isTabActive("general") && (
+        {isTabActive("general") && transaction && (
           <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
             <FieldName name="Transaction ID" />
-            <FieldValue value="c071097c901709c70197c9017c0971097109c71907c1097c0917c097" />
+            <FieldValue value={<KasLink to={transaction.transaction_id} linkType="transaction" />} />
             <FieldName name="Subnetwork ID" />
-            <FieldValue value={"0".repeat(32)} />
+            <FieldValue value={transaction.subnetwork_id} />
             <FieldName name="Status" />
             <FieldValue
               value={
                 <div className="flex flex-row items-center gap-x-1">
-                  <Accepted />
-                  <span>470 confirmations</span>
-                  <ClockLoader className="h-4 w-4" />
+                  {transaction.is_accepted ? <Accepted /> : <NotAccepted />}
+                  {confirmations < 86400 ? (
+                    <span className="flex flex-row items-center gap-x-1">
+                      {confirmations} confirmations
+                      <ClockLoader className="h-4 w-4" />
+                    </span>
+                  ) : (
+                    <Confirmed />
+                  )}
                 </div>
               }
             />
             {/*horizontal rule*/}
             <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Hash" />
-            <FieldValue value="cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db" />
+            <FieldValue value={transaction.hash} />
             <FieldName name="Compute mass" />
-            <FieldValue value="2036" />
+            <FieldValue value={transaction.mass} />
             {/*horizontal rule*/}
             <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Block hashes" />
             <FieldValue
-              value={
-                <>
-                  <span>cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db</span>
-                  <br />
-                  <span>cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db</span>
-                </>
-              }
+              value={transaction.block_hash.map((blockHash) => (
+                <div>
+                  <KasLink linkType="block" to={blockHash} />
+                </div>
+              ))}
             />
             <FieldName name="Block time" />
             <FieldValue
               value={
                 <>
                   <div className="flex flex-col">
-                    <span>20 minutes ago</span>
-                    <span className="text-sm text-gray-500">Dec 14 2024 14:13:22</span>
+                    <span>{blockTime.fromNow()}</span>
+                    <span className="text-sm text-gray-500">{blockTime.format("ll LTS")}</span>
                   </div>
                 </>
               }
             />
             <FieldName name="Accepting block hash" />
-            <FieldValue value="cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f0226a7db" />
-            {/*horizontal rule*/}
-            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Transaction fee" />
-            <FieldValue
-              value={
-                <>
-                  <span>0.00002036</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
+            <FieldValue value={<KasLink linkType="block" to={transaction.accepting_block_hash} />} />
+            {transaction.inputs.length > 0 && (
+              <>
+                <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
+                <FieldName name="Transaction fee" />
+                <FieldValue
+                  value={
+                    <>
+                      <span>{fee}</span>
+                      <span className="text-gray-500"> KAS</span>
+                      <div>{numeral(fee * (marketData?.price || 0)).format("$0,0.00000000")}</div>
+                    </>
+                  }
+                />
+              </>
+            )}
           </div>
         )}
 
@@ -397,7 +414,7 @@ export default function TransactionDetails() {
 const FieldName = ({ name }: { name: string }) => (
   <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
     <div className="flex flex-row items-center">
-      <Info className="mr-1 h-4 w-4" />
+      <InfoIcon className="mr-1 h-4 w-4" />
       <span>{name}</span>
     </div>
   </div>

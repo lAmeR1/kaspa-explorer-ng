@@ -29,6 +29,10 @@ const KaspaAddress = ({
     setTimeout(() => setClicked(false), 1000);
   };
 
+  if (!value) {
+    return <></>;
+  }
+
   return (
     <div className="grid grid-cols-[auto_1fr] overflow-hidden text-ellipsis">
       <span className="overflow-hidden text-ellipsis">

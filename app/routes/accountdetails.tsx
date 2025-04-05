@@ -6,7 +6,7 @@ import type { Route } from "./+types/accountdetails";
 import numeral from "numeral";
 import { useContext } from "react";
 import { NavLink, useLocation } from "react-router";
-import Accepted from "~/Accepted";
+import { Accepted } from "~/Accepted";
 import KaspaAddress from "~/KaspaAddress";
 import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useAccountBalance } from "~/hooks/useAccountBalance";

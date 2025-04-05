@@ -3,7 +3,7 @@ import Box from "../assets/box.svg";
 import Info from "../assets/info.svg";
 import type { Route } from "./+types/blockdetails";
 import { Link } from "react-router";
-import Accepted from "~/Accepted";
+import { Accepted } from "~/Accepted";
 import { useBlockById } from "~/hooks/useBlockById";
 
 export async function loader({ params }: Route.LoaderArgs) {
