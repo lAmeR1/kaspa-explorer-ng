@@ -12,7 +12,6 @@ import { useContext } from "react";
 import { NavLink, useLocation } from "react-router";
 import { Accepted, Confirmed, NotAccepted } from "~/Accepted";
 import KasLink from "~/KasLink";
-import KaspaAddress from "~/KaspaAddress";
 import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useTransactionById } from "~/hooks/useTansactionById";
 import { useVirtualChainBlueScore } from "~/hooks/useVirtualChainBlueScore";
@@ -61,7 +60,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
   const confirmations = (virtualChainBlueScore?.blueScore || 0) - (transaction?.accepting_block_blue_score || 0);
   const transactionSum = transaction.outputs.reduce((sum, output) => sum + output.amount, 0);
   const displaySum = numeral((transactionSum || 0) / 1_0000_0000).format("0,0.00[000000]");
-  const inputSum = transaction?.inputs.reduce((sum, input) => sum + input.previous_outpoint_amount, 0);
+  const inputSum = transaction?.inputs?.reduce((sum, input) => sum + input.previous_outpoint_amount, 0) || 0;
 
   const blockTime = dayjs(transaction?.block_time);
 
@@ -90,14 +89,14 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="From" />
           <FieldValue
-            value={transaction?.inputs.map((input) => (
-              <KaspaAddress copy qr link value={input.previous_outpoint_address} />
+            value={(transaction?.inputs || []).map((input) => (
+              <KasLink linkType="address" copy qr link to={input.previous_outpoint_address} />
             ))}
           />
           <FieldName name="To" />
           <FieldValue
             value={transaction?.outputs.map((output) => (
-              <KaspaAddress copy qr link value={output.script_public_key_address} />
+              <KasLink linkType="address" copy qr link to={output.script_public_key_address} />
             ))}
           />
         </div>
@@ -106,7 +105,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
       <div className="flex w-full flex-col gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-black sm:p-8">
         <div className="mr-auto flex w-auto flex-row items-center justify-around gap-x-1 rounded-full bg-gray-50 p-1 px-1">
           <NavLink
-            to="/transactions/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7?tab=general"
+            to={`/transactions/${loaderData.transactionId}?tab=general`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("general") ? "bg-white" : ""}`
@@ -115,7 +114,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
             General information
           </NavLink>
           <NavLink
-            to="/transactions/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7?tab=inputs"
+            to={`/transactions/${loaderData.transactionId}?tab=inputs`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("inputs") ? "bg-white" : ""}`
@@ -124,7 +123,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
             Inputs
           </NavLink>
           <NavLink
-            to="/transactions/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7?tab=outputs"
+            to={`/transactions/${loaderData.transactionId}?tab=outputs`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("outputs") ? "bg-white" : ""}`
@@ -137,7 +136,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
         {isTabActive("general") && transaction && (
           <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
             <FieldName name="Transaction ID" />
-            <FieldValue value={<KasLink to={transaction.transaction_id} linkType="transaction" />} />
+            <FieldValue value={<KasLink copy to={transaction.transaction_id} linkType="transaction" />} />
             <FieldName name="Subnetwork ID" />
             <FieldValue value={transaction.subnetwork_id} />
             <FieldName name="Status" />
@@ -161,14 +160,14 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
             <FieldName name="Hash" />
             <FieldValue value={transaction.hash} />
             <FieldName name="Compute mass" />
-            <FieldValue value={transaction.mass} />
+            <FieldValue value={inputSum === 0 ? 0 : transaction.mass} />
             {/*horizontal rule*/}
             <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Block hashes" />
             <FieldValue
               value={transaction.block_hash.map((blockHash) => (
                 <div>
-                  <KasLink linkType="block" to={blockHash} />
+                  <KasLink linkType="block" link to={blockHash} />
                 </div>
               ))}
             />
@@ -184,8 +183,8 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
               }
             />
             <FieldName name="Accepting block hash" />
-            <FieldValue value={<KasLink linkType="block" to={transaction.accepting_block_hash} />} />
-            {transaction.inputs.length > 0 && (
+            <FieldValue value={<KasLink link linkType="block" to={transaction.accepting_block_hash} />} />
+            {(transaction.inputs || []).length > 0 && (
               <>
                 <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
                 <FieldName name="Transaction fee" />
@@ -194,7 +193,9 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                     <>
                       <span>{fee}</span>
                       <span className="text-gray-500"> KAS</span>
-                      <div>{numeral(fee * (marketData?.price || 0)).format("$0,0.00000000")}</div>
+                      <div className="text-sm text-gray-500">
+                        {numeral(fee * (marketData?.price || 0)).format("$0,0.[00000000]")}
+                      </div>
                     </>
                   }
                 />

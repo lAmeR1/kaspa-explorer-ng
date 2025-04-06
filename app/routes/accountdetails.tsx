@@ -7,7 +7,7 @@ import numeral from "numeral";
 import { useContext } from "react";
 import { NavLink, useLocation } from "react-router";
 import { Accepted } from "~/Accepted";
-import KaspaAddress from "~/KaspaAddress";
+import KasLink from "~/KasLink";
 import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useAccountBalance } from "~/hooks/useAccountBalance";
 import { useAccountTxCount } from "~/hooks/useAccountTxCount";
@@ -77,7 +77,7 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
 
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="Address" />
-          <FieldValue value={<KaspaAddress copy link qr value={loaderData.address} />} />
+          <FieldValue value={<KasLink linkType="address" copy link qr to={loaderData.address} />} />
           <FieldName name="Transactions" />
           <FieldValue
             value={

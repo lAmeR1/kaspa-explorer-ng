@@ -10,6 +10,8 @@ export const useTransactionById = (transactionId: string) =>
       );
       return data as TransactionData;
     },
+    enabled: !!transactionId,
+    retry: false,
   });
 
 export interface TransactionData {

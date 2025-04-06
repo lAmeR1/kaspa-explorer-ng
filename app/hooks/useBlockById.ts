@@ -8,6 +8,8 @@ export const useBlockById = (blockId: string) =>
       const { data } = await axios.get(`https://api.kaspa.org/blocks/${blockId}?includeColor=true`);
       return data as BlockData;
     },
+    enabled: !!blockId,
+    retry: false,
   });
 
 interface BlockData {
