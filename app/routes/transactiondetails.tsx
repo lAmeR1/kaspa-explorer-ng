@@ -39,6 +39,8 @@ export function meta() {
 
 export default function TransactionDetails({ loaderData }: Route.ComponentProps) {
   const location = useLocation();
+  const isTabActive = (tab: string) => (new URLSearchParams(location.search).get("tab") || "general") === tab;
+
   const { data: transaction } = useTransactionById(loaderData.transactionId);
   const { data: virtualChainBlueScore } = useVirtualChainBlueScore();
   const marketData = useContext(MarketDataContext);
@@ -47,19 +49,10 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
     return <>Loading Transaction</>;
   }
 
-  const isTabActive = (tab: string) => {
-    const params = new URLSearchParams(location.search); // Lesen der Query-Parameter
-
-    if (tab === "general" && params.get("tab") === null) {
-      return true;
-    }
-
-    return params.get("tab") === tab;
-  };
-
   const confirmations = (virtualChainBlueScore?.blueScore || 0) - (transaction?.accepting_block_blue_score || 0);
   const transactionSum = transaction.outputs.reduce((sum, output) => sum + output.amount, 0);
-  const displaySum = numeral((transactionSum || 0) / 1_0000_0000).format("0,0.00[000000]");
+  const displayKAS = (x: number) => numeral((x || 0) / 1_0000_0000).format("0,0.00[000000]");
+  const displaySum = displayKAS(transactionSum);
   const inputSum = transaction?.inputs?.reduce((sum, input) => sum + input.previous_outpoint_amount, 0) || 0;
 
   const blockTime = dayjs(transaction?.block_time);
@@ -206,205 +199,71 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
 
         {isTabActive("inputs") && (
           <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
-            <FieldName name="Signature Op Count" />
-            <FieldValue value="1" />
-            <FieldName name="Signature Script" />
-            <FieldValue value={"14122242".repeat(8)} />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Previous Outpoint Index" />
-            <FieldValue value="#2" />
-            <FieldName name="Hash" />
-            <FieldValue value="3eaa150bc6300ca0fe8fa6a2724f832a37e963a0399850177151a72461e16ea2" />
-            <FieldName name="Address" />
-            <FieldValue value="kaspa:qzapfmt7zeh0rzakhrce72rfm6c3r06nw6vxx6e8qjlxntdw7zcaxajep8w82" />
-            {/*horizontal rule*/}
-            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Signature Op Count" />
-            <FieldValue value="1" />
-            <FieldName name="Signature Script" />
-            <FieldValue value={"14122242".repeat(8)} />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Previous Outpoint Index" />
-            <FieldValue value="#2" />
-            <FieldName name="Hash" />
-            <FieldValue value="3eaa150bc6300ca0fe8fa6a2724f832a37e963a0399850177151a72461e16ea2" />
-            <FieldName name="Address" />
-            <FieldValue value="kaspa:qzapfmt7zeh0rzakhrce72rfm6c3r06nw6vxx6e8qjlxntdw7zcaxajep8w82" />
-            {/*horizontal rule*/}
-            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Signature Op Count" />
-            <FieldValue value="1" />
-            <FieldName name="Signature Script" />
-            <FieldValue value={"14122242".repeat(8)} />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Previous Outpoint Index" />
-            <FieldValue value="#2" />
-            <FieldName name="Hash" />
-            <FieldValue value="3eaa150bc6300ca0fe8fa6a2724f832a37e963a0399850177151a72461e16ea2" />
-            <FieldName name="Address" />
-            <FieldValue value="kaspa:qzapfmt7zeh0rzakhrce72rfm6c3r06nw6vxx6e8qjlxntdw7zcaxajep8w82" />
-            {/*horizontal rule*/}
-            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Signature Op Count" />
-            <FieldValue value="1" />
-            <FieldName name="Signature Script" />
-            <FieldValue value={"14122242".repeat(8)} />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Previous Outpoint Index" />
-            <FieldValue value="#2" />
-            <FieldName name="Hash" />
-            <FieldValue value="3eaa150bc6300ca0fe8fa6a2724f832a37e963a0399850177151a72461e16ea2" />
-            <FieldName name="Address" />
-            <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
+            {(transaction.inputs || []).map((input, index) => (
+              <>
+                <FieldName name="Signature Op Count" />
+                <FieldValue value={input.sig_op_count} />
+                <FieldName name="Signature Script" />
+                <FieldValue value={input.signature_script} />
+                <FieldName name="Amount" />
+                <FieldValue
+                  value={
+                    <>
+                      <span>
+                        {displayKAS(input.previous_outpoint_amount).split(".")[0]}.
+                        <span className="self-end pb-[0.4rem] text-sm">
+                          {displayKAS(input.previous_outpoint_amount).split(".")[1]}
+                        </span>
+                      </span>
+                      <span className="text-gray-500"> KAS</span>
+                    </>
+                  }
+                />
+                <FieldName name="Outpoint Index" />
+                <FieldValue value={`#${input.previous_outpoint_index}`} />
+                <FieldName name="Outpoint Hash" />
+                <FieldValue value={<KasLink linkType="transaction" link to={input.previous_outpoint_hash} />} />
+                <FieldName name="Outpoint Address" />
+                <FieldValue value={<KasLink linkType="address" link to={input.previous_outpoint_address} />} />
+                {/*horizontal rule*/}
+                {index + 1 < (transaction.inputs || []).length && (
+                  <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
+                )}
+              </>
+            ))}
           </div>
         )}
 
         {isTabActive("outputs") && (
           <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
-            <FieldName name="Index" />
-            <FieldValue value="1" />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Script Public Key Type" />
-            <FieldValue value="scripthash" />
-            <FieldName name="Script Public Key" />
-            <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187" />
-            <FieldName name="Script Public Key Address" />
-            <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
-            {/*horizontal rule*/}
-            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Index" />
-            <FieldValue value="1" />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Script Public Key Type" />
-            <FieldValue value="scripthash" />
-            <FieldName name="Script Public Key" />
-            <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187" />
-            <FieldName name="Script Public Key Address" />
-            <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
-            {/*horizontal rule*/}
-            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Index" />
-            <FieldValue value="1" />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Script Public Key Type" />
-            <FieldValue value="scripthash" />
-            <FieldName name="Script Public Key" />
-            <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187" />
-            <FieldName name="Script Public Key Address" />
-            <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
-            {/*horizontal rule*/}
-            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Index" />
-            <FieldValue value="1" />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Script Public Key Type" />
-            <FieldValue value="scripthash" />
-            <FieldName name="Script Public Key" />
-            <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187" />
-            <FieldName name="Script Public Key Address" />
-            <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
-            {/*horizontal rule*/}
-            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Index" />
-            <FieldValue value="1" />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Script Public Key Type" />
-            <FieldValue value="scripthash" />
-            <FieldName name="Script Public Key" />
-            <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187" />
-            <FieldName name="Script Public Key Address" />
-            <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
-            {/*horizontal rule*/}
-            <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Index" />
-            <FieldValue value="1" />
-            <FieldName name="Amount" />
-            <FieldValue
-              value={
-                <>
-                  <span>14,123.24045</span>
-                  <span className="text-gray-500"> KAS</span>
-                </>
-              }
-            />
-            <FieldName name="Script Public Key Type" />
-            <FieldValue value="scripthash" />
-            <FieldName name="Script Public Key" />
-            <FieldValue value="aa20d931af57ebd107c6d89a75e187c3a4c8fc2dc198a47b707cc76936d0a53addf187" />
-            <FieldName name="Script Public Key Address" />
-            <FieldValue value="kaspa:cec522ca95cd595b2e0dfb29e59fb53d93863330fe745e2698aa1f9f022" />
+            {(transaction.outputs || []).map((output, index) => (
+              <>
+                <FieldName name="Index" />
+                <FieldValue value={output.index || "0"} />
+                <FieldName name="Amount" />
+                <FieldValue
+                  value={
+                    <>
+                      <span>
+                        {displayKAS(output.amount).split(".")[0]}.
+                        <span className="self-end pb-[0.4rem] text-sm">{displayKAS(output.amount).split(".")[1]}</span>
+                      </span>
+                      <span className="text-gray-500"> KAS</span>
+                    </>
+                  }
+                />
+                <FieldName name="Script Public Key Type" />
+                <FieldValue value={output.script_public_key_type} />
+                <FieldName name="Script Public Key" />
+                <FieldValue value={output.script_public_key} />
+                <FieldName name="Script Public Key Address" />
+                <FieldValue value={<KasLink linkType="address" link to={output.script_public_key_address} />} />
+                {/*horizontal rule*/}
+                {index + 1 < (transaction.outputs || []).length && (
+                  <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
+                )}
+              </>
+            ))}
           </div>
         )}
       </div>
