@@ -4,7 +4,7 @@ import Logo from "./Logo";
 import Price from "./Price";
 import SearchBox from "./SearchBox";
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import DesktopMenu from "~/header/DesktopMenu";
 import MobileMenu from "~/header/MobileMenu";
 
@@ -17,6 +17,7 @@ const Header = ({
   ref?: React.RefObject<HTMLDivElement>;
 }) => {
   const [searchValue, setSearchValue] = useState("");
+  const location = useLocation();
 
   return (
     <div
@@ -29,10 +30,10 @@ const Header = ({
         </NavLink>
         <Price />
 
-        {typeof window !== "undefined" && window.location.pathname !== "/" && (
+        {location.pathname !== "/" && (
           <SearchBox
             value={searchValue}
-            className="hidden lg:mr-8 lg:ml-4 lg:flex"
+            className="hidden max-w-128 lg:mr-8 lg:ml-4 lg:flex"
             onChange={setSearchValue}
           />
         )}
@@ -46,22 +47,13 @@ const Header = ({
         </div>
       </div>
 
-      {!expanded &&
-        typeof window !== "undefined" &&
-        window.location.pathname !== "/" && (
-          <div className="mx-6 mt-4 lg:hidden">
-            <SearchBox
-              value={searchValue}
-              className="w-full"
-              onChange={setSearchValue}
-            />
-          </div>
-        )}
+      {!expanded && typeof window !== "undefined" && window.location.pathname !== "/" && (
+        <div className="mx-6 mt-4 lg:hidden">
+          <SearchBox value={searchValue} className="w-full" onChange={setSearchValue} />
+        </div>
+      )}
 
-      <MobileMenu
-        showMenu={expanded}
-        onCloseRequest={() => setExpanded(false)}
-      />
+      <MobileMenu showMenu={expanded} onCloseRequest={() => setExpanded(false)} />
     </div>
   );
 };

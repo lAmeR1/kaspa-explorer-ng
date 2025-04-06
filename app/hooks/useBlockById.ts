@@ -5,7 +5,7 @@ export const useBlockById = (blockId: string) =>
   useQuery({
     queryKey: ["block", { blockId }],
     queryFn: async () => {
-      const { data } = await axios.get(`https://api.kaspa.org/blocks/${blockId}`);
+      const { data } = await axios.get(`https://api.kaspa.org/blocks/${blockId}?includeColor=true`);
       return data as BlockData;
     },
   });

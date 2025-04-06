@@ -1,11 +1,14 @@
 import type { Route } from "./+types/root";
 import "./app.css";
+import ErrorIcon from "./assets/error.svg";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import Info from "~/assets/info.svg";
 import { MarketDataProvider } from "~/context/MarketDataProvider";
 import Footer from "~/footer/Footer";
 import Header from "~/header/Header";
+import MainBox from "~/layout/MainBox";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -21,16 +24,15 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <html lang="en">
       <head>
         <title>Kaspa Explorer</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet" />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap"
           rel="stylesheet"
@@ -40,7 +42,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div className="flex h-screen w-full flex-col items-center justify-start">
-          {children}
+          <QueryClientProvider client={queryClient}>
+            <MarketDataProvider>
+              <Header expanded={expanded} setExpanded={setExpanded} />
+              {!expanded && (
+                <>
+                  <div className="flex w-full max-w-[1600px] grow flex-col items-center justify-start gap-y-2 px-2 py-2">
+                    {children}
+                  </div>
+                  <Footer />
+                </>
+              )}
+            </MarketDataProvider>
+          </QueryClientProvider>
         </div>
         <ScrollRestoration />
         <Scripts />
@@ -49,7 +63,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -59,22 +72,49 @@ const queryClient = new QueryClient({
   },
 });
 
-export default function App() {
-  const [expanded, setExpanded] = useState(false);
-
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  console.log(error);
   return (
-    <QueryClientProvider client={queryClient}>
-      <MarketDataProvider>
-        <Header expanded={expanded} setExpanded={setExpanded} />
-        {!expanded && (
+    <MainBox>
+      <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:grid-cols-[auto_1fr] sm:p-8">
+        <div className="flex flex-row items-center text-2xl sm:col-span-2">
+          <ErrorIcon className="mr-2 h-8 w-8" />
+          Error occured
+        </div>
+
+        <div className="mt-4 text-black sm:col-span-2">Error information</div>
+        {isRouteErrorResponse(error) && (
           <>
-            <div className="flex w-full max-w-[1600px] grow flex-col items-center justify-start gap-y-2 px-2 py-2">
-              <Outlet />
-            </div>
-            <Footer />
+            <FieldName name="Error status" />
+            <FieldValue value={`${error.status} ${error.statusText}`} />
+            <FieldName name="Error data" />
+            <FieldValue value={error.data} />
           </>
         )}
-      </MarketDataProvider>
-    </QueryClientProvider>
+        {error instanceof Error && (
+          <>
+            <FieldName name="Error message" />
+            <FieldValue value={error.message} />
+            <FieldName name="Error stack" />
+            <FieldValue value={error.stack} />
+          </>
+        )}
+      </div>
+    </MainBox>
   );
 }
+
+export default function App() {
+  return <Outlet />;
+}
+
+const FieldName = ({ name }: { name: string }) => (
+  <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
+    <div className="flex flex-row items-center">
+      <Info className="mr-1 h-4 w-4" />
+      <span>{name}</span>
+    </div>
+  </div>
+);
+
+const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span className="overflow-hidden">{value}</span>;

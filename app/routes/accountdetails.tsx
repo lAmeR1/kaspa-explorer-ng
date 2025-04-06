@@ -12,9 +12,16 @@ import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useAccountBalance } from "~/hooks/useAccountBalance";
 import { useAccountTxCount } from "~/hooks/useAccountTxCount";
 import { useAccountUtxos } from "~/hooks/useAccountUtxos";
+import { isValidKaspaAddressSyntax } from "~/utils/kaspa";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const address = params.address;
+
+  if (!isValidKaspaAddressSyntax(address))
+    throw new Response(`Kaspa address ${address} doesn't follow the kaspa address schema.`, { status: 400 });
+
+  // todo: check real validity of address?
+
   return { address };
 }
 
@@ -31,11 +38,14 @@ export function meta() {
 
 export default function Accountdetails({ loaderData }: Route.ComponentProps) {
   const location = useLocation();
-  const { data } = useAccountBalance(loaderData.address);
+  const { data, isError } = useAccountBalance(loaderData.address);
   const { data: utxoData } = useAccountUtxos(loaderData.address);
   const { data: txCount } = useAccountTxCount(loaderData.address);
-
   const marketData = useContext(MarketDataContext);
+
+  if (isError) {
+    return <div>ERROR! Loading...</div>;
+  }
 
   const isTabActive = (tab: string) => {
     const params = new URLSearchParams(location.search);
