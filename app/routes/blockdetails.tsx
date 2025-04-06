@@ -8,6 +8,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Link } from "react-router";
 import { Accepted } from "~/Accepted";
+import KasLink from "~/KasLink";
 import { useBlockById } from "~/hooks/useBlockById";
 
 dayjs().locale("en");
@@ -52,7 +53,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
 
         <div className="mt-4 text-black sm:col-span-2">Main information</div>
         <FieldName name="Block Hash" />
-        <FieldValue value={loaderData.blockId} />
+        <FieldValue value={<KasLink linkType="block" copy to={loaderData.blockId} />} />
         <FieldName name="Blue score" />
         <FieldValue value={block?.header.blueScore} />
         <FieldName name="Bits" />
@@ -77,9 +78,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <FieldValue
           value={block?.header.parents[0].parentHashes.map((parentHash) => (
             <div>
-              <Link className="hover:text-primary" to={`/blocks/${parentHash}`}>
-                {parentHash}
-              </Link>
+              <KasLink linkType="block" link to={`${parentHash}`} />
             </div>
           ))}
         />
@@ -87,9 +86,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <FieldValue
           value={block?.verboseData.childrenHashes.map((child) => (
             <div>
-              <Link className="hover:text-primary" to={`/blocks/${child}`}>
-                {child}
-              </Link>
+              <KasLink linkType="block" link to={`${child}`} />
             </div>
           ))}
         />
@@ -112,7 +109,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
         <div className="text-black sm:col-span-2">Additional data</div>
         <FieldName name="Pruning point" />
-        <FieldValue value={block?.header.pruningPoint} />
+        <FieldValue value={<KasLink linkType="block" link to={block?.header.pruningPoint || ""} />} />
         {block?.extra?.minerInfo && (
           <>
             <FieldName name="Miner info" />
