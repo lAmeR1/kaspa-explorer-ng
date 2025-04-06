@@ -1,6 +1,5 @@
-import numeral from "numeral";
-
 import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
+import numeral from "numeral";
 import { Link } from "react-router";
 import Card from "~/layout/Card";
 import CardContainer from "~/layout/CardContainer";
@@ -9,7 +8,7 @@ import MainBox from "~/layout/MainBox";
 
 export function meta() {
   return [
-    { title: "Kaspa Explorer - Accounts" },
+    { title: "Kaspa Explorer - Addresses" },
     {
       name: "description",
       content: "",
@@ -17,31 +16,19 @@ export function meta() {
   ];
 }
 
-export default function Accounts() {
+export default function Addresses() {
   return (
     <>
       <MainBox>
-        <CardContainer title="Accounts">
-          <Card
-            title="Number of accounts"
-            value={`${numeral(1541252).format("0,")}`}
-            subtext="with at least 1 KAS"
-          />
-          <Card
-            title="Top 10 addresses"
-            value={`${numeral(0).format("0.[00]")}%`}
-            subtext="of circulating supply"
-          />
+        <CardContainer title="Addresses">
+          <Card title="Number of addresses" value={`${numeral(1541252).format("0,")}`} subtext="with at least 1 KAS" />
+          <Card title="Top 10 addresses" value={`${numeral(0).format("0.[00]")}%`} subtext="of circulating supply" />
           <Card
             title="Top 100 addresses"
             value={`${numeral(34.245).format("0.[00]")}%`}
             subtext="of circulating supply"
           />
-          <Card
-            title="Top 1000 addresses"
-            value={`${numeral(58.2).format("0.0")}`}
-            subtext="of circulating supply"
-          />
+          <Card title="Top 1000 addresses" value={`${numeral(58.2).format("0.0")}`} subtext="of circulating supply" />
         </CardContainer>
       </MainBox>
 
@@ -58,17 +45,12 @@ export default function Accounts() {
           </thead>
           <tbody>
             {[...Array(100)].map((_, index) => (
-              <tr
-                key={index}
-                className="border-t border-gray-100 text-base text-black"
-              >
+              <tr key={index} className="border-t border-gray-100 text-base text-black">
                 <td className="pr-2 text-nowrap">{index + 1}</td>
                 <td className="text-link pr-2 font-mono">
                   <span className="">
-                    <Link to="/accounts/kaspa:qyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3">
-                      {
-                        "kaspa:qyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3"
-                      }
+                    <Link to="/addresses/kaspa:qyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3">
+                      {"kaspa:qyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3"}
                     </Link>
                   </span>
                 </td>
@@ -88,9 +70,8 @@ export default function Accounts() {
       </div>
       <FooterHelper icon={AccountBalanceWallet}>
         <span className="text-sm">
-          An account is a unique identifier on the blockchain used to send,
-          receive, and store assets or data. It holds balances and interacts
-          with the network securely.
+          An address is a unique identifier on the blockchain used to send, receive, and store assets or data. It holds
+          balances and interacts with the network securely.
         </span>
       </FooterHelper>
     </>

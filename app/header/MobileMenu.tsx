@@ -19,10 +19,10 @@ const MobileMenu = ({ showMenu, onCloseRequest }: Props) => {
   return (
     showMenu && (
       <div className="flex flex-col sm:hidden">
-        <MenuItem name="BlockDAG" expandable={true}>
+        <MenuItem name="Explore" expandable={true}>
           <MenuItem name="Blocks" linkTo="/blocks" indent />
           <MenuItem name="Transactions" linkTo="/transactions" indent />
-          <MenuItem name="Accounts" linkTo="/accounts" indent />
+          <MenuItem name="Addresses" linkTo="/addresses" indent />
         </MenuItem>
         <MenuItem name="Assets" />
         <MenuItem name="Analytics" />

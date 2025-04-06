@@ -120,7 +120,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
               value={
                 <>
                   <div className="text-link">
-                    <Link to={`/accounts/${block.extra.minerAddress}`}>{block.extra.minerAddress}</Link>
+                    <Link to={`/addresses/${block.extra.minerAddress}`}>{block.extra.minerAddress}</Link>
                   </div>
                   <div className="text-sm text-gray-500">{block.extra.minerInfo}</div>
                 </>

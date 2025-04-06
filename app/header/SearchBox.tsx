@@ -49,7 +49,7 @@ const SearchBox = (props: Props) => {
     setSearchHashValue("");
 
     if (isValidKaspaAddressSyntax(searchValue)) {
-      navigateAndReset(`/accounts/${searchValue}`);
+      navigateAndReset(`/addresses/${searchValue}`);
     } else if (isValidHashSyntax(searchValue)) {
       setSearchHashValue(searchValue);
     } else {

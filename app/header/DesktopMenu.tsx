@@ -1,5 +1,4 @@
 import ChevronUp from "../assets/chevron-up.svg";
-
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 
@@ -17,8 +16,8 @@ const MAIN_MENU = [
         linkTo: "/transactions",
       },
       {
-        name: "Accounts",
-        linkTo: "/accounts",
+        name: "Addresses",
+        linkTo: "/addresses",
       },
     ],
   },
@@ -62,13 +61,8 @@ const MenuItem = (props: MenuItemProps) => {
           <HiddenDiv />
           <div className="absolute left-1/2 z-2 mt-4 hidden w-48 -translate-x-1/2 flex-col rounded-2xl bg-white p-4 text-black shadow-[0px_4px_32px_0px] shadow-[#00000012] group-hover:flex">
             {props.children.map((menuItem) => (
-              <NavLink
-                to={menuItem.linkTo}
-                onClick={() => setMenuEnabled(false)}
-              >
-                <div className="hover:bg-gray-25 w-full p-2">
-                  {menuItem.name}
-                </div>
+              <NavLink to={menuItem.linkTo} onClick={() => setMenuEnabled(false)}>
+                <div className="hover:bg-gray-25 w-full p-2">{menuItem.name}</div>
               </NavLink>
             ))}
           </div>

@@ -18,7 +18,7 @@ interface KasLinkProps {
 const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
   transaction: "/transactions/",
   block: "/blocks/",
-  address: "/accounts/",
+  address: "/addresses/",
 };
 
 const KasLink = ({ to, className, linkType, copy, qr, link }: KasLinkProps) => {

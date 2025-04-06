@@ -7,12 +7,7 @@ import { Link } from "react-router";
 const Footer = () => {
   return (
     <div className="sm:text-md mt-auto flex w-full flex-col items-start rounded-t-4xl bg-black px-4 pb-6 text-sm text-white sm:px-24 sm:pb-6">
-      <svg
-        className="w-40 pt-12 sm:pt-14"
-        viewBox="0 0 199 40"
-        fill="white"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg className="w-40 pt-12 sm:pt-14" viewBox="0 0 199 40" fill="white" xmlns="http://www.w3.org/2000/svg">
         <g id="logo">
           <path
             id="Union"
@@ -39,9 +34,7 @@ const Footer = () => {
 
       <div className="flex w-full flex-row justify-start pt-9 text-gray-500">
         <span>Explore</span>
-        <span className="ms-auto hidden sm:block">
-          Help improve the service
-        </span>
+        <span className="ms-auto hidden sm:block">Help improve the service</span>
       </div>
       <div className="jusitfy-around mt-1 flex w-full flex-row flex-wrap gap-x-6 gap-y-5 text-white sm:mt-2 sm:gap-x-10">
         <Link to={"/blocks"} className="link-container">
@@ -50,8 +43,8 @@ const Footer = () => {
         <Link to={"/transactions"} className="link-container">
           Transactions
         </Link>
-        <Link to={"/accounts"} className="link-container">
-          Accounts
+        <Link to={"/addresses"} className="link-container">
+          Addresses
         </Link>
         <Link to={"/tokens"} className="link-container">
           Tokens
@@ -71,14 +64,10 @@ const Footer = () => {
         <Github className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
         <Telegram className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
         <Twitter className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
-        <span className="ms-auto hidden text-nowrap sm:block">
-          © 2025 Kaspa Explorer. All rights are reserved
-        </span>
+        <span className="ms-auto hidden text-nowrap sm:block">© 2025 Kaspa Explorer. All rights are reserved</span>
       </div>
 
-      <span className="pt-4 text-nowrap text-gray-500 sm:hidden">
-        © 2025 Kaspa Explorer. All rights are reserved
-      </span>
+      <span className="pt-4 text-nowrap text-gray-500 sm:hidden">© 2025 Kaspa Explorer. All rights are reserved</span>
     </div>
   );
 };

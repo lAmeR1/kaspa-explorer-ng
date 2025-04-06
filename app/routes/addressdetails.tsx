@@ -2,16 +2,16 @@ import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
 import ArrowRight from "../assets/arrow-right.svg";
 import Info from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
-import type { Route } from "./+types/accountdetails";
+import type { Route } from "./+types/addressdetails";
 import numeral from "numeral";
 import { useContext } from "react";
 import { NavLink, useLocation } from "react-router";
 import { Accepted } from "~/Accepted";
 import KasLink from "~/KasLink";
 import { MarketDataContext } from "~/context/MarketDataProvider";
-import { useAccountBalance } from "~/hooks/useAccountBalance";
-import { useAccountTxCount } from "~/hooks/useAccountTxCount";
-import { useAccountUtxos } from "~/hooks/useAccountUtxos";
+import { useAddressBalance } from "~/hooks/useAddressBalance";
+import { useAddressTxCount } from "~/hooks/useAddressTxCount";
+import { useAddressUtxos } from "~/hooks/useAddressUtxos";
 import { isValidKaspaAddressSyntax } from "~/utils/kaspa";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -36,11 +36,11 @@ export function meta() {
   ];
 }
 
-export default function Accountdetails({ loaderData }: Route.ComponentProps) {
+export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const location = useLocation();
-  const { data, isError } = useAccountBalance(loaderData.address);
-  const { data: utxoData } = useAccountUtxos(loaderData.address);
-  const { data: txCount } = useAccountTxCount(loaderData.address);
+  const { data, isError } = useAddressBalance(loaderData.address);
+  const { data: utxoData } = useAddressUtxos(loaderData.address);
+  const { data: txCount } = useAddressTxCount(loaderData.address);
   const marketData = useContext(MarketDataContext);
 
   if (isError) {
@@ -60,7 +60,7 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
       <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left text-black sm:p-8">
         <div className="flex flex-row items-center text-2xl sm:col-span-2">
           <AccountBalanceWallet className="mr-2 h-8 w-8" />
-          <span>Account details</span>
+          <span>Address details</span>
         </div>
 
         <span className="mt-4 mb-0">Balance</span>
@@ -95,7 +95,7 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
       <div className="flex w-full flex-col gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-black sm:p-8">
         <div className="mr-auto flex w-auto flex-row items-center justify-around gap-x-1 rounded-full bg-gray-50 p-1 px-1">
           <NavLink
-            to={`/accounts/${loaderData.address}?tab=transactions`}
+            to={`/addresses/${loaderData.address}?tab=transactions`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("transactions") ? "bg-white" : ""}`
@@ -104,7 +104,7 @@ export default function Accountdetails({ loaderData }: Route.ComponentProps) {
             Transactions
           </NavLink>
           <NavLink
-            to={`/accounts/${loaderData.address}?tab=utxos`}
+            to={`/addresses/${loaderData.address}?tab=utxos`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("utxos") ? "bg-white" : ""}`

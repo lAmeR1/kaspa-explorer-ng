@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useAccountTxCount = (address: string) =>
+export const useAddressTxCount = (address: string) =>
   useQuery({
     queryKey: ["txCount", { address }],
     queryFn: async () => {

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useAccountBalance = (address: string) =>
+export const useAddressBalance = (address: string) =>
   useQuery({
     queryKey: ["addresses", { address }],
     queryFn: async () => {
