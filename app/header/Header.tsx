@@ -1,10 +1,10 @@
 import Close from "../assets/close.svg";
+import LogoIcon from "../assets/logo.svg";
 import Menu from "../assets/menu.svg";
-import Logo from "./Logo";
 import Price from "./Price";
 import SearchBox from "./SearchBox";
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import DesktopMenu from "~/header/DesktopMenu";
 import MobileMenu from "~/header/MobileMenu";
 
@@ -22,12 +22,12 @@ const Header = ({
   return (
     <div
       id="header"
-      className={`flex w-full flex-col items-stretch rounded-b-4xl bg-white py-4 transition-all duration-600 ${expanded ? "h-[100vh] overflow-hidden rounded-b-none sm:h-auto sm:rounded-b-4xl" : ""}`}
+      className={`flex w-full flex-col items-stretch rounded-b-4xl bg-white px-2 py-4 transition-all duration-600 ${expanded ? "h-[100vh] overflow-hidden rounded-b-none sm:h-auto sm:rounded-b-4xl" : ""}`}
     >
-      <div className="md:text-md flex w-full flex-row items-center px-6 text-sm">
-        <NavLink to={"/"}>
-          <Logo />
-        </NavLink>
+      <div className="md:text-md flex w-full flex-row items-center text-sm">
+        <Link to={"/"}>
+          <LogoIcon className="md:w- ms-4 h-7 w-35 md:h-10 md:w-50" />
+        </Link>
         <Price />
 
         {location.pathname !== "/" && (
