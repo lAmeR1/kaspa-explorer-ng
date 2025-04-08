@@ -20,8 +20,8 @@ export function meta() {
 }
 
 export default function Blocks() {
-  const { data: blockDagInfo } = useBlockdagInfo();
-  const { data: blockReward } = useBlockReward();
+  const { data: blockDagInfo, isLoading: isLoadingBlockDagInfo } = useBlockdagInfo();
+  const { data: blockReward, isLoading: isLoadingBlockReward } = useBlockReward();
 
   return (
     <>
