@@ -4,10 +4,11 @@ import Info from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 import type { Route } from "./+types/addressdetails";
 import numeral from "numeral";
-import { useContext } from "react";
+import React, { type ReactNode, useContext } from "react";
 import { NavLink, useLocation } from "react-router";
 import { Accepted } from "~/Accepted";
 import KasLink from "~/KasLink";
+import Spinner from "~/Spinner";
 import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useAddressBalance } from "~/hooks/useAddressBalance";
 import { useAddressTxCount } from "~/hooks/useAddressTxCount";
@@ -38,9 +39,9 @@ export function meta() {
 
 export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const location = useLocation();
-  const { data, isError } = useAddressBalance(loaderData.address);
-  const { data: utxoData } = useAddressUtxos(loaderData.address);
-  const { data: txCount } = useAddressTxCount(loaderData.address);
+  const { data, isError, isLoading: isLoadingAddressBalance } = useAddressBalance(loaderData.address);
+  const { data: utxoData, isLoading: isLoadingUtxoData } = useAddressUtxos(loaderData.address);
+  const { data: txCount, isLoading: isLoadingTxCount } = useAddressTxCount(loaderData.address);
   const marketData = useContext(MarketDataContext);
 
   if (isError) {
@@ -55,6 +56,8 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
 
   const balance = numeral((data?.balance || 0) / 1_0000_0000).format("0,0.00[000000]");
 
+  const LoadingSpinner = () => <Spinner className="h-5 w-5" />;
+
   return (
     <>
       <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left text-black sm:p-8">
@@ -66,7 +69,10 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         <span className="mt-4 mb-0">Balance</span>
 
         <span className="flex flex-row items-center text-[32px]">
-          {balance.split(".")[0]}.<span className="self-end pb-[0.4rem] text-2xl">{balance.split(".")[1]}</span>
+          {balance.split(".")[0]}.
+          <span className="self-end pb-[0.4rem] text-2xl">
+            {!isLoadingAddressBalance ? balance.split(".")[1] : <LoadingSpinner />}
+          </span>
           <Kaspa className="fill-primary ml-1 h-8 w-8" />
         </span>
         <span className="ml-1 text-sm text-gray-500">
@@ -81,14 +87,18 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
           <FieldName name="Transactions" />
           <FieldValue
             value={
-              <>
-                {txCount?.limit_exceeded && "> "}
-                {txCount?.total || 0}
-              </>
+              !isLoadingTxCount ? (
+                <>
+                  {txCount?.limit_exceeded && "> "}
+                  {txCount?.total || 0}
+                </>
+              ) : (
+                <LoadingSpinner />
+              )
             }
           />
           <FieldName name="UTXOs" />
-          <FieldValue value={utxoData?.length || 0} />
+          <FieldValue value={!isLoadingUtxoData ? utxoData?.length : <LoadingSpinner />} />
         </div>
       </div>
 
