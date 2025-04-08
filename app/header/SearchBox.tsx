@@ -1,8 +1,8 @@
 import Search from "../assets/search.svg";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import Spinner from "~/Spinner";
 import Error from "~/assets/error.svg";
-import Loader from "~/assets/loader.svg";
 import { useBlockById } from "~/hooks/useBlockById";
 import { useTransactionById } from "~/hooks/useTansactionById";
 import { isValidHashSyntax, isValidKaspaAddressSyntax } from "~/utils/kaspa";
@@ -27,6 +27,7 @@ const SearchBox = (props: Props) => {
 
   const navigateAndReset = (to: string) => {
     props.onChange("");
+    setSearchHashValue("");
     navigate(to);
   };
 
@@ -45,7 +46,7 @@ const SearchBox = (props: Props) => {
   }, [txIsError]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    const searchValue = inputFieldRef.current?.value || "";
+    const searchValue = inputFieldRef.current?.value.trim() || "";
     setSearchHashValue("");
 
     if (isValidKaspaAddressSyntax(searchValue)) {
@@ -105,7 +106,7 @@ const SearchBox = (props: Props) => {
         {invalidInput ? (
           <Error className="fill-alert h-5 w-5" />
         ) : isLoading || txIsLoading ? (
-          <Loader className="fill-primary h-5 w-5 animate-spin" />
+          <Spinner className="fill-primary h-5 w-5 animate-spin" />
         ) : (
           "/"
         )}
