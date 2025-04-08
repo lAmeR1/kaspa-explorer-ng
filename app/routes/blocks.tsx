@@ -27,10 +27,18 @@ export default function Blocks() {
     <>
       <MainBox>
         <CardContainer title="Blocks">
-          <Card title="Total blocks" value={`${numeral(blockDagInfo?.virtualDaaScore).format("0,0")}`} />
+          <Card
+            loading={isLoadingBlockDagInfo}
+            title="Total blocks"
+            value={`${numeral(blockDagInfo?.virtualDaaScore).format("0,0")}`}
+          />
           <Card title="Total transactions" value="> 120M" />
           <Card title="Average block time" value={`${numeral(9.92).format("0.00")} s`} />
-          <Card title="Block rewards" value={`${numeral(blockReward?.blockreward).format("0.00")} KAS`} />
+          <Card
+            loading={isLoadingBlockReward}
+            title="Block rewards"
+            value={`${numeral(blockReward?.blockreward).format("0.00")} KAS`}
+          />
         </CardContainer>
       </MainBox>
 
