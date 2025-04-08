@@ -11,6 +11,7 @@ import Trophy from "./assets/trophy.svg";
 import VerifiedUser from "./assets/verified_user.svg";
 import numeral from "numeral";
 import { useState } from "react";
+import Spinner from "~/Spinner";
 import SearchBox from "~/header/SearchBox";
 import { useBlockdagInfo } from "~/hooks/useBlockDagInfo";
 import { useBlockReward } from "~/hooks/useBlockReward";
@@ -22,10 +23,10 @@ const TOTAL_SUPPLY = 28_700_000_000;
 const Dashboard = () => {
   const [search, setSearch] = useState("");
 
-  const { data: blockDagInfo } = useBlockdagInfo();
-  const { data: coinSupply } = useCoinSupply();
-  const { data: blockReward } = useBlockReward();
-  const { data: halving } = useHalving();
+  const { data: blockDagInfo, isLoading: isLoadingBlockDagInfo } = useBlockdagInfo();
+  const { data: coinSupply, isLoading: isLoadingCoinSupply } = useCoinSupply();
+  const { data: blockReward, isLoading: isLoadingBlockReward } = useBlockReward();
+  const { data: halving, isLoading: isLoadingHalving } = useHalving();
 
   return (
     <>
@@ -44,18 +45,21 @@ const Dashboard = () => {
             description="Total blocks"
             value={numeral(blockDagInfo?.virtualDaaScore || 0).format("0,0")}
             icon={<Box className="w-5" />}
+            loading={isLoadingBlockDagInfo}
           />
           <DashboardBox
             description="Total supply"
             value={numeral((coinSupply?.circulatingSupply || 0) / 1_0000_0000).format("0,0")}
             unit="KAS"
             icon={<Coins className="w-5" />}
+            loading={isLoadingCoinSupply}
           />
           <DashboardBox
             description="Mined"
             value={((coinSupply?.circulatingSupply || 0) / TOTAL_SUPPLY / 1000000).toFixed(2)}
             unit="%"
             icon={<Landslide className="w-5" />}
+            loading={isLoadingCoinSupply}
           />
           <DashboardBox description="Average block time" value={"10.0"} unit="s" icon={<Time className="w-5" />} />
           <DashboardBox
@@ -68,11 +72,13 @@ const Dashboard = () => {
             value={(blockReward?.blockreward || 0).toFixed(3)}
             unit="KAS"
             icon={<Trophy className="w-5" />}
+            loading={isLoadingBlockReward}
           />
           <DashboardBox
             description="Reward reduction"
             value={halving?.nextHalvingDate || ""}
             icon={<Swap className="w-5" />}
+            loading={isLoadingHalving}
           />
         </div>
       </div>
@@ -125,6 +131,7 @@ interface DashboardBoxProps {
   description: string;
   value: string | number;
   unit?: string;
+  loading?: boolean;
 }
 
 const DashboardBox = (props: DashboardBoxProps) => {
@@ -135,7 +142,13 @@ const DashboardBox = (props: DashboardBoxProps) => {
         <span className="text-sm text-gray-500">{props.description}</span>
       </div>
       <span className="text-base md:text-lg xl:text-xl">
-        {props.value}
+        {!props.loading ? (
+          props.value
+        ) : (
+          <span>
+            <Spinner className="mr-2 inline h-5 w-5" />
+          </span>
+        )}
         {props.unit ? <span className="text-base text-gray-500"> {props.unit}</span> : ""}
       </span>
     </div>
