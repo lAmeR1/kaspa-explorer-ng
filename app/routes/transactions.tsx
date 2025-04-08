@@ -3,6 +3,7 @@ import numeral from "numeral";
 import { Link } from "react-router";
 import { Accepted } from "~/Accepted";
 import Button from "~/Button";
+import KasLink from "~/KasLink";
 import Card from "~/layout/Card";
 import CardContainer from "~/layout/CardContainer";
 import FooterHelper from "~/layout/FooterHelper";
@@ -37,42 +38,32 @@ export default function Transactions() {
         <HelperBox>
           Blocks and its transactions are arriving with a speed of 10 blocks per second. You can pause the update using
           the button.
-          <Button value={"Pause??"} primary />
+          <Button value={"Pause"} primary />
           <Button value="Ignore coinbase TXs" primary />
         </HelperBox>
 
-        <table className="mt-4">
-          <thead>
-            <tr className="border-b border-gray-100 text-base">
-              <th className="pl-0.5 font-normal">Timestamp</th>
-              <th className="pl-0.5 font-normal">TX ID</th>
-              <th className="pl-0.5 font-normal">Amount</th>
-              <th className="text-right font-normal">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...Array(20)].map((_, index) => (
-              <tr key={index} className="border-b border-gray-100 text-base text-black">
-                <td className="pr-2 text-nowrap">{(index + 1) * 2} second ago</td>
-                <td className="text-link pr-2 font-mono">
-                  <span className="hidden md:table-cell">
-                    <Link to="/transactions/330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7">
-                      {"330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7"}
-                    </Link>
-                  </span>
-                  <span className="xs:table-cell hidden md:hidden">{"330ecb081ea2093ffb...ef667d5fa0ce7dfccd7"}</span>
-                  <span className="xs:hidden table-cell">{"330ecb08...d5fa0ce7dfccd7"}</span>
-                </td>
-                <td className="hidden sm:table-cell">
-                  82.9981<span className="text-sm text-gray-500"> KAS</span>
-                </td>
-                <td className="flex flex-row justify-end py-3 pl-5">
-                  <Accepted />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="d mt-4 grid w-full grid-cols-[auto_2fr_auto] items-center divide-y-1 divide-gray-100">
+          <div className="pl-0.5 text-gray-500">Timestamp</div>
+          <div className="pl-0.5 text-gray-500">TX ID</div>
+          <div className="pl-0.5 text-right text-gray-500">Amount</div>
+
+          {[...Array(20)].map((_, index) => (
+            <>
+              <div className="last:bg-alert h-12 py-3 pr-2 text-nowrap">{(index + 1) * 2} second ago</div>
+              <div className="last:bg-alert py-3 pr-2 font-mono">
+                <KasLink
+                  linkType="transaction"
+                  link
+                  to="330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7"
+                />
+              </div>
+              <div className="last:bg-alert py-3 text-right">
+                82.<span className="text-sm">9981</span>
+                <span className="text-sm text-gray-500"> KAS</span>
+              </div>
+            </>
+          ))}
+        </div>
       </MainBox>
       <FooterHelper icon={Transaction}>
         A transaction is a cryptographically signed command that modifies the blockchain's state. Block explorers
