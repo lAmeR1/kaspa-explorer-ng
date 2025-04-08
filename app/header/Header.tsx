@@ -47,7 +47,7 @@ const Header = ({
         </div>
       </div>
 
-      {!expanded && typeof window !== "undefined" && window.location.pathname !== "/" && (
+      {!expanded && location.pathname !== "/" && (
         <div className="mx-6 mt-4 lg:hidden">
           <SearchBox value={searchValue} className="w-full" onChange={setSearchValue} />
         </div>
