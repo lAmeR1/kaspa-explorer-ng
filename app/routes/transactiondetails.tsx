@@ -11,7 +11,9 @@ import numeral from "numeral";
 import { useContext } from "react";
 import { NavLink, useLocation } from "react-router";
 import { Accepted, Confirmed, NotAccepted } from "~/Accepted";
+import ErrorMessage from "~/ErrorMessage";
 import KasLink from "~/KasLink";
+import LoadingMessage from "~/LoadingMessage";
 import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useTransactionById } from "~/hooks/useTansactionById";
 import { useVirtualChainBlueScore } from "~/hooks/useVirtualChainBlueScore";
@@ -41,16 +43,25 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
   const location = useLocation();
   const isTabActive = (tab: string) => (new URLSearchParams(location.search).get("tab") || "general") === tab;
 
-  const { data: transaction } = useTransactionById(loaderData.transactionId);
+  const { data: transaction, isLoading, isError } = useTransactionById(loaderData.transactionId);
   const { data: virtualChainBlueScore } = useVirtualChainBlueScore();
   const marketData = useContext(MarketDataContext);
 
-  if (transaction === undefined) {
-    return <>Loading Transaction</>;
+  if (isLoading) {
+    return <LoadingMessage>Fetching transaction details...</LoadingMessage>;
+  }
+
+  // type guard transaction
+  if (isError || !transaction) {
+    return (
+      <ErrorMessage>
+        The requested transaction could not be found. Please verify the transaction ID and try again.
+      </ErrorMessage>
+    );
   }
 
   const confirmations = (virtualChainBlueScore?.blueScore || 0) - (transaction?.accepting_block_blue_score || 0);
-  const transactionSum = transaction.outputs.reduce((sum, output) => sum + output.amount, 0);
+  const transactionSum = (transaction.outputs || []).reduce((sum, output) => sum + output.amount, 0);
   const displayKAS = (x: number) => numeral((x || 0) / 1_0000_0000).format("0,0.00[000000]");
   const displaySum = displayKAS(transactionSum);
   const inputSum = transaction?.inputs?.reduce((sum, input) => sum + input.previous_outpoint_amount, 0) || 0;
@@ -82,15 +93,27 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="From" />
           <FieldValue
-            value={(transaction?.inputs || []).map((input) => (
-              <KasLink linkType="address" copy qr link to={input.previous_outpoint_address} />
-            ))}
+            value={
+              transaction.inputs ? (
+                transaction.inputs.map((input) => (
+                  <KasLink linkType="address" copy link to={input.previous_outpoint_address} />
+                ))
+              ) : (
+                <span>Coinbase (newly mined coins)</span>
+              )
+            }
           />
           <FieldName name="To" />
           <FieldValue
-            value={transaction?.outputs.map((output) => (
-              <KasLink linkType="address" copy qr link to={output.script_public_key_address} />
-            ))}
+            value={
+              transaction.outputs ? (
+                transaction.outputs.map((output) => (
+                  <KasLink linkType="address" copy link to={output.script_public_key_address} />
+                ))
+              ) : (
+                <span>No output addresses</span>
+              )
+            }
           />
         </div>
       </div>
@@ -199,71 +222,81 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
 
         {isTabActive("inputs") && (
           <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
-            {(transaction.inputs || []).map((input, index) => (
-              <>
-                <FieldName name="Signature Op Count" />
-                <FieldValue value={input.sig_op_count} />
-                <FieldName name="Signature Script" />
-                <FieldValue value={input.signature_script} />
-                <FieldName name="Amount" />
-                <FieldValue
-                  value={
-                    <>
-                      <span>
-                        {displayKAS(input.previous_outpoint_amount).split(".")[0]}.
-                        <span className="self-end pb-[0.4rem] text-sm">
-                          {displayKAS(input.previous_outpoint_amount).split(".")[1]}
+            {transaction.inputs ? (
+              transaction.inputs.map((input, index) => (
+                <>
+                  <FieldName name="Signature Op Count" />
+                  <FieldValue value={input.sig_op_count} />
+                  <FieldName name="Signature Script" />
+                  <FieldValue value={input.signature_script} />
+                  <FieldName name="Amount" />
+                  <FieldValue
+                    value={
+                      <>
+                        <span>
+                          {displayKAS(input.previous_outpoint_amount).split(".")[0]}.
+                          <span className="self-end pb-[0.4rem] text-sm">
+                            {displayKAS(input.previous_outpoint_amount).split(".")[1]}
+                          </span>
                         </span>
-                      </span>
-                      <span className="text-gray-500"> KAS</span>
-                    </>
-                  }
-                />
-                <FieldName name="Outpoint Index" />
-                <FieldValue value={`#${input.previous_outpoint_index}`} />
-                <FieldName name="Outpoint Hash" />
-                <FieldValue value={<KasLink linkType="transaction" link to={input.previous_outpoint_hash} />} />
-                <FieldName name="Outpoint Address" />
-                <FieldValue value={<KasLink linkType="address" link to={input.previous_outpoint_address} />} />
-                {/*horizontal rule*/}
-                {index + 1 < (transaction.inputs || []).length && (
-                  <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-                )}
-              </>
-            ))}
+                        <span className="text-gray-500"> KAS</span>
+                      </>
+                    }
+                  />
+                  <FieldName name="Outpoint Index" />
+                  <FieldValue value={`#${input.previous_outpoint_index}`} />
+                  <FieldName name="Outpoint Hash" />
+                  <FieldValue value={<KasLink linkType="transaction" link to={input.previous_outpoint_hash} />} />
+                  <FieldName name="Outpoint Address" />
+                  <FieldValue value={<KasLink linkType="address" link to={input.previous_outpoint_address} />} />
+                  {/*horizontal rule*/}
+                  {index + 1 < (transaction.inputs || []).length && (
+                    <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
+                  )}
+                </>
+              ))
+            ) : (
+              <div className="sm:col-span-2">This is a coinbase transaction without inputs.</div>
+            )}
           </div>
         )}
 
         {isTabActive("outputs") && (
           <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
-            {(transaction.outputs || []).map((output, index) => (
-              <>
-                <FieldName name="Index" />
-                <FieldValue value={output.index || "0"} />
-                <FieldName name="Amount" />
-                <FieldValue
-                  value={
-                    <>
-                      <span>
-                        {displayKAS(output.amount).split(".")[0]}.
-                        <span className="self-end pb-[0.4rem] text-sm">{displayKAS(output.amount).split(".")[1]}</span>
-                      </span>
-                      <span className="text-gray-500"> KAS</span>
-                    </>
-                  }
-                />
-                <FieldName name="Script Public Key Type" />
-                <FieldValue value={output.script_public_key_type} />
-                <FieldName name="Script Public Key" />
-                <FieldValue value={output.script_public_key} />
-                <FieldName name="Script Public Key Address" />
-                <FieldValue value={<KasLink linkType="address" link to={output.script_public_key_address} />} />
-                {/*horizontal rule*/}
-                {index + 1 < (transaction.outputs || []).length && (
-                  <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-                )}
-              </>
-            ))}
+            {transaction.outputs ? (
+              transaction.outputs.map((output, index) => (
+                <>
+                  <FieldName name="Index" />
+                  <FieldValue value={output.index || "0"} />
+                  <FieldName name="Amount" />
+                  <FieldValue
+                    value={
+                      <>
+                        <span>
+                          {displayKAS(output.amount).split(".")[0]}.
+                          <span className="self-end pb-[0.4rem] text-sm">
+                            {displayKAS(output.amount).split(".")[1]}
+                          </span>
+                        </span>
+                        <span className="text-gray-500"> KAS</span>
+                      </>
+                    }
+                  />
+                  <FieldName name="Script Public Key Type" />
+                  <FieldValue value={output.script_public_key_type} />
+                  <FieldName name="Script Public Key" />
+                  <FieldValue value={output.script_public_key} />
+                  <FieldName name="Script Public Key Address" />
+                  <FieldValue value={<KasLink linkType="address" link to={output.script_public_key_address} />} />
+                  {/*horizontal rule*/}
+                  {index + 1 < (transaction.outputs || []).length && (
+                    <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
+                  )}
+                </>
+              ))
+            ) : (
+              <div>This transaction doesn't have any outputs.</div>
+            )}
           </div>
         )}
       </div>

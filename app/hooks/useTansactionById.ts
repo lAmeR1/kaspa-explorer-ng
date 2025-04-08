@@ -44,7 +44,7 @@ export interface TransactionData {
     previous_outpoint_amount: number;
     signature_script: string;
     sig_op_count: string;
-  }>;
+  }> | null;
   outputs: Array<{
     transaction_id: string;
     index: number;
@@ -53,5 +53,5 @@ export interface TransactionData {
     script_public_key_address: string;
     script_public_key_type: string;
     accepting_block_hash: string;
-  }>;
+  }> | null;
 }
