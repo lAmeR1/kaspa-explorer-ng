@@ -160,13 +160,17 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
               value={
                 <div className="flex flex-row items-center gap-x-1">
                   {transaction.is_accepted ? <Accepted /> : <NotAccepted />}
-                  {confirmations < 86400 ? (
-                    <span className="flex flex-row items-center gap-x-1">
-                      {confirmations} confirmations
-                      <ClockLoader className="h-4 w-4" />
-                    </span>
-                  ) : (
-                    <Confirmed />
+                  {transaction.is_accepted && (
+                    <>
+                      {confirmations < 86400 ? (
+                        <span className="flex flex-row items-center gap-x-1">
+                          {confirmations} confirmations
+                          <ClockLoader className="h-4 w-4" />
+                        </span>
+                      ) : (
+                        <Confirmed />
+                      )}
+                    </>
                   )}
                 </div>
               }

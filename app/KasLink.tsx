@@ -13,6 +13,7 @@ interface KasLinkProps {
   copy?: boolean;
   qr?: boolean;
   link?: boolean;
+  active?: boolean;
 }
 
 const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
@@ -21,12 +22,10 @@ const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
   address: "/addresses/",
 };
 
-const KasLink = ({ to, className, linkType, copy, qr, link }: KasLinkProps) => {
+const KasLink = ({ to, className, linkType, copy, qr, link, active }: KasLinkProps) => {
   const [clicked, setClicked] = useState(false);
   const [showQr, setShowQr] = useState(false);
   const linkHref = linkTypeToAddress[linkType] + to;
-
-  const splitAt = to.length - 10;
 
   const handleClick = () => {
     navigator.clipboard.writeText(to);
@@ -38,10 +37,12 @@ const KasLink = ({ to, className, linkType, copy, qr, link }: KasLinkProps) => {
     return <></>;
   }
 
+  const splitAt = to.length - 10;
+
   return (
     <div className={`grid grid-cols-[auto_1fr] overflow-hidden text-ellipsis ${className}`}>
       <span className="overflow-hidden text-ellipsis">
-        {link && linkHref ? (
+        {link && linkHref && !active ? (
           <Link className="text-link" to={linkHref}>
             {to.substring(0, splitAt)}
           </Link>
@@ -51,7 +52,7 @@ const KasLink = ({ to, className, linkType, copy, qr, link }: KasLinkProps) => {
       </span>
 
       <span className="fill-gray-500 text-nowrap">
-        {link && linkHref ? (
+        {link && linkHref && !active ? (
           <Link className="text-link" to={linkHref}>
             {to.substring(splitAt)}
           </Link>

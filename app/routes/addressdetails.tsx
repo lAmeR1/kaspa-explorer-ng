@@ -3,17 +3,27 @@ import ArrowRight from "../assets/arrow-right.svg";
 import Info from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 import type { Route } from "./+types/addressdetails";
+import dayjs from "dayjs";
+import localeData from "dayjs/plugin/localeData";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import relativeTime from "dayjs/plugin/relativeTime";
 import numeral from "numeral";
-import React, { type ReactNode, useContext } from "react";
+import React, { useContext } from "react";
 import { NavLink, useLocation } from "react-router";
-import { Accepted } from "~/Accepted";
+import { Accepted, NotAccepted } from "~/Accepted";
 import KasLink from "~/KasLink";
 import Spinner from "~/Spinner";
 import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useAddressBalance } from "~/hooks/useAddressBalance";
 import { useAddressTxCount } from "~/hooks/useAddressTxCount";
 import { useAddressUtxos } from "~/hooks/useAddressUtxos";
+import { useTransactions } from "~/hooks/useTransactions";
 import { isValidKaspaAddressSyntax } from "~/utils/kaspa";
+
+dayjs().locale("en");
+dayjs.extend(relativeTime);
+dayjs.extend(localeData);
+dayjs.extend(localizedFormat);
 
 export async function loader({ params }: Route.LoaderArgs) {
   const address = params.address;
@@ -39,14 +49,22 @@ export function meta() {
 
 export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const location = useLocation();
-  const { data, isError, isLoading: isLoadingAddressBalance } = useAddressBalance(loaderData.address);
+  const { data, isLoading: isLoadingAddressBalance } = useAddressBalance(loaderData.address);
   const { data: utxoData, isLoading: isLoadingUtxoData } = useAddressUtxos(loaderData.address);
   const { data: txCount, isLoading: isLoadingTxCount } = useAddressTxCount(loaderData.address);
   const marketData = useContext(MarketDataContext);
 
-  if (isError) {
-    return <div>ERROR! Loading...</div>;
-  }
+  // fetch transactions with resolve_previous_outpoints set to "light"
+  const { data: transactions, isLoading: isLoadingTransactions } = useTransactions(
+    loaderData.address,
+    10,
+    0,
+    0,
+    "",
+    "light",
+  );
+
+  if (!loaderData.address) return;
 
   const isTabActive = (tab: string) => {
     const params = new URLSearchParams(location.search);
@@ -55,9 +73,9 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   };
 
   const balance = numeral((data?.balance || 0) / 1_0000_0000).format("0,0.00[000000]");
-
   const LoadingSpinner = () => <Spinner className="h-5 w-5" />;
 
+  // @ts-ignore
   return (
     <>
       <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left text-black sm:p-8">
@@ -134,39 +152,67 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
               <div className="text-gray-500">Status</div>
               <div className="text-right text-gray-500">Amount</div>
 
-              {Array.from({ length: 20 }).map(() => (
+              {(transactions || []).map((transaction) => (
                 <>
                   <div className="col-span-7 h-[1px] bg-gray-100" />
-                  <div className="text-black">12 sec. ago</div>
-                  <div className="text-black">123b12....28b12b318293</div>
-                  <div className="text-link text-sm">
-                    kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-                    <br />
-                    kaspa:qzyzhlkd8thwywu...tfj222rtgcn
+                  <div className="text-black">{dayjs(transaction.block_time).fromNow()}</div>
+                  <div className="text-black">
+                    <KasLink linkType="transaction" link to={transaction.transaction_id} />
+                  </div>
+                  <div className="text-sm">
+                    {(transaction.inputs || []).length > 0 ? (
+                      (transaction.inputs || []).map((input) => (
+                        <div>
+                          {input.previous_outpoint_address && (
+                            <KasLink
+                              link
+                              linkType="address"
+                              to={input.previous_outpoint_address}
+                              active={input.previous_outpoint_address === loaderData.address}
+                            />
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      <span>Coinbase (newly mined coins)</span>
+                    )}
                   </div>
                   <div className="flex items-center fill-black text-black">
                     <ArrowRight className="h-5 w-5" />
                   </div>
-                  <div className="text-link text-sm">
-                    kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-                    <br />
-                    kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-                    <br />
-                    kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-                    <br />
-                    kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-                    <br />
-                    kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-                    <br />
-                    kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-                    <br />
-                    kaspa:qzyzhlkd8thwywu...tfj222rtgcn
+                  <div className="text-sm">
+                    {(transaction.outputs || []).map((output) => (
+                      <div>
+                        <KasLink
+                          link
+                          linkType="address"
+                          to={output.script_public_key_address}
+                          active={loaderData.address === output.script_public_key_address}
+                        />
+                      </div>
+                    ))}
                   </div>
                   <div className="text-success">
-                    <Accepted />
+                    {transaction.accepting_block_hash ? <Accepted /> : <NotAccepted />}
                   </div>
                   <div className="text-black">
-                    1234<span className="text-sm text-gray-500"> KAS</span>
+                    {numeral(
+                      ((transaction.inputs || []).reduce(
+                        (acc, input) =>
+                          acc -
+                          (loaderData.address === (input.previous_outpoint_address || "")
+                            ? input.previous_outpoint_amount || 0
+                            : 0),
+                        0,
+                      ) +
+                        (transaction.outputs || []).reduce(
+                          (acc, output) =>
+                            acc + (loaderData.address === output.script_public_key_address ? output.amount : 0),
+                          0,
+                        )) /
+                        1_0000_0000,
+                    ).format("0,0.00[000000]")}
+                    <span className="text-sm text-gray-500"> KAS</span>
                   </div>
                 </>
               ))}
