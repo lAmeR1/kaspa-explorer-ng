@@ -143,23 +143,16 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         </div>
 
         {isTabActive("transactions") && (
-          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
-            <div className="grid w-full grid-cols-[auto_3fr_auto_2fr_auto_auto_auto] gap-x-4 gap-y-2">
-              <div className="text-gray-500">Timestamp</div>
-              <div className="text-gray-500">TX-ID</div>
-              <div className="col-span-2 text-gray-500">From</div>
-              <div className="text-gray-500">To</div>
-              <div className="text-gray-500">Status</div>
-              <div className="text-right text-gray-500">Amount</div>
-
+          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-sm text-nowrap text-black sm:p-8">
+            <div className="grid w-full grid-cols-[1fr_2fr] gap-x-4 gap-y-2">
               {(transactions || []).map((transaction) => (
                 <>
-                  <div className="col-span-7 h-[1px] bg-gray-100" />
+                  <div className="text-gray-500">Timestamp</div>
+                  <div className="text-gray-500">TX-ID</div>
                   <div className="text-black">{dayjs(transaction.block_time).fromNow()}</div>
-                  <div className="text-black">
-                    <KasLink linkType="transaction" link to={transaction.transaction_id} />
-                  </div>
-                  <div className="text-sm">
+                  <KasLink linkType="transaction" link to={transaction.transaction_id} />
+                  <div className="col-span-2 col-start-1 text-gray-500">From</div>
+                  <div className="col-span-2 text-sm">
                     {(transaction.inputs || []).length > 0 ? (
                       (transaction.inputs || []).map((input) => (
                         <div>
@@ -177,10 +170,8 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                       <span>Coinbase (newly mined coins)</span>
                     )}
                   </div>
-                  <div className="flex items-center fill-black text-black">
-                    <ArrowRight className="h-5 w-5" />
-                  </div>
-                  <div className="text-sm">
+                  <div className="col-span-2 text-gray-500">To</div>
+                  <div className="col-span-2 text-sm">
                     {(transaction.outputs || []).map((output) => (
                       <div>
                         <KasLink
@@ -192,9 +183,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                       </div>
                     ))}
                   </div>
-                  <div className="text-success">
-                    {transaction.accepting_block_hash ? <Accepted /> : <NotAccepted />}
-                  </div>
+                  <div className="text-gray-500">Amount</div>
                   <div className="text-black">
                     {numeral(
                       ((transaction.inputs || []).reduce(
@@ -214,6 +203,17 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                     ).format("0,0.00[000000]")}
                     <span className="text-sm text-gray-500"> KAS</span>
                   </div>
+                  <div className="text-gray-500">Status</div>
+                  <div className="text-success">
+                    {transaction.accepting_block_hash ? <Accepted /> : <NotAccepted />}
+                  </div>
+                  <div className="col-span-2 h-[1px] bg-gray-100" />
+
+                  {/*<div className="text-black"></div>*/}
+
+                  {/*<div className="flex items-center fill-black text-black">*/}
+                  {/*  <ArrowRight className="h-5 w-5" />*/}
+                  {/*</div>*/}
                 </>
               ))}
             </div>
