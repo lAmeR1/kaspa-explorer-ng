@@ -8,7 +8,9 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Link } from "react-router";
 import { Accepted } from "~/Accepted";
+import ErrorMessage from "~/ErrorMessage";
 import KasLink from "~/KasLink";
+import LoadingMessage from "~/LoadingMessage";
 import { useBlockById } from "~/hooks/useBlockById";
 
 dayjs().locale("en");
@@ -36,11 +38,16 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
   const { data: block, isLoading, isError } = useBlockById(loaderData.blockId);
   const blockTime = dayjs(Number(block?.header.timestamp));
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingMessage>Loading block</LoadingMessage>;
   }
 
   if (isError) {
-    return <div>ERROR! Loading...</div>;
+    return (
+      <ErrorMessage>
+        Unable to load a block with hash
+        <span className="text-gray-500"> {loaderData.blockId}</span>
+      </ErrorMessage>
+    );
   }
 
   return (
