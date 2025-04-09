@@ -10,10 +10,10 @@ const PriceLabel = () => {
   const isPositive = marketData?.change24h?.startsWith("+");
 
   return (
-    <div className="ms-4 hidden h-6 flex-row items-center justify-around gap-x-1 rounded-4xl border-[1px] border-gray-100 bg-white p-1 pr-2 sm:flex">
+    <div className="ms-4 hidden h-6 flex-row items-center justify-around gap-x-1 overflow-hidden rounded-4xl border-[1px] border-gray-100 bg-white p-1 pr-2 sm:flex">
       <KaspaIcon className="h-4 w-4" />
       <span className="text-base">${price}</span>
-      <span className={`${isPositive ? "text-success" : "text-alert"} text-sm`}>
+      <span className={`${isPositive ? "text-success" : "text-alert"} text-base`}>
         {marketData?.change24h || "-.--"}
         <span className="ms-[1px]">%</span>
       </span>
