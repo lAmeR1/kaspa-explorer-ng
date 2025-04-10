@@ -82,7 +82,7 @@ const MenuItem = (props: MenuItemProps) => {
 
 const DesktopMenu = () => {
   return (
-    <div className="ms-auto hidden flex-row gap-x-4 sm:flex">
+    <div className="ms-2 hidden flex-row gap-x-4 sm:flex">
       {MAIN_MENU.map((menuItem) => (
         <MenuItem
           name={menuItem.name}
