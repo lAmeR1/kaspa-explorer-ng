@@ -203,7 +203,24 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
               }
             />
             <FieldName name="Accepting block hash" />
-            <FieldValue value={<KasLink link linkType="block" to={transaction.accepting_block_hash} />} />
+            <FieldValue
+              value={
+                transaction.accepting_block_hash ? (
+                  <KasLink link linkType="block" to={transaction.accepting_block_hash} />
+                ) : (
+                  "Transaction is not accepted."
+                )
+              }
+            />
+            {transaction.payload && (
+              <>
+                <FieldName name="Payload" />
+                <FieldValue
+                  className="rounded-lg bg-gray-50 px-1 py-2 font-mono text-wrap break-all"
+                  value={transaction.payload}
+                />
+              </>
+            )}
             {(transaction.inputs || []).length > 0 && (
               <>
                 <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
@@ -317,4 +334,6 @@ const FieldName = ({ name }: { name: string }) => (
   </div>
 );
 
-const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span className="overflow-hidden">{value}</span>;
+const FieldValue = ({ value, className }: { value: string | React.ReactNode; className?: string }) => (
+  <span className={`text-wrap break-all ${className}`}>{value}</span>
+);

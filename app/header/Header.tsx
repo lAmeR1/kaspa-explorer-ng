@@ -26,16 +26,12 @@ const Header = ({
     >
       <div className="md:text-md flex w-full flex-row items-center text-sm">
         <Link to={"/"}>
-          <LogoIcon className="md:w- ms-4 h-7 w-35 md:h-10 md:w-50" />
+          <LogoIcon className="ms-4 h-7 w-35 md:h-10 md:w-50" />
         </Link>
         <Price />
 
         {location.pathname !== "/" && (
-          <SearchBox
-            value={searchValue}
-            className="hidden max-w-128 lg:mr-8 lg:ml-4 lg:flex"
-            onChange={setSearchValue}
-          />
+          <SearchBox value={searchValue} className="mx-auto hidden max-w-170 lg:flex" onChange={setSearchValue} />
         )}
 
         <DesktopMenu />

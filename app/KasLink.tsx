@@ -37,11 +37,11 @@ const KasLink = ({ to, className, linkType, copy, qr, link, active }: KasLinkPro
     return <></>;
   }
 
-  const splitAt = to.length - 10;
+  const splitAt = to.length - 8;
 
   return (
     <div className={`grid grid-cols-[auto_1fr] overflow-hidden text-ellipsis ${className}`}>
-      <span className="overflow-hidden text-ellipsis">
+      <span className="overflow-hidden break-keep text-ellipsis">
         {link && linkHref && !active ? (
           <Link className="text-link" to={linkHref}>
             {to.substring(0, splitAt)}
