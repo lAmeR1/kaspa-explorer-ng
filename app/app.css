@@ -37,6 +37,20 @@
   --color-gray-25: #f9f9f9;
 }
 
+
+@keyframes animate-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: animate-fadeIn 200ms ease-in-out;
+}
+
 body {
   background-color: #f3f3f3;
   display: block;

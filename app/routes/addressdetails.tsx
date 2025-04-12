@@ -12,7 +12,7 @@ import { NavLink, useLocation } from "react-router";
 import { Accepted, NotAccepted } from "~/Accepted";
 import KasLink from "~/KasLink";
 import Spinner from "~/Spinner";
-import Tooltip from "~/Tooltip";
+import Tooltip, { TooltipDisplayMode } from "~/Tooltip";
 import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useAddressBalance } from "~/hooks/useAddressBalance";
 import { useAddressTxCount } from "~/hooks/useAddressTxCount";
@@ -244,7 +244,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
 const FieldName = ({ name, infoText }: { name: string; infoText?: string }) => (
   <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
     <div className="flex flex-row items-center">
-      <Tooltip message={infoText || ""} hover duration={2000}>
+      <Tooltip message={infoText || ""} display={TooltipDisplayMode.Hover} multiLine>
         <Info className="h-4 w-4" />
       </Tooltip>
       <span className="ms-1">{name}</span>

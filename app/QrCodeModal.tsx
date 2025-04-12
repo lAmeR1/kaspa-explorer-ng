@@ -1,7 +1,7 @@
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
 import Button from "~/Button";
-import Tooltip from "~/Tooltip";
+import Tooltip, { TooltipDisplayMode } from "~/Tooltip";
 import Close from "~/assets/close.svg";
 import Kaspa from "~/assets/kaspa.svg";
 
@@ -44,7 +44,7 @@ const QrCodeModal = (props: QrCodeModalProps) => {
         <div className="mt-2 w-full text-center text-wrap break-all text-black">{props.value}</div>
 
         <div className="relative mt-8 w-full">
-          <Tooltip message="copied" showAlways={clicked}>
+          <Tooltip message="copied" display={TooltipDisplayMode.Sticky}>
             <Button className="h-10 w-full" value={"Copy to clipboard"} primary onClick={handleClick} />
           </Tooltip>
         </div>

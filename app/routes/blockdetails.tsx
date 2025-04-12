@@ -11,7 +11,7 @@ import { Accepted } from "~/Accepted";
 import ErrorMessage from "~/ErrorMessage";
 import KasLink from "~/KasLink";
 import LoadingMessage from "~/LoadingMessage";
-import Tooltip from "~/Tooltip";
+import Tooltip, { TooltipDisplayMode } from "~/Tooltip";
 import { useBlockById } from "~/hooks/useBlockById";
 
 dayjs().locale("en");
@@ -317,7 +317,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
 const FieldName = ({ name, infoText }: { name: string; infoText?: string }) => (
   <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
     <div className="flex flex-row items-center">
-      <Tooltip message={infoText || ""} hover duration={2000}>
+      <Tooltip message={infoText || ""} display={TooltipDisplayMode.Hover} multiLine>
         <Info className="h-4 w-4" />
       </Tooltip>
       <span className="ms-1">{name}</span>
