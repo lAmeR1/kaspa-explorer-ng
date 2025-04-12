@@ -55,14 +55,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const marketData = useContext(MarketDataContext);
 
   // fetch transactions with resolve_previous_outpoints set to "light"
-  const { data: transactions, isLoading: isLoadingTransactions } = useTransactions(
-    loaderData.address,
-    10,
-    0,
-    0,
-    "",
-    "light",
-  );
+  const { data: transactions } = useTransactions(loaderData.address, 10, 0, 0, "", "light");
 
   if (!loaderData.address) return;
 

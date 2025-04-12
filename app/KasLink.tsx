@@ -69,12 +69,6 @@ const KasLink = ({ to, className, linkType, copy, qr, link, active }: KasLinkPro
             <CopyCheck className="mx-1 inline h-4 w-4 animate-[spin_0.2s_linear_1] align-middle" />
           ))}
 
-        {clicked && (
-          <div className="bg-primary absolute z-10 inline -translate-x-full -translate-y-full rounded-lg p-2 text-white">
-            copied
-          </div>
-        )}
-
         {qr && (
           <QrCode
             className="hover:fill-primary relative inline h-4 w-4 align-middle hover:cursor-pointer"

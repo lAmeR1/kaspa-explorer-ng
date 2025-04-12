@@ -14,6 +14,7 @@ import { Accepted, Confirmed, NotAccepted } from "~/Accepted";
 import ErrorMessage from "~/ErrorMessage";
 import KasLink from "~/KasLink";
 import LoadingMessage from "~/LoadingMessage";
+import Tooltip from "~/Tooltip";
 import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useTransactionById } from "~/hooks/useTansactionById";
 import { useVirtualChainBlueScore } from "~/hooks/useVirtualChainBlueScore";
@@ -91,7 +92,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
 
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
-          <FieldName name="From" />
+          <FieldName name="From" infoText="The (input) address(es) that sent KAS in this transaction." />
           <FieldValue
             value={
               transaction.inputs ? (
@@ -103,7 +104,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
               )
             }
           />
-          <FieldName name="To" />
+          <FieldName name="To" infoText="The (output) address(es) where the KAS in this transaction were sent to." />
           <FieldValue
             value={
               transaction.outputs ? (
@@ -151,11 +152,18 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
 
         {isTabActive("general") && transaction && (
           <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
-            <FieldName name="Transaction ID" />
+            <FieldName name="Transaction ID" infoText="The unique identifier of this transaction." />
             <FieldValue value={<KasLink copy to={transaction.transaction_id} linkType="transaction" />} />
-            <FieldName name="Subnetwork ID" />
+            <FieldName
+              name="Subnetwork ID"
+              infoText="The Subnetwork ID is an identifier for transactions. It's used to group mining and regular transactions."
+            />
             <FieldValue value={transaction.subnetwork_id} />
-            <FieldName name="Status" />
+            <FieldName
+              name="Status"
+              infoText="Displays whether the transaction was accepted by the protocol and how many confirmations it has so far."
+            />
+
             <FieldValue
               value={
                 <div className="flex flex-row items-center gap-x-1">
@@ -177,13 +185,17 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
             />
             {/*horizontal rule*/}
             <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Hash" />
+            <FieldName name="Hash" infoText="Hash calculated from the transaction data." />
             <FieldValue value={transaction.hash} />
-            <FieldName name="Compute mass" />
+            <FieldName
+              name="Compute mass"
+              infoText="The computed mass / weight of a transaction. It's used to determine the fee of a transaction."
+            />
+
             <FieldValue value={inputSum === 0 ? 0 : transaction.mass} />
             {/*horizontal rule*/}
             <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-            <FieldName name="Block hashes" />
+            <FieldName name="Block hashes" infoText="Blocks, in which this transaction was included." />
             <FieldValue
               value={transaction.block_hash.map((blockHash) => (
                 <div>
@@ -191,7 +203,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                 </div>
               ))}
             />
-            <FieldName name="Block time" />
+            <FieldName name="Block time" infoText="Timestamp, when the transaction was included in a block." />
             <FieldValue
               value={
                 <>
@@ -202,7 +214,10 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                 </>
               }
             />
-            <FieldName name="Accepting block hash" />
+            <FieldName
+              name="Accepting block hash"
+              infoText="Block hash of a chain block, which accepted this transaction."
+            />
             <FieldValue
               value={
                 transaction.accepting_block_hash ? (
@@ -214,7 +229,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
             />
             {transaction.payload && (
               <>
-                <FieldName name="Payload" />
+                <FieldName name="Payload" infoText="Payload data, which is used for miners to transmit miner's data." />
                 <FieldValue
                   className="rounded-lg bg-gray-50 px-1 py-2 font-mono text-wrap break-all"
                   value={transaction.payload}
@@ -224,7 +239,10 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
             {(transaction.inputs || []).length > 0 && (
               <>
                 <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-                <FieldName name="Transaction fee" />
+                <FieldName
+                  name="Transaction fee"
+                  infoText="Fee for this transaction which goes to miners as reward. It is the total output amount minus the total input amount."
+                />
                 <FieldValue
                   value={
                     <>
@@ -325,10 +343,12 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
   );
 }
 
-const FieldName = ({ name }: { name: string }) => (
+const FieldName = ({ name, infoText }: { name: string; infoText?: string }) => (
   <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
     <div className="flex flex-row items-center">
-      <InfoIcon className="mr-1 h-4 w-4" />
+      <Tooltip message={infoText || ""} hover duration={2000}>
+        <InfoIcon className="mr-1 h-4 w-4" />
+      </Tooltip>
       <span>{name}</span>
     </div>
   </div>
