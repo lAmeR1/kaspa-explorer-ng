@@ -13,6 +13,7 @@ const Tooltip = (props: {
   const tooltipDiv = useRef<HTMLDivElement>(null);
   const [fullOpacity, setFullOpacity] = useState(props.showAlways || false);
   const [isHovered, setIsHovered] = useState(props.showAlways || false);
+  const [additionalClassName, setAdditionalClassName] = useState("");
 
   useEffect(() => {
     if (props.showAlways) {
@@ -24,7 +25,6 @@ const Tooltip = (props: {
   }, [props.showAlways]);
 
   useEffect(() => {
-    console.log("start!");
     setFullOpacity(false);
 
     if (tooltipDiv.current) {
@@ -36,6 +36,10 @@ const Tooltip = (props: {
       }
       if (rect.left < 0) {
         tooltipDiv.current.style.left = Math.round(-1 * rect.left + 16) + "px";
+      }
+
+      if (rect.width > 320) {
+        setAdditionalClassName("w-80 text-wrap");
       }
     }
     if (isHovered) {
@@ -65,9 +69,9 @@ const Tooltip = (props: {
           />
           <div
             ref={tooltipDiv}
-            className={`absolute top-0 left-1/2 inline-block ${fullOpacity ? "opacity-100" : "opacity-0"} -translate-x-1/2 -translate-y-[calc(100%+8px)] rounded-xl bg-black p-2 text-nowrap text-white transition-opacity duration-500`}
+            className={`absolute top-0 left-1/2 inline-block ${fullOpacity ? "opacity-100" : "opacity-0"} -translate-x-1/2 -translate-y-[calc(100%+8px)] rounded-xl bg-black p-2 text-nowrap text-white transition-opacity duration-500 ${additionalClassName}`}
           >
-            {props.message}
+            <span className="">{props.message}</span>
           </div>
         </>
       )}
