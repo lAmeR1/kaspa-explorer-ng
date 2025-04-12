@@ -31,7 +31,7 @@ const Header = ({
         <Price />
 
         {location.pathname !== "/" && (
-          <SearchBox value={searchValue} className="mx-auto hidden max-w-170 lg:flex" onChange={setSearchValue} />
+          <SearchBox value={searchValue} className="ms-auto hidden max-w-170 lg:flex" onChange={setSearchValue} />
         )}
 
         <DesktopMenu />
