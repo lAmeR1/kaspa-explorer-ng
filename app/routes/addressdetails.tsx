@@ -1,5 +1,4 @@
 import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
-import ArrowRight from "../assets/arrow-right.svg";
 import Info from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 import type { Route } from "./+types/addressdetails";
@@ -13,6 +12,7 @@ import { NavLink, useLocation } from "react-router";
 import { Accepted, NotAccepted } from "~/Accepted";
 import KasLink from "~/KasLink";
 import Spinner from "~/Spinner";
+import Tooltip from "~/Tooltip";
 import { MarketDataContext } from "~/context/MarketDataProvider";
 import { useAddressBalance } from "~/hooks/useAddressBalance";
 import { useAddressTxCount } from "~/hooks/useAddressTxCount";
@@ -75,10 +75,9 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const balance = numeral((data?.balance || 0) / 1_0000_0000).format("0,0.00[000000]");
   const LoadingSpinner = () => <Spinner className="h-5 w-5" />;
 
-  // @ts-ignore
   return (
     <>
-      <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left text-black sm:p-8">
+      <div className="relative flex w-full flex-col rounded-4xl bg-white p-4 text-left text-black sm:p-8">
         <div className="flex flex-row items-center text-2xl sm:col-span-2">
           <AccountBalanceWallet className="mr-2 h-8 w-8" />
           <span>Address details</span>
@@ -100,9 +99,9 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
 
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
-          <FieldName name="Address" />
+          <FieldName name="Address" infoText="A unique Kaspa address used to send and receive funds." />
           <FieldValue value={<KasLink linkType="address" copy link qr to={loaderData.address} />} />
-          <FieldName name="Transactions" />
+          <FieldName name="Transactions" infoText="Total number of transactions involving this address." />
           <FieldValue
             value={
               !isLoadingTxCount ? (
@@ -115,7 +114,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
               )
             }
           />
-          <FieldName name="UTXOs" />
+          <FieldName name="UTXOs" infoText="Unspent, available outputs available at this address." />
           <FieldValue value={!isLoadingUtxoData ? utxoData?.length : <LoadingSpinner />} />
         </div>
       </div>
@@ -249,13 +248,15 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   );
 }
 
-const FieldName = ({ name }: { name: string }) => (
+const FieldName = ({ name, infoText }: { name: string; infoText?: string }) => (
   <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
     <div className="flex flex-row items-center">
-      <Info className="mr-1 h-4 w-4" />
-      <span>{name}</span>
+      <Tooltip message={infoText || ""} hover duration={2000}>
+        <Info className="h-4 w-4" />
+      </Tooltip>
+      <span className="ms-1">{name}</span>
     </div>
   </div>
 );
 
-const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span className="overflow-hidden">{value}</span>;
+const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span>{value}</span>;

@@ -27,10 +27,10 @@ const KasLink = ({ to, className, linkType, copy, qr, link, active }: KasLinkPro
   const [showQr, setShowQr] = useState(false);
   const linkHref = linkTypeToAddress[linkType] + to;
 
-  const handleClick = () => {
-    navigator.clipboard.writeText(to);
+  const handleClick = async () => {
     setClicked(true);
     setTimeout(() => setClicked(false), 1000);
+    await navigator.clipboard.writeText(to);
   };
 
   if (!to) {
@@ -40,8 +40,8 @@ const KasLink = ({ to, className, linkType, copy, qr, link, active }: KasLinkPro
   const splitAt = to.length - 8;
 
   return (
-    <div className={`grid grid-cols-[auto_1fr] overflow-hidden text-ellipsis ${className}`}>
-      <span className="overflow-hidden break-keep text-ellipsis">
+    <div className={`grid grid-cols-[auto_1fr] text-ellipsis ${className}`}>
+      <span className="break-keep text-ellipsis">
         {link && linkHref && !active ? (
           <Link className="text-link" to={linkHref}>
             {to.substring(0, splitAt)}
@@ -51,7 +51,7 @@ const KasLink = ({ to, className, linkType, copy, qr, link, active }: KasLinkPro
         )}
       </span>
 
-      <span className="fill-gray-500 text-nowrap">
+      <span className="relative fill-gray-500 text-nowrap">
         {link && linkHref && !active ? (
           <Link className="text-link" to={linkHref}>
             {to.substring(splitAt)}
