@@ -347,9 +347,9 @@ const FieldName = ({ name, infoText }: { name: string; infoText?: string }) => (
   <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
     <div className="flex flex-row items-center">
       <Tooltip message={infoText || ""} hover duration={2000}>
-        <InfoIcon className="mr-1 h-4 w-4" />
+        <InfoIcon className="h-4 w-4" />
       </Tooltip>
-      <span>{name}</span>
+      <span className="ms-1">{name}</span>
     </div>
   </div>
 );
