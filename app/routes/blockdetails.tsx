@@ -142,7 +142,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           </>
         )}
       </div>
-      <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
+      <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
         <div className="mt-4 mb-2 text-black sm:col-span-2">Transactions</div>
 
         <div className="grid w-full grid-cols-[auto_2fr_auto_2fr_auto_auto] gap-x-4 gap-y-2">

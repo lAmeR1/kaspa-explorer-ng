@@ -112,7 +112,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
 
-      <div className="flex w-full flex-col gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-black sm:p-8">
+      <div className="flex w-full flex-col gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-black sm:p-8">
         <div className="mr-auto flex w-auto flex-row items-center justify-around gap-x-1 rounded-full bg-gray-50 p-1 px-1">
           <NavLink
             to={`/addresses/${loaderData.address}?tab=transactions`}
@@ -135,7 +135,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         </div>
 
         {isTabActive("transactions") && (
-          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-sm text-nowrap text-black sm:p-8">
+          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-sm text-nowrap text-black sm:p-8">
             <div className="grid w-full grid-cols-[1fr_2fr] gap-x-4 gap-y-2">
               {(transactions || []).map((transaction) => (
                 <>
@@ -213,7 +213,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         )}
 
         {isTabActive("utxos") && (
-          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 overflow-x-auto rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
+          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
             <div className="grid w-full grid-cols-[auto_3fr_auto_auto_auto] gap-x-4 gap-y-2">
               <div className="text-gray-500">Timestamp</div>
               <div className="text-gray-500">TX-ID</div>

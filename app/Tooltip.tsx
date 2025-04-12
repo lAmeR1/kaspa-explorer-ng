@@ -29,11 +29,6 @@ const Tooltip = (props: {
 
     if (tooltipDiv.current) {
       const rect = tooltipDiv.current.getBoundingClientRect();
-
-      if (rect.right > window.innerWidth) {
-        tooltipDiv.current.style.left =
-          Math.round(parseFloat(tooltipDiv.current.style.left || "0") - rect.right + window.innerWidth - 16) + "px";
-      }
       if (rect.left < 0) {
         tooltipDiv.current.style.left = Math.round(-1 * rect.left + 16) + "px";
       }
@@ -69,7 +64,7 @@ const Tooltip = (props: {
           />
           <div
             ref={tooltipDiv}
-            className={`absolute top-0 left-1/2 inline-block ${fullOpacity ? "opacity-100" : "opacity-0"} -translate-x-1/2 -translate-y-[calc(100%+8px)] rounded-xl bg-black p-2 text-nowrap text-white transition-opacity duration-500 ${additionalClassName}`}
+            className={`absolute top-0 left-1/2 z-900 inline-block ${fullOpacity ? "opacity-100" : "opacity-0"} -translate-x-1/2 -translate-y-[calc(100%+8px)] rounded-xl bg-black p-2 text-nowrap text-white transition-opacity duration-500 ${additionalClassName}`}
           >
             <span className="">{props.message}</span>
           </div>
