@@ -62,7 +62,7 @@ const MenuItem = (props: MenuItemProps) => {
           <div className="absolute left-1/2 z-2 mt-4 hidden w-48 -translate-x-1/2 flex-col rounded-2xl bg-white p-4 text-black shadow-[0px_4px_32px_0px] shadow-[#00000012] group-hover:flex">
             {props.children.map((menuItem) => (
               <NavLink to={menuItem.linkTo} onClick={() => setMenuEnabled(false)}>
-                <div className="hover:bg-gray-25 outline-gray-25 transition-ease-out w-full rounded-lg p-2 transition-all duration-500 hover:outline">
+                <div className="hover:bg-gray-25 outline-gray-25 transition-ease-out w-full rounded-lg p-2 transition-all duration-300 hover:outline">
                   {menuItem.name}
                 </div>
               </NavLink>
