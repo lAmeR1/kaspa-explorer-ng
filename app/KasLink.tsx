@@ -44,7 +44,7 @@ const KasLink = ({ to, className, shorten, linkType, copy, qr, link, active }: K
     <>
       <span className="inline break-all">
         {link && linkHref && !active ? (
-          <Link className="text-link" to={linkHref}>
+          <Link className="text-link hover:underline" to={linkHref}>
             {displayAddress}
           </Link>
         ) : (

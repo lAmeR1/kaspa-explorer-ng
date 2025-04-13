@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 
 const MAIN_MENU = [
   {
-    name: "BlockDAG",
+    name: "Explore",
     expandable: true,
     children: [
       {
@@ -22,11 +22,8 @@ const MAIN_MENU = [
     ],
   },
   {
-    name: "Assets",
-    linkTo: "/assets",
-  },
-  {
     name: "Analytics",
+    linkTo: "/analytics",
   },
 ];
 

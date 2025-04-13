@@ -47,7 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Header expanded={expanded} setExpanded={setExpanded} />
               {!expanded && (
                 <>
-                  <div className="flex w-full max-w-[1600px] grow flex-col items-center justify-start gap-y-2 px-2 py-2">
+                  <div className="flex w-full max-w-[1600px] grow flex-col items-center justify-start gap-y-2 py-2 sm:px-2">
                     {children}
                   </div>
                   <Footer />

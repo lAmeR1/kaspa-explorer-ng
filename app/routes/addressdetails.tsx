@@ -95,7 +95,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
 
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="Address" infoText="A unique Kaspa address used to send and receive funds." />
-          <FieldValue value={<KasLink linkType="address" copy link qr to={loaderData.address} />} />
+          <FieldValue value={<KasLink linkType="address" copy qr to={loaderData.address} />} />
           <FieldName name="Transactions" infoText="Total number of transactions involving this address." />
           <FieldValue
             value={
