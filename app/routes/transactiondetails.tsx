@@ -301,7 +301,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
         )}
 
         {isTabActive("outputs") && (
-          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
+          <div className="grid w-full grid-cols-2 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
             {transaction.outputs ? (
               transaction.outputs.map((output, index) => (
                 <>
@@ -323,10 +323,13 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                   />
                   <FieldName name="Script Public Key Type" />
                   <FieldValue value={output.script_public_key_type} />
-                  <FieldName name="Script Public Key" />
-                  <FieldValue value={output.script_public_key} />
-                  <FieldName name="Script Public Key Address" />
-                  <FieldValue value={<KasLink linkType="address" link to={output.script_public_key_address} />} />
+                  <FieldName name="Script Public Key" className="col-span-2" />
+                  <FieldValue value={output.script_public_key} className="col-span-2" />
+                  <FieldName name="Script Public Key Address" className="col-span-2" />
+                  <FieldValue
+                    value={<KasLink linkType="address" link to={output.script_public_key_address} />}
+                    className="col-span-2"
+                  />
                   {/*horizontal rule*/}
                   {index + 1 < (transaction.outputs || []).length && (
                     <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
@@ -343,8 +346,8 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
   );
 }
 
-const FieldName = ({ name, infoText }: { name: string; infoText?: string }) => (
-  <div className="flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1">
+const FieldName = ({ name, infoText, className }: { name: string; infoText?: string; className?: string }) => (
+  <div className={`flex flex-row items-start fill-gray-500 text-gray-500 sm:col-start-1 ${className ? className : ""}`}>
     <div className="flex flex-row items-center">
       <Tooltip message={infoText || ""} display={TooltipDisplayMode.Hover} multiLine>
         <InfoIcon className="h-4 w-4" />

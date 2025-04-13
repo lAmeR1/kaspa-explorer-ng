@@ -14,6 +14,7 @@ interface KasLinkProps {
   qr?: boolean;
   link?: boolean;
   active?: boolean;
+  shorten?: number;
 }
 
 const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
@@ -22,7 +23,7 @@ const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
   address: "/addresses/",
 };
 
-const KasLink = ({ to, className, linkType, copy, qr, link, active }: KasLinkProps) => {
+const KasLink = ({ to, className, shorten, linkType, copy, qr, link, active }: KasLinkProps) => {
   const [clicked, setClicked] = useState(false);
   const [showQr, setShowQr] = useState(false);
   const linkHref = linkTypeToAddress[linkType] + to;
@@ -37,48 +38,41 @@ const KasLink = ({ to, className, linkType, copy, qr, link, active }: KasLinkPro
     return <></>;
   }
 
-  const splitAt = to.length - 8;
+  const displayAddress = !shorten ? to : to.slice(0, shorten) + "..." + to.slice(to.length - shorten);
 
   return (
-    <div className={`grid grid-cols-[auto_1fr] text-ellipsis ${className}`}>
-      <span className="break-keep text-ellipsis">
+    <>
+      <span className="inline break-all">
         {link && linkHref && !active ? (
           <Link className="text-link" to={linkHref}>
-            {to.substring(0, splitAt)}
+            {displayAddress}
           </Link>
         ) : (
-          <>{to.substring(0, splitAt)}</>
+          <>{displayAddress}</>
+        )}
+
+        {(copy || qr) && (
+          <span className="relative inline fill-gray-500 break-all">
+            {copy &&
+              (!clicked ? (
+                <Copy
+                  className="hover:fill-primary mx-1 inline h-4 w-4 align-middle hover:cursor-pointer"
+                  onClick={handleClick}
+                />
+              ) : (
+                <CopyCheck className="mx-1 inline h-4 w-4 animate-[spin_0.2s_linear_1] align-middle" />
+              ))}
+            {qr && (
+              <QrCode
+                className="hover:fill-primary relative inline h-4 w-4 align-middle hover:cursor-pointer"
+                onClick={() => setShowQr(!showQr)}
+              />
+            )}
+            {showQr && <QrCodeModal value={to} setShowQr={setShowQr} />}
+          </span>
         )}
       </span>
-
-      <span className="relative fill-gray-500 text-nowrap">
-        {link && linkHref && !active ? (
-          <Link className="text-link" to={linkHref}>
-            {to.substring(splitAt)}
-          </Link>
-        ) : (
-          to.substring(splitAt)
-        )}
-        {copy &&
-          (!clicked ? (
-            <Copy
-              className="hover:fill-primary mx-1 inline h-4 w-4 align-middle hover:cursor-pointer"
-              onClick={handleClick}
-            />
-          ) : (
-            <CopyCheck className="mx-1 inline h-4 w-4 animate-[spin_0.2s_linear_1] align-middle" />
-          ))}
-
-        {qr && (
-          <QrCode
-            className="hover:fill-primary relative inline h-4 w-4 align-middle hover:cursor-pointer"
-            onClick={() => setShowQr(!showQr)}
-          />
-        )}
-
-        {showQr && <QrCodeModal value={to} setShowQr={setShowQr} />}
-      </span>
-    </div>
+    </>
   );
 };
 
