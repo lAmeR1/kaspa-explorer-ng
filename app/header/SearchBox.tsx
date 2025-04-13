@@ -78,7 +78,13 @@ const SearchBox = (props: Props) => {
 
   return (
     <div
-      className={`flex grow flex-row items-center justify-start rounded-lg bg-gray-50 p-2 hover:cursor-text ${props.className || ""}`}
+      className={`group flex grow flex-row items-center justify-start rounded-lg bg-gray-50 p-2  
+         
+       hover:bg-gray-100 hover:cursor-text
+       active:outline-primary active:bg-white active:outline
+       focus-within:outline-primary focus-within:bg-white focus-within:outline
+       focus-within:hover:bg-white
+            ${props.className || ""}`}
       onClick={() => {
         inputFieldRef.current?.focus();
       }}
@@ -93,7 +99,7 @@ const SearchBox = (props: Props) => {
         <input
           type="text"
           ref={inputFieldRef}
-          className={`${invalidInput ? "text-alert" : ""} w-full pe-2 focus:outline-none md:lg:text-lg`}
+          className={`${invalidInput ? "text-alert" : ""} w-full pe-2 outline-none md:lg:text-lg`}
           placeholder="Search for address, transaction, token..."
           onChange={(e) => {
             setInvalidInput(false);
@@ -102,7 +108,7 @@ const SearchBox = (props: Props) => {
           value={props.value}
         />
       </form>
-      <div className="ms-auto flex h-6 w-6 items-center justify-center rounded-sm bg-white text-gray-500">
+      <div className="ms-auto flex w-6 h-6 items-center justify-center rounded-sm bg-white text-gray-500 group-focus:hidden group-active:hidden">
         {invalidInput ? (
           <Error className="fill-alert h-5 w-5" />
         ) : isLoading || txIsLoading ? (

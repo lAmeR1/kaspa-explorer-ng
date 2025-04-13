@@ -2,5 +2,5 @@ export default {
   printWidth: 120,
   sortingMethod: "alphabetical",
   stripNewlines: true,
-  plugins: ["prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  plugins: ["prettier-plugin-sort-imports"],
 };
