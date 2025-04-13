@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <div className="sm:text-md mt-auto flex w-full flex-col items-start rounded-t-4xl bg-black px-4 pb-6 text-sm text-white sm:px-24 sm:pb-6">
+    <div className="sm:text-md mt-auto flex w-full flex-col items-start rounded-t-4xl bg-black px-4 pb-6 text-white sm:px-24 sm:pb-6">
       <svg className="w-40 pt-12 sm:pt-14" viewBox="0 0 199 40" fill="white" xmlns="http://www.w3.org/2000/svg">
         <g id="logo">
           <path
@@ -45,9 +45,6 @@ const Footer = () => {
         </Link>
         <Link to={"/addresses"} className="link-container">
           Addresses
-        </Link>
-        <Link to={"/tokens"} className="link-container">
-          Tokens
         </Link>
         <Link to={"/donate"} className="link-container ms-auto hidden sm:block">
           Donate

@@ -41,7 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <div className="flex h-screen w-full flex-col items-center justify-start">
+        <div className="flex h-screen w-full flex-col items-center justify-start text-sm sm:text-base">
           <QueryClientProvider client={queryClient}>
             <MarketDataProvider>
               <Header expanded={expanded} setExpanded={setExpanded} />

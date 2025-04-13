@@ -85,7 +85,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
           {displaySum.split(".")[0]}.<span className="self-end pb-[0.4rem] text-2xl">{displaySum.split(".")[1]}</span>
           <Kaspa className="fill-primary ml-1 h-8 w-8" />
         </span>
-        <span className="ml-1 text-sm text-gray-500">
+        <span className="ml-1 text-gray-500">
           {numeral(((transactionSum || 0) / 1_0000_0000) * (marketData?.price || 0)).format("$0,0.00")}
         </span>
         {/*horizontal rule*/}
@@ -209,7 +209,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                 <>
                   <div className="flex flex-col">
                     <span>{blockTime.fromNow()}</span>
-                    <span className="text-sm text-gray-500">{blockTime.format("ll LTS")}</span>
+                    <span className="text-gray-500">{blockTime.format("ll LTS")}</span>
                   </div>
                 </>
               }
@@ -248,7 +248,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                     <>
                       <span>{fee}</span>
                       <span className="text-gray-500"> KAS</span>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-gray-500">
                         {numeral(fee * (marketData?.price || 0)).format("$0,0.[00000000]")}
                       </div>
                     </>
@@ -274,7 +274,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                       <>
                         <span>
                           {displayKAS(input.previous_outpoint_amount).split(".")[0]}.
-                          <span className="self-end pb-[0.4rem] text-sm">
+                          <span className="self-end pb-[0.4rem]">
                             {displayKAS(input.previous_outpoint_amount).split(".")[1]}
                           </span>
                         </span>
@@ -313,9 +313,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                       <>
                         <span>
                           {displayKAS(output.amount).split(".")[0]}.
-                          <span className="self-end pb-[0.4rem] text-sm">
-                            {displayKAS(output.amount).split(".")[1]}
-                          </span>
+                          <span className="self-end pb-[0.4rem]">{displayKAS(output.amount).split(".")[1]}</span>
                         </span>
                         <span className="text-gray-500"> KAS</span>
                       </>

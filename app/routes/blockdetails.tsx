@@ -73,7 +73,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           value={
             <div className="flex flex-col">
               <span>{blockTime.fromNow()}</span>
-              <span className="text-sm text-gray-500">{blockTime.format("ll LTS")}</span>
+              <span className="text-gray-500">{blockTime.format("ll LTS")}</span>
             </div>
           }
         />
@@ -135,7 +135,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
                   <div className="text-link">
                     <Link to={`/addresses/${block.extra.minerAddress}`}>{block.extra.minerAddress}</Link>
                   </div>
-                  <div className="text-sm text-gray-500">{block.extra.minerInfo}</div>
+                  <div className="text-gray-500">{block.extra.minerInfo}</div>
                 </>
               }
             />
@@ -154,7 +154,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
 
           <div className="col-span-6 h-[1px] bg-gray-100" />
           <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -162,7 +162,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           <div className="flex items-center fill-black text-black">
             <ArrowRight className="h-5 w-5" />
           </div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -181,12 +181,12 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
             <Accepted />
           </div>
           <div className="text-black">
-            1234<span className="text-sm text-gray-500"> KAS</span>
+            1234<span className="text-gray-500"> KAS</span>
           </div>
 
           <div className="col-span-6 h-[1px] bg-gray-100" />
           <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -194,7 +194,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           <div className="flex items-center fill-black text-black">
             <ArrowRight className="h-5 w-5" />
           </div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -213,11 +213,11 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
             <Accepted />
           </div>
           <div className="text-black">
-            1234<span className="text-sm text-gray-500"> KAS</span>
+            1234<span className="text-gray-500"> KAS</span>
           </div>
           <div className="col-span-6 h-[1px] bg-gray-100" />
           <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -225,7 +225,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           <div className="flex items-center fill-black text-black">
             <ArrowRight className="h-5 w-5" />
           </div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -244,11 +244,11 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
             <Accepted />
           </div>
           <div className="text-black">
-            1234<span className="text-sm text-gray-500"> KAS</span>
+            1234<span className="text-gray-500"> KAS</span>
           </div>
           <div className="col-span-6 h-[1px] bg-gray-100" />
           <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -256,7 +256,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           <div className="flex items-center fill-black text-black">
             <ArrowRight className="h-5 w-5" />
           </div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -275,11 +275,11 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
             <Accepted />
           </div>
           <div className="text-black">
-            1234<span className="text-sm text-gray-500"> KAS</span>
+            1234<span className="text-gray-500"> KAS</span>
           </div>
           <div className="col-span-6 h-[1px] bg-gray-100" />
           <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -287,7 +287,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           <div className="flex items-center fill-black text-black">
             <ArrowRight className="h-5 w-5" />
           </div>
-          <div className="text-link text-sm">
+          <div className="text-link">
             kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
             <br />
             kaspa:qzyzhlkd8thwywu...tfj222rtgcn
@@ -306,7 +306,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
             <Accepted />
           </div>
           <div className="text-black">
-            1234<span className="text-sm text-gray-500"> KAS</span>
+            1234<span className="text-gray-500"> KAS</span>
           </div>
         </div>
       </div>

@@ -84,7 +84,7 @@ const Dashboard = () => {
       </div>
       <div className="flex w-full flex-col gap-x-28 gap-y-14 px-4 pt-10 pb-4 text-black sm:flex-row sm:px-8 sm:pt-12 sm:pb-6 md:px-20 md:pt-20 md:pb-8 lg:px-24 lg:pt-24 lg:pb-12 xl:px-36 xl:pt-38 xl:pb-14">
         <div className="flex-1/2 text-5xl">About Kaspa</div>
-        <div className="flex-1/2 text-base">
+        <div className="flex-1/2">
           Kaspa is a community project – completely open source with no central governance – following in the ethos of
           coins like Bitcoin. The coin was fair-launched without pre-mining or any other pre-allocation of coins.
         </div>
@@ -93,11 +93,11 @@ const Dashboard = () => {
         <div className="h-[1px] w-full bg-gray-300" />
       </div>
       <div className="flex w-full flex-col gap-x-28 gap-y-12 px-4 pt-4 pb-10 text-black sm:px-8 sm:pt-6 sm:pb-12 md:px-20 md:pt-8 md:pb-20 lg:flex-row lg:px-24 lg:pt-12 lg:pb-24 xl:px-36 xl:pt-14 xl:pb-38">
-        <div className="flex-1/2 text-base">
+        <div className="flex-1/2">
           The world’s first blockDAG – a digital ledger enabling parallel blocks and instant transaction confirmation –
           built on a robust proof-of-work engine with rapid single-second block intervals.
         </div>
-        <div className="flex-1/2 text-base">
+        <div className="flex-1/2">
           <div className="grid grid-cols-1 gap-x-14 gap-y-16 sm:grid-cols-2">
             <DashboardInfoBox
               description="Kaspa enables near-instant transaction confirmations, ensuring seamless and efficient user experiences for payments and transfers."
@@ -139,9 +139,9 @@ const DashboardBox = (props: DashboardBoxProps) => {
     <div className="flex flex-col gap-y-2 rounded-2xl border border-gray-800 px-6 py-4">
       <div className="flex flex-row items-center overflow-hidden text-lg">
         <div className="fill-primary mr-1 w-5">{props.icon}</div>
-        <span className="text-sm text-gray-500">{props.description}</span>
+        <span className="text-gray-500">{props.description}</span>
       </div>
-      <span className="text-base md:text-lg xl:text-xl">
+      <span className="md:text-lg xl:text-xl">
         {!props.loading ? (
           props.value
         ) : (
@@ -149,7 +149,7 @@ const DashboardBox = (props: DashboardBoxProps) => {
             <Spinner className="mr-2 inline h-5 w-5" />
           </span>
         )}
-        {props.unit ? <span className="text-base text-gray-500"> {props.unit}</span> : ""}
+        {props.unit ? <span className="text-gray-500"> {props.unit}</span> : ""}
       </span>
     </div>
   );
@@ -168,7 +168,7 @@ const DashboardInfoBox = (props: InfoBoxProps) => {
     <div className="flex flex-col gap-y-2">
       <>{props.icon}</>
       <span className="text-xl">{props.title}</span>
-      <span className="text-sm text-gray-500">{props.description}</span>
+      <span className="text-gray-500">{props.description}</span>
     </div>
   );
 };

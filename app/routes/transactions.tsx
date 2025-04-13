@@ -58,8 +58,8 @@ export default function Transactions() {
                 />
               </div>
               <div className="last:bg-alert py-3 text-right">
-                82.<span className="text-sm">9981</span>
-                <span className="text-sm text-gray-500"> KAS</span>
+                82.<span className="">9981</span>
+                <span className="text-gray-500"> KAS</span>
               </div>
             </>
           ))}

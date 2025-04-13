@@ -35,7 +35,7 @@ export default function Addresses() {
       <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left text-gray-500 sm:p-8">
         <table className="mt-4">
           <thead>
-            <tr className="border-b border-gray-100 text-base">
+            <tr className="border-b border-gray-100">
               <th className="pl-0.5 font-normal">Rank</th>
               <th className="pl-0.5 font-normal">Address</th>
               <th className="pl-0.5 font-normal">Label</th>
@@ -45,7 +45,7 @@ export default function Addresses() {
           </thead>
           <tbody>
             {[...Array(100)].map((_, index) => (
-              <tr key={index} className="border-t border-gray-100 text-base text-black">
+              <tr key={index} className="border-t border-gray-100 text-black">
                 <td className="pr-2 text-nowrap">{index + 1}</td>
                 <td className="text-link pr-2 font-mono">
                   <span className="">
@@ -55,7 +55,7 @@ export default function Addresses() {
                   </span>
                 </td>
                 <td>
-                  <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-base text-nowrap text-black">
+                  <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-nowrap text-black">
                     exchange1 wallet
                   </span>
                 </td>
@@ -69,7 +69,7 @@ export default function Addresses() {
         </table>
       </div>
       <FooterHelper icon={AccountBalanceWallet}>
-        <span className="text-sm">
+        <span className="">
           An address is a unique identifier on the blockchain used to send, receive, and store assets or data. It holds
           balances and interacts with the network securely.
         </span>

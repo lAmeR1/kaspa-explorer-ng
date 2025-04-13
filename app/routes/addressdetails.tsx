@@ -87,7 +87,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
           </span>
           <Kaspa className="fill-primary ml-1 h-8 w-8" />
         </span>
-        <span className="ml-1 text-sm text-gray-500">
+        <span className="ml-1 text-gray-500">
           {numeral(((data?.balance || 0) / 1_0000_0000) * (marketData?.price || 0)).format("$0,0.00")}
         </span>
         {/*horizontal rule*/}
@@ -200,7 +200,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                       )) /
                       1_0000_0000,
                   ).format("0,0.00[000000]")}
-                  <span className="text-sm text-gray-500"> KAS</span>
+                  <span className="text-gray-500"> KAS</span>
                 </div>
                 <div className="text-gray-500">Status</div>
                 <div className="flex flex-row items-center justify-end gap-x-1.5 text-right">
@@ -231,10 +231,10 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                   <div className="col-span-7 h-[1px] bg-gray-100" />
                   <div className="text-black">12 sec. ago - Dec 01 2025 14:12:22</div>
                   <div className="text-black">123b12....28b12b318293</div>
-                  <div className="text-link text-sm">0</div>
+                  <div className="text-link">0</div>
                   <div className="flex items-center fill-black text-black">9125185</div>
                   <div className="text-black">
-                    1234<span className="text-sm text-gray-500"> KAS</span>
+                    1234<span className="text-gray-500"> KAS</span>
                   </div>
                 </>
               ))}

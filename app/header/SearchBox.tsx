@@ -78,7 +78,7 @@ const SearchBox = (props: Props) => {
 
   return (
     <div
-      className={`flex grow flex-row items-center justify-start rounded-lg bg-gray-50 p-2 text-sm hover:cursor-text ${props.className || ""}`}
+      className={`flex grow flex-row items-center justify-start rounded-lg bg-gray-50 p-2 hover:cursor-text ${props.className || ""}`}
       onClick={() => {
         inputFieldRef.current?.focus();
       }}
@@ -93,7 +93,7 @@ const SearchBox = (props: Props) => {
         <input
           type="text"
           ref={inputFieldRef}
-          className={`${invalidInput ? "text-alert" : ""} w-full pe-2 text-sm focus:outline-none md:text-base lg:text-lg`}
+          className={`${invalidInput ? "text-alert" : ""} w-full pe-2 focus:outline-none md:lg:text-lg`}
           placeholder="Search for address, transaction, token..."
           onChange={(e) => {
             setInvalidInput(false);

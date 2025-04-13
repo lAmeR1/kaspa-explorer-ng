@@ -1,5 +1,9 @@
 import Dashboard from "../Dashboard";
 
 export default function Home() {
-  return <Dashboard />;
+  return (
+    <div className="text-base">
+      <Dashboard />
+    </div>
+  );
 }

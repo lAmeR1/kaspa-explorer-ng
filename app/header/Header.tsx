@@ -22,9 +22,9 @@ const Header = ({
   return (
     <div
       id="header"
-      className={`flex w-full flex-col items-stretch rounded-b-4xl bg-white px-2 py-4 transition-all duration-600 ${expanded ? "h-[100vh] overflow-hidden rounded-b-none sm:h-auto sm:rounded-b-4xl" : ""}`}
+      className={`flex w-full flex-col items-stretch rounded-b-4xl bg-white px-2 py-4 text-base transition-all duration-600 ${expanded ? "h-[100vh] overflow-hidden rounded-b-none sm:h-auto sm:rounded-b-4xl" : ""}`}
     >
-      <div className="md:text-md flex w-full flex-row items-center text-sm">
+      <div className="md:text-md flex w-full flex-row items-center">
         <Link to={"/"}>
           <LogoIcon className="ms-4 h-7 w-35 md:h-10 md:w-50" />
         </Link>
