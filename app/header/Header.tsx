@@ -36,7 +36,7 @@ const Header = ({
 
         <DesktopMenu />
         <div
-          className={`hover:fill-primary ms-auto transition-transform duration-300 hover:cursor-pointer sm:hidden ${expanded ? "rotate-360" : ""}`}
+          className={`hover:fill-primary ms-auto me-4 transition-transform duration-300 hover:cursor-pointer sm:hidden ${expanded ? "rotate-360" : ""}`}
           onClick={() => setExpanded(!expanded)}
         >
           {!expanded ? <Menu /> : <Close />}
