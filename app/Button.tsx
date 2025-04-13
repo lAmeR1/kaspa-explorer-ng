@@ -9,7 +9,7 @@ interface ButtonProps {
 
 const Button = (props: ButtonProps) => {
   let className =
-    "rounded-full h-8 hover:cursor-pointer border hover:border-gray-200 px-6 py-2" +
+    "rounded-full h-8 hover:cursor-pointer hover:bg-primary-hover focus:bg-primary-hover px-6 py-2" +
     " flex flex-row items-center justify-center text-nowrap " +
     `${props.className}`;
 
