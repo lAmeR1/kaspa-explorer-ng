@@ -14,6 +14,7 @@ const Tooltip = (props: {
   duration?: number;
   display: TooltipDisplayMode;
   multiLine?: boolean;
+  clickTimeout?: number;
 }) => {
   const tooltipDiv = useRef<HTMLDivElement>(null);
 
@@ -27,7 +28,7 @@ const Tooltip = (props: {
         tooltipDiv.current.style.left = Math.round(-1 * rect.left + 16) + "px";
       }
     }
-    console.log(props.message);
+    if (showElement && props.clickTimeout) setTimeout(() => setShowElement(false), props.clickTimeout);
   }, [showElement]);
 
   return (

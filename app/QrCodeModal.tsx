@@ -25,7 +25,7 @@ const QrCodeModal = (props: QrCodeModalProps) => {
       id="qr-code"
     >
       <div
-        className="relative z-200 flex w-[360px] flex-col items-center justify-around rounded-4xl bg-white p-6 opacity-100"
+        className="relative z-200 mx-6 flex w-full max-w-[360px] min-w-80 flex-col items-center justify-around rounded-4xl bg-white p-6 opacity-100"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -44,7 +44,7 @@ const QrCodeModal = (props: QrCodeModalProps) => {
         <div className="mt-2 w-full text-center text-wrap break-all text-black">{props.value}</div>
 
         <div className="relative mt-8 w-full">
-          <Tooltip message="copied" display={TooltipDisplayMode.Sticky}>
+          <Tooltip message="copied" display={TooltipDisplayMode.Click} className="w-full" clickTimeout={2000}>
             <Button className="h-10 w-full" value={"Copy to clipboard"} primary onClick={handleClick} />
           </Tooltip>
         </div>
