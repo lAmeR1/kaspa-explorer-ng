@@ -1,7 +1,5 @@
-import Button from "~/Button";
-
+import Button from "./Button";
 import ChevronLeft from "./assets/chevron-left.svg";
-
 import ChevronRight from "./assets/chevron-right.svg";
 
 interface PageSelectorProps {
@@ -12,11 +10,7 @@ interface PageSelectorProps {
 
 const SHOW_DIFF_RANGE = 1;
 
-const PageSelector = ({
-  currentPage,
-  totalPages,
-  onPageChange,
-}: PageSelectorProps) => {
+const PageSelector = ({ currentPage, totalPages, onPageChange }: PageSelectorProps) => {
   const showPages = [1];
 
   if (currentPage - SHOW_DIFF_RANGE <= 3 && totalPages > 2) {
@@ -51,11 +45,7 @@ const PageSelector = ({
           key={i}
           value={isNaN(i) ? "..." : i.toString()}
           primary={i === currentPage}
-          onClick={(e) =>
-            onPageChange(
-              Number.parseInt((e.target as HTMLElement).textContent || ""),
-            )
-          }
+          onClick={(e) => onPageChange(Number.parseInt((e.target as HTMLElement).textContent || ""))}
         />
       ))}
       <ChevronRight className="h-8 w-8 fill-gray-500 p-1 hover:cursor-pointer hover:text-gray-800" />

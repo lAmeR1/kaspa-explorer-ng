@@ -1,5 +1,5 @@
+import Spinner from "./Spinner";
 import type { ReactNode } from "react";
-import Spinner from "~/Spinner";
 
 interface LoadingMessageProps {
   children: ReactNode;

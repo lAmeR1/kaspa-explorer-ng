@@ -1,5 +1,5 @@
+import Triangle from "./assets/triangle.svg";
 import { type ReactNode, useEffect, useRef, useState } from "react";
-import Triangle from "~/assets/triangle.svg";
 
 export enum TooltipDisplayMode {
   Sticky = "showAlways",

@@ -1,12 +1,12 @@
 import Close from "../assets/close.svg";
 import LogoIcon from "../assets/logo.svg";
 import Menu from "../assets/menu.svg";
+import DesktopMenu from "./DesktopMenu";
+import MobileMenu from "./MobileMenu";
 import Price from "./Price";
 import SearchBox from "./SearchBox";
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
-import DesktopMenu from "~/header/DesktopMenu";
-import MobileMenu from "~/header/MobileMenu";
 
 const Header = ({
   expanded,

@@ -1,12 +1,12 @@
 import Box from "../assets/box.svg";
+import { useBlockdagInfo } from "../hooks/useBlockDagInfo";
+import { useBlockReward } from "../hooks/useBlockReward";
+import Card from "../layout/Card";
+import CardContainer from "../layout/CardContainer";
+import FooterHelper from "../layout/FooterHelper";
+import MainBox from "../layout/MainBox";
 import numeral from "numeral";
 import { Link } from "react-router";
-import { useBlockdagInfo } from "~/hooks/useBlockDagInfo";
-import { useBlockReward } from "~/hooks/useBlockReward";
-import Card from "~/layout/Card";
-import CardContainer from "~/layout/CardContainer";
-import FooterHelper from "~/layout/FooterHelper";
-import MainBox from "~/layout/MainBox";
 
 export function meta() {
   return [

@@ -1,10 +1,10 @@
 import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
+import Card from "../layout/Card";
+import CardContainer from "../layout/CardContainer";
+import FooterHelper from "../layout/FooterHelper";
+import MainBox from "../layout/MainBox";
 import numeral from "numeral";
 import { Link } from "react-router";
-import Card from "~/layout/Card";
-import CardContainer from "~/layout/CardContainer";
-import FooterHelper from "~/layout/FooterHelper";
-import MainBox from "~/layout/MainBox";
 
 export function meta() {
   return [

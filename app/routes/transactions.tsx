@@ -1,14 +1,14 @@
+import { Accepted } from "../Accepted";
+import Button from "../Button";
+import KasLink from "../KasLink";
 import Transaction from "../assets/transaction.svg";
+import Card from "../layout/Card";
+import CardContainer from "../layout/CardContainer";
+import FooterHelper from "../layout/FooterHelper";
+import HelperBox from "../layout/HelperBox";
+import MainBox from "../layout/MainBox";
 import numeral from "numeral";
 import { Link } from "react-router";
-import { Accepted } from "~/Accepted";
-import Button from "~/Button";
-import KasLink from "~/KasLink";
-import Card from "~/layout/Card";
-import CardContainer from "~/layout/CardContainer";
-import FooterHelper from "~/layout/FooterHelper";
-import HelperBox from "~/layout/HelperBox";
-import MainBox from "~/layout/MainBox";
 
 export function meta() {
   return [

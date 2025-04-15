@@ -1,9 +1,9 @@
+import Button from "./Button";
+import Tooltip, { TooltipDisplayMode } from "./Tooltip";
+import Close from "./assets/close.svg";
+import Kaspa from "./assets/kaspa.svg";
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
-import Button from "~/Button";
-import Tooltip, { TooltipDisplayMode } from "~/Tooltip";
-import Close from "~/assets/close.svg";
-import Kaspa from "~/assets/kaspa.svg";
 
 interface QrCodeModalProps {
   value: string;

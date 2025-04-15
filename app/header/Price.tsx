@@ -1,7 +1,7 @@
 import KaspaIcon from "../assets/kaspa.svg";
+import { MarketDataContext } from "../context/MarketDataProvider";
 import numeral from "numeral";
 import { useContext } from "react";
-import { MarketDataContext } from "~/context/MarketDataProvider";
 
 const PriceLabel = () => {
   const marketData = useContext(MarketDataContext);

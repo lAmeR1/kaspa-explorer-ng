@@ -1,18 +1,18 @@
+import { Accepted } from "../Accepted";
+import ErrorMessage from "../ErrorMessage";
+import KasLink from "../KasLink";
+import LoadingMessage from "../LoadingMessage";
+import Tooltip, { TooltipDisplayMode } from "../Tooltip";
 import ArrowRight from "../assets/arrow-right.svg";
 import Box from "../assets/box.svg";
 import Info from "../assets/info.svg";
+import { useBlockById } from "../hooks/useBlockById";
 import type { Route } from "./+types/blockdetails";
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Link } from "react-router";
-import { Accepted } from "~/Accepted";
-import ErrorMessage from "~/ErrorMessage";
-import KasLink from "~/KasLink";
-import LoadingMessage from "~/LoadingMessage";
-import Tooltip, { TooltipDisplayMode } from "~/Tooltip";
-import { useBlockById } from "~/hooks/useBlockById";
 
 dayjs().locale("en");
 dayjs.extend(relativeTime);

@@ -1,3 +1,4 @@
+import Spinner from "./Spinner";
 import AccountBalanceWallet from "./assets/account_balance_wallet.svg";
 import BackToTab from "./assets/back_to_tab.svg";
 import Box from "./assets/box.svg";
@@ -9,14 +10,13 @@ import Swap from "./assets/swap.svg";
 import Time from "./assets/time.svg";
 import Trophy from "./assets/trophy.svg";
 import VerifiedUser from "./assets/verified_user.svg";
+import SearchBox from "./header/SearchBox";
+import { useBlockdagInfo } from "./hooks/useBlockDagInfo";
+import { useBlockReward } from "./hooks/useBlockReward";
+import { useCoinSupply } from "./hooks/useCoinSupply";
+import { useHalving } from "./hooks/useHalving";
 import numeral from "numeral";
 import { useState } from "react";
-import Spinner from "~/Spinner";
-import SearchBox from "~/header/SearchBox";
-import { useBlockdagInfo } from "~/hooks/useBlockDagInfo";
-import { useBlockReward } from "~/hooks/useBlockReward";
-import { useCoinSupply } from "~/hooks/useCoinSupply";
-import { useHalving } from "~/hooks/useHalving";
 
 const TOTAL_SUPPLY = 28_700_000_000;
 

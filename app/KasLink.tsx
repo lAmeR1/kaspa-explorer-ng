@@ -1,9 +1,9 @@
+import QrCodeModal from "./QrCodeModal";
+import Copy from "./assets/copy.svg";
+import CopyCheck from "./assets/copycheck.svg";
+import QrCode from "./assets/qr_code.svg";
 import { useState } from "react";
 import { Link } from "react-router";
-import QrCodeModal from "~/QrCodeModal";
-import Copy from "~/assets/copy.svg";
-import CopyCheck from "~/assets/copycheck.svg";
-import QrCode from "~/assets/qr_code.svg";
 
 interface KasLinkProps {
   linkType: "transaction" | "block" | "address";
