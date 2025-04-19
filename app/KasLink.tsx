@@ -1,9 +1,9 @@
+import { useState } from "react";
+import { Link } from "react-router";
 import QrCodeModal from "./QrCodeModal";
 import Copy from "./assets/copy.svg";
 import CopyCheck from "./assets/copycheck.svg";
 import QrCode from "./assets/qr_code.svg";
-import { useState } from "react";
-import { Link } from "react-router";
 
 interface KasLinkProps {
   linkType: "transaction" | "block" | "address";
@@ -14,7 +14,7 @@ interface KasLinkProps {
   qr?: boolean;
   link?: boolean;
   active?: boolean;
-  shorten?: number;
+  ellipsis?: boolean;
 }
 
 const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
@@ -23,56 +23,68 @@ const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
   address: "/addresses/",
 };
 
-const KasLink = ({ to, className, shorten, linkType, copy, qr, link, active }: KasLinkProps) => {
+const KasLink = ({ to, className, linkType, copy, qr, link, active, ellipsis }: KasLinkProps) => {
   const [clicked, setClicked] = useState(false);
   const [showQr, setShowQr] = useState(false);
   const linkHref = linkTypeToAddress[linkType] + to;
 
-  const handleClick = async () => {
+  const handleClick = () => {
+    navigator.clipboard.writeText(to);
     setClicked(true);
     setTimeout(() => setClicked(false), 1000);
-    await navigator.clipboard.writeText(to);
   };
 
   if (!to) {
     return <></>;
   }
-
-  const displayAddress = !shorten ? to : to.slice(0, shorten) + "..." + to.slice(to.length - shorten);
+  const splitAt = ellipsis ? to.length - 10 : to.length;
 
   return (
-    <>
-      <span className="inline break-all">
+    <div className={`${ellipsis ? "grid grid-cols-[auto_1fr]" : "inline break-all"}`}>
+      <span className="overflow-hidden text-ellipsis">
         {link && linkHref && !active ? (
-          <Link className="text-link hover:underline" to={linkHref}>
-            {displayAddress}
+          <Link className="text-link" to={linkHref}>
+            {to.substring(0, splitAt)}
           </Link>
         ) : (
-          <>{displayAddress}</>
-        )}
-
-        {(copy || qr) && (
-          <span className="relative inline fill-gray-500 break-all">
-            {copy &&
-              (!clicked ? (
-                <Copy
-                  className="hover:fill-primary mx-1 inline h-4 w-4 align-middle hover:cursor-pointer"
-                  onClick={handleClick}
-                />
-              ) : (
-                <CopyCheck className="mx-1 inline h-4 w-4 animate-[spin_0.2s_linear_1] align-middle" />
-              ))}
-            {qr && (
-              <QrCode
-                className="hover:fill-primary relative inline h-4 w-4 align-middle hover:cursor-pointer"
-                onClick={() => setShowQr(!showQr)}
-              />
-            )}
-            {showQr && <QrCodeModal value={to} setShowQr={setShowQr} />}
-          </span>
+          <>{to.substring(0, splitAt)}</>
         )}
       </span>
-    </>
+
+      <span className="fill-gray-500 text-nowrap">
+        {link && linkHref && !active ? (
+          <Link className="text-link" to={linkHref}>
+            {to.substring(splitAt)}
+          </Link>
+        ) : (
+          to.substring(splitAt)
+        )}
+        {copy &&
+          (!clicked ? (
+            <Copy
+              className="hover:fill-primary mx-1 inline h-4 w-4 align-middle hover:cursor-pointer"
+              onClick={handleClick}
+            />
+          ) : (
+            <CopyCheck className="mx-1 inline h-4 w-4 animate-[spin_0.2s_linear_1] align-middle" />
+          ))}
+
+        {clicked && (
+          <div className="bg-primary absolute z-10 inline -translate-x-full -translate-y-full rounded-lg p-2 text-white">
+            copied
+          </div>
+        )}
+
+        {qr && (
+          <QrCode
+            className="hover:fill-primary relative inline h-4 w-4 align-middle hover:cursor-pointer"
+            onClick={() => setShowQr(!showQr)}
+          />
+        )}
+
+        {showQr && <QrCodeModal value={to} setShowQr={setShowQr} />}
+      </span>
+    </div>
   );
 };
 

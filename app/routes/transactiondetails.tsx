@@ -108,8 +108,11 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
           <FieldValue
             value={
               transaction.outputs ? (
-                transaction.outputs.map((output) => (
-                  <KasLink linkType="address" copy link to={output.script_public_key_address} />
+                transaction.outputs.map((output, index) => (
+                  <>
+                    <KasLink linkType="address" copy link to={output.script_public_key_address} />
+                    {index + 1 < (transaction.outputs?.length || 0) && <br />}
+                  </>
                 ))
               ) : (
                 <span>No output addresses</span>

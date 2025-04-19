@@ -144,7 +144,7 @@ export default function Addressdetails({loaderData}: Route.ComponentProps) {
                             headers={["Timestamp", "TransactionID", "From", "To", "Amount", "Status"]}
                             rows={(transactions || []).map((transaction) => [
                                 dayjs(transaction.block_time).fromNow(),
-                                <KasLink linkType="transaction" link to={transaction.transaction_id} shorten={10}/>,
+                                <KasLink ellipsis linkType="transaction" link to={transaction.transaction_id} />,
                                 (transaction.inputs || []).length > 0 ? (
                                     (transaction.inputs || []).map((input) => (
                                         <div>
@@ -154,8 +154,8 @@ export default function Addressdetails({loaderData}: Route.ComponentProps) {
                                                     linkType="address"
                                                     to={input.previous_outpoint_address}
                                                     active={input.previous_outpoint_address === loaderData.address}
-                                                    shorten={12}
-                                                /><br />
+                                                    ellipsis
+                                                />
                                                 </>}
                                         </div>
                                     ))
@@ -168,8 +168,8 @@ export default function Addressdetails({loaderData}: Route.ComponentProps) {
                                         linkType="address"
                                         to={output.script_public_key_address}
                                         active={loaderData.address === output.script_public_key_address}
-                                        shorten={10}
-                                    /><br/></>
+                                        ellipsis
+                                    /></>
                                 )),
                                 <>
                                     {numeral(
