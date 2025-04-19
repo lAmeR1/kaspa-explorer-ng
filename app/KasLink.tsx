@@ -37,7 +37,7 @@ const KasLink = ({ to, className, linkType, copy, qr, link, active, ellipsis }: 
   if (!to) {
     return <></>;
   }
-  const splitAt = ellipsis ? to.length - 10 : to.length;
+  const splitAt = ellipsis ? to.length - 8 : to.length;
 
   return (
     <div className={`${ellipsis ? "grid grid-cols-[auto_1fr]" : "inline break-all"}`}>

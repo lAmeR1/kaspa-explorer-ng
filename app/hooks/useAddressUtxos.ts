@@ -6,7 +6,9 @@ export const useAddressUtxos = (address: string) =>
     queryKey: ["utxos", { address }],
     queryFn: async () => {
       const { data } = await axios.get(`https://api.kaspa.org/addresses/${address}/utxos`);
-      return data as Utxo[];
+      return data.sort(
+        (a: Utxo, b: Utxo) => Number(b.utxoEntry.blockDaaScore) - Number(a.utxoEntry.blockDaaScore),
+      ) as Utxo[];
     },
   });
 
@@ -17,7 +19,7 @@ interface Utxo {
     index: number;
   };
   utxoEntry: {
-    amount: string[];
+    amount: string;
     scriptPublicKey: {
       scriptPublicKey: string;
     };
