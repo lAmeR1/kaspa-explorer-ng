@@ -1,9 +1,8 @@
-import { Accepted } from "../Accepted";
 import ErrorMessage from "../ErrorMessage";
 import KasLink from "../KasLink";
 import LoadingMessage from "../LoadingMessage";
+import PageTable from "../PageTable";
 import Tooltip, { TooltipDisplayMode } from "../Tooltip";
-import ArrowRight from "../assets/arrow-right.svg";
 import Box from "../assets/box.svg";
 import Info from "../assets/info.svg";
 import { useBlockById } from "../hooks/useBlockById";
@@ -144,171 +143,17 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
       </div>
       <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
         <div className="mt-4 mb-2 text-black sm:col-span-2">Transactions</div>
-
-        <div className="grid w-full grid-cols-[auto_2fr_auto_2fr_auto_auto] gap-x-4 gap-y-2">
-          <div className="text-gray-500">TX-ID</div>
-          <div className="col-span-2 text-gray-500">From</div>
-          <div className="text-gray-500">To</div>
-          <div className="text-gray-500">Status</div>
-          <div className="text-right text-gray-500">Amount</div>
-
-          <div className="col-span-6 h-[1px] bg-gray-100" />
-          <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="flex items-center fill-black text-black">
-            <ArrowRight className="h-5 w-5" />
-          </div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="text-success">
-            <Accepted />
-          </div>
-          <div className="text-black">
-            1234<span className="text-gray-500"> KAS</span>
-          </div>
-
-          <div className="col-span-6 h-[1px] bg-gray-100" />
-          <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="flex items-center fill-black text-black">
-            <ArrowRight className="h-5 w-5" />
-          </div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="text-success">
-            <Accepted />
-          </div>
-          <div className="text-black">
-            1234<span className="text-gray-500"> KAS</span>
-          </div>
-          <div className="col-span-6 h-[1px] bg-gray-100" />
-          <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="flex items-center fill-black text-black">
-            <ArrowRight className="h-5 w-5" />
-          </div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="text-success">
-            <Accepted />
-          </div>
-          <div className="text-black">
-            1234<span className="text-gray-500"> KAS</span>
-          </div>
-          <div className="col-span-6 h-[1px] bg-gray-100" />
-          <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="flex items-center fill-black text-black">
-            <ArrowRight className="h-5 w-5" />
-          </div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="text-success">
-            <Accepted />
-          </div>
-          <div className="text-black">
-            1234<span className="text-gray-500"> KAS</span>
-          </div>
-          <div className="col-span-6 h-[1px] bg-gray-100" />
-          <div className="text-black">123b12....28b12b318293</div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="flex items-center fill-black text-black">
-            <ArrowRight className="h-5 w-5" />
-          </div>
-          <div className="text-link">
-            kaspa:qzyzhlkd8thwy...4h6mtfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-            <br />
-            kaspa:qzyzhlkd8thwywu...tfj222rtgcn
-          </div>
-          <div className="text-success">
-            <Accepted />
-          </div>
-          <div className="text-black">
-            1234<span className="text-gray-500"> KAS</span>
-          </div>
-        </div>
+        <PageTable
+          headers={["Transaction ID", "From", "To", "Status", "Amount"]}
+          rows={block?.transactions.map((transaction) => [
+            <KasLink linkType="transaction" to={transaction.verboseData.transactionId} link ellipsis />,
+            "no idea",
+            transaction.outputs.map((output) => (
+              <KasLink linkType="address" to={output.verboseData.scriptPublicKeyAddress} link ellipsis />
+            )),
+            "123123123 KAS",
+          ]) || []}
+        />
       </div>
     </>
   );
@@ -325,4 +170,6 @@ const FieldName = ({ name, infoText }: { name: string; infoText?: string }) => (
   </div>
 );
 
-const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span className="overflow-hidden">{value}</span>;
+const FieldValue = ({ value }: { value: string | React.ReactNode }) => (
+  <div className="break-all text-wrap">{value}</div>
+);
