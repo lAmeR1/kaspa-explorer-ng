@@ -139,10 +139,11 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         </div>
 
         {isTabActive("transactions") && (
-          <>
+          <div className="w-full">
             <PageTable
               headers={["Timestamp", "ID", "From", "", "To", "Amount", "Status"]}
-              additionalClassNames={{ 2: "sm:w-50", 3: "hidden sm:table-cell" }}
+              className="w-full md:text-sm lg:text-base"
+              additionalClassNames={{ 2: "md:w-40 lg:w-50", 4: "md:w-40 lg:w-50", 3: "hidden md:table-cell" }}
               rows={(transactions || []).map((transaction) => [
                 dayjs(transaction.block_time).fromNow(),
                 <KasLink shorten linkType="transaction" link to={transaction.transaction_id} />,
@@ -200,7 +201,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                 <span className="text-sm">{transaction.is_accepted ? <Accepted /> : <NotAccepted />}</span>,
               ])}
             />
-          </>
+          </div>
         )}
 
         {isTabActive("utxos") && (
