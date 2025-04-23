@@ -1,49 +1,47 @@
-import dayjs from "dayjs";
 import React, { type ReactNode } from "react";
 
 interface PageTableProps {
   rows: ReactNode[][];
   headers: ReactNode[];
+  additionalClassNames?: Record<number, string>;
+  className?: string;
 }
 
 const PageTable = (props: PageTableProps) => {
   return (
-    <div
-      className={`grid grid-cols-1
-      
-     sm:grid-cols-[3fr_3fr_3fr_1fr_5fr_3fr_3fr]`}
-    >
-      {props.headers.map((headerName, i) => (
-        <div
-          className={`hidden sm:block ps-4 text-gray-500 ${i + 1 === props.headers.length ? "text-right sm:pe-4" : ""}`}
-        >
-          {headerName}
-        </div>
-      ))}
-
-      <div className={`col-span-1 sm:col-span-${props.headers.length} col-start-1 h-[1px] bg-gray-100 my-3`} />
-
-      {props.rows.map((row, rowNr) => (
-        <>
-          {row.map((cell, colNr) => (
-            <>
-              <div className="sm:hidden py-1 sm:py-3 text-gray-500 col-start-1">{props.headers[colNr]}</div>
-              <div
-                className={`block self-center text-left text-ellipsis ps-4 py-1 sm:py-3 text-black 
-             ${colNr === 0 ? " sm:col-start-1" : ""}
-             ${colNr + 1 === props.headers.length ? " sm:text-right sm:pe-4" : " sm:text-left"}
-            `}
-              >
-                {cell}
-              </div>
-            </>
+    <table className={`table table-fixed ${props.className || ""}`}>
+      <thead className="hidden sm:table-header-group border-b border-gray-100">
+        <tr>
+          {props.headers.map((headerName, i) => (
+            <td
+              className={`block sm:table-cell py-3 ps-4 text-gray-500 
+              ${i + 1 === props.headers.length ? " text-right sm:pe-4" : ""}
+              ${(props.additionalClassNames && props.additionalClassNames[i]) || ""}`}
+            >
+              {headerName}
+            </td>
           ))}
-          {rowNr + 1 < props.rows.length && (
-            <div className={`col-span-1 sm:col-span-${props.headers.length} col-start-1 h-[1px] bg-gray-100 my-3`} />
-          )}
-        </>
-      ))}
-    </div>
+        </tr>
+      </thead>
+      <tbody>
+        {props.rows.map((row, rowNr) => (
+          <tr className={`${rowNr > 0 ? "border-t" : ""} border-gray-100`}>
+            {row.map((cell, cellNr) => (
+              <>
+                <td className={`block pt-2 sm:hidden text-gray-500`}>{props.headers[cellNr] || ""}</td>
+                <td
+                  className={`block sm:table-cell sm:py-3 sm:ps-4 ${cellNr + 1 === row.length ? " sm:text-right mb-4 sm:mb-0" : ""}
+                  ${props.additionalClassNames && props.additionalClassNames[cellNr]}
+                  `}
+                >
+                  {cell}
+                </td>
+              </>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

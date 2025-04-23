@@ -142,13 +142,14 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
           <>
             <PageTable
               headers={["Timestamp", "ID", "From", "", "To", "Amount", "Status"]}
+              additionalClassNames={{ 2: "w-50", 3: "hidden sm:table-cell" }}
               rows={(transactions || []).map((transaction) => [
                 dayjs(transaction.block_time).fromNow(),
                 <KasLink shorten linkType="transaction" link to={transaction.transaction_id} />,
                 (transaction.inputs || []).length > 0 ? (
-                  (transaction.inputs || []).map((input) => (
-                    <div>
-                      {input.previous_outpoint_address && (
+                  (transaction.inputs || []).map(
+                    (input) =>
+                      input.previous_outpoint_address && (
                         <>
                           <KasLink
                             link
@@ -157,14 +158,14 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                             active={input.previous_outpoint_address === loaderData.address}
                             shorten
                           />
+                          <br />
                         </>
-                      )}
-                    </div>
-                  ))
+                      ),
+                  )
                 ) : (
                   <span>Coinbase (newly mined coins)</span>
                 ),
-                <ArrowRight className="h-4 w-4" />,
+                <ArrowRight className="inline h-4 w-4" />,
                 (transaction.outputs || []).map((output) => (
                   <>
                     <KasLink
