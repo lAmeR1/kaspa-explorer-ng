@@ -28,7 +28,7 @@ const PageTable = (props: PageTableProps) => {
           <tr className={`${rowNr > 0 ? "border-t" : ""} border-gray-100`}>
             {row.map((cell, cellNr) => (
               <>
-                <td className={`block pt-2 sm:hidden text-gray-500`}>{props.headers[cellNr] || ""}</td>
+                <td className={`block pt-4 sm:hidden text-gray-500`}>{props.headers[cellNr] || ""}</td>
                 <td
                   className={`block sm:table-cell sm:py-3 sm:ps-4 ${cellNr + 1 === row.length ? " sm:text-right mb-4 sm:mb-0" : ""}
                   ${props.additionalClassNames && props.additionalClassNames[cellNr]}
