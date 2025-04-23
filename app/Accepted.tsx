@@ -3,7 +3,7 @@ export const Accepted = () => (
 );
 
 export const NotAccepted = () => (
-  <div className="bg-accent-red text-alert inline rounded-full px-2 py-0.5 text-center break-keep">Not accepted</div>
+  <div className="bg-accent-red text-alert inline rounded-full px-2 py-0.5 text-center break-keep">Not accepted</div>
 );
 
 export const Confirmed = () => (
