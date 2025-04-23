@@ -35,7 +35,7 @@ const PageTable = (props: PageTableProps) => {
                   <td className={`pt-2 md:hidden text-gray-500`}>{props.headers[cellNr] || ""}</td>
                 )}
                 <td
-                  className={`pt-2 md:ps-4 md:last:pe-4 md:py-3 text-right xs:text-left md:last:text-right last:pb-4 ${props.additionalClassNames && (props.additionalClassNames[cellNr] || "")}`}
+                  className={`break-all pt-2 md:ps-4 md:last:pe-4 md:py-3 text-right xs:text-left md:last:text-right last:pb-4 ${props.additionalClassNames && (props.additionalClassNames[cellNr] || "")}`}
                 >
                   {cell}
                 </td>

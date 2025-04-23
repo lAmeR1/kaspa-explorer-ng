@@ -20,6 +20,6 @@ export const useBlockdagInfo = () =>
       const { data } = await axios.get("https://api.kaspa.org/info/blockdag");
       return data as BlockdagInfo;
     },
-    refetchInterval: 2000,
+    refetchInterval: 20000,
     staleTime: Infinity,
   });
