@@ -142,7 +142,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
           <>
             <PageTable
               headers={["Timestamp", "ID", "From", "", "To", "Amount", "Status"]}
-              additionalClassNames={{ 2: "w-50", 3: "hidden sm:table-cell" }}
+              additionalClassNames={{ 2: "sm:w-50", 3: "hidden sm:table-cell" }}
               rows={(transactions || []).map((transaction) => [
                 dayjs(transaction.block_time).fromNow(),
                 <KasLink shorten linkType="transaction" link to={transaction.transaction_id} />,

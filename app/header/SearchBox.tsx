@@ -81,6 +81,7 @@ const SearchBox = (props: Props) => {
       className={`group flex grow flex-row items-center justify-start rounded-lg bg-gray-50 p-2  
          
        hover:bg-gray-100 hover:cursor-text
+       outline-white
        active:outline-primary active:bg-white active:outline
        focus-within:outline-primary focus-within:bg-white focus-within:outline
        focus-within:hover:bg-white
