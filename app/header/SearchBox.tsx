@@ -84,6 +84,7 @@ const SearchBox = (props: Props) => {
        active:outline-primary active:bg-white active:outline
        focus-within:outline-primary focus-within:bg-white focus-within:outline
        focus-within:hover:bg-white
+       transition-all duration-300
             ${props.className || ""}`}
       onClick={() => {
         inputFieldRef.current?.focus();

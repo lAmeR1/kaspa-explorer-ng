@@ -1,9 +1,10 @@
-import { Accepted, Confirmed, NotAccepted } from "../Accepted";
+import { Accepted, NotAccepted } from "../Accepted";
 import KasLink from "../KasLink";
 import PageTable from "../PageTable";
 import Spinner from "../Spinner";
 import Tooltip, { TooltipDisplayMode } from "../Tooltip";
 import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
+import ArrowRight from "../assets/arrow-right.svg";
 import Info from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 import { MarketDataContext } from "../context/MarketDataProvider";
@@ -140,10 +141,10 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         {isTabActive("transactions") && (
           <>
             <PageTable
-              headers={["Timestamp", "TransactionID", "From", "To", "Amount", "Status"]}
+              headers={["Timestamp", "ID", "From", "", "To", "Amount", "Status"]}
               rows={(transactions || []).map((transaction) => [
                 dayjs(transaction.block_time).fromNow(),
-                <KasLink ellipsis linkType="transaction" link to={transaction.transaction_id} />,
+                <KasLink shorten linkType="transaction" link to={transaction.transaction_id} />,
                 (transaction.inputs || []).length > 0 ? (
                   (transaction.inputs || []).map((input) => (
                     <div>
@@ -154,7 +155,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                             linkType="address"
                             to={input.previous_outpoint_address}
                             active={input.previous_outpoint_address === loaderData.address}
-                            ellipsis
+                            shorten
                           />
                         </>
                       )}
@@ -163,6 +164,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                 ) : (
                   <span>Coinbase (newly mined coins)</span>
                 ),
+                <ArrowRight className="h-4 w-4" />,
                 (transaction.outputs || []).map((output) => (
                   <>
                     <KasLink
@@ -170,8 +172,9 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                       linkType="address"
                       to={output.script_public_key_address}
                       active={loaderData.address === output.script_public_key_address}
-                      ellipsis
+                      shorten
                     />
+                    <br />
                   </>
                 )),
                 <>
@@ -193,15 +196,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                   ).format("0,0.00[000000]")}
                   <span className="text-gray-500"> KAS</span>
                 </>,
-
-                <span className="text-sm">
-                  {transaction.is_accepted ? <Accepted /> : <NotAccepted />}
-                  {(virtualChainBlueScore?.blueScore || 0) < (transaction.accepting_block_blue_score || 0) ? (
-                    <Confirmed />
-                  ) : (
-                    <Confirmed />
-                  )}
-                </span>,
+                <span className="text-sm">{transaction.is_accepted ? <Accepted /> : <NotAccepted />}</span>,
               ])}
             />
           </>
@@ -211,7 +206,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
           <PageTable
             rows={(utxoData || []).map((utxo) => [
               utxo.utxoEntry.blockDaaScore,
-              <KasLink linkType="transaction" to={utxo.outpoint.transactionId} ellipsis link />,
+              <KasLink linkType="transaction" to={utxo.outpoint.transactionId} shorten link />,
               utxo.outpoint.index,
               numeral(parseFloat(utxo.utxoEntry.amount) / 1_0000_0000).format("0,0.00[000000]") + " KAS",
             ])}

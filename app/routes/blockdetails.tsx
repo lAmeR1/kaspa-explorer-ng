@@ -145,14 +145,16 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <div className="mt-4 mb-2 text-black sm:col-span-2">Transactions</div>
         <PageTable
           headers={["Transaction ID", "From", "To", "Status", "Amount"]}
-          rows={block?.transactions.map((transaction) => [
-            <KasLink linkType="transaction" to={transaction.verboseData.transactionId} link ellipsis />,
-            "no idea",
-            transaction.outputs.map((output) => (
-              <KasLink linkType="address" to={output.verboseData.scriptPublicKeyAddress} link ellipsis />
-            )),
-            "123123123 KAS",
-          ]) || []}
+          rows={
+            block?.transactions.map((transaction) => [
+              <KasLink linkType="transaction" to={transaction.verboseData.transactionId} link shorten />,
+              "no idea",
+              transaction.outputs.map((output) => (
+                <KasLink linkType="address" to={output.verboseData.scriptPublicKeyAddress} link shorten />
+              )),
+              "123123123 KAS",
+            ]) || []
+          }
         />
       </div>
     </>
