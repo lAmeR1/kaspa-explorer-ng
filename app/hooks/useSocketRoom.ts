@@ -1,4 +1,4 @@
-import { socket } from "../api/socket";
+import { joinRoom, leaveRoom, socket, useSocketConnected } from "../api/socket";
 import { useEffect } from "react";
 
 const roomReferences: Record<string, number> = {};
@@ -10,10 +10,12 @@ interface UseSocketRoomOptions<T> {
 }
 
 export const useSocketRoom = <T>({ room, onMessage, eventName }: UseSocketRoomOptions<T>) => {
+  const { connected } = useSocketConnected();
+
   useEffect(() => {
     roomReferences[room] = (roomReferences[room] || 0) + 1;
     if (roomReferences[room] === 1) {
-      socket.emit("join-room", room);
+      joinRoom(room);
     }
     socket.on(eventName, onMessage);
 
@@ -22,10 +24,10 @@ export const useSocketRoom = <T>({ room, onMessage, eventName }: UseSocketRoomOp
 
       roomReferences[room]--;
       if (roomReferences[room] === 0) {
-        socket.emit("leave-room", room);
+        leaveRoom(room);
       }
     };
-  }, [room, onMessage]);
+  }, [room, onMessage, connected]);
 
   return { connected: socket.connected };
 };
