@@ -3,7 +3,8 @@ import PageTable from "../PageTable";
 import Box from "../assets/box.svg";
 import { useBlockdagInfo } from "../hooks/useBlockDagInfo";
 import { useBlockReward } from "../hooks/useBlockReward";
-import { useNewBlocks } from "../hooks/useNewBlocks";
+import { type Block, useIncomingBlocks } from "../hooks/useIncomingBlocks";
+import { useSocketCommand } from "../hooks/useSocketCommand";
 import Card from "../layout/Card";
 import CardContainer from "../layout/CardContainer";
 import FooterHelper from "../layout/FooterHelper";
@@ -13,6 +14,7 @@ import localeData from "dayjs/plugin/localeData";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import numeral from "numeral";
+import { useEffect, useState } from "react";
 
 dayjs().locale("en");
 dayjs.extend(relativeTime);
@@ -34,7 +36,20 @@ export default function Blocks() {
   const { data: blockDagInfo, isLoading: isLoadingBlockDagInfo } = useBlockdagInfo();
   const { data: blockReward, isLoading: isLoadingBlockReward } = useBlockReward();
 
-  const { blocks } = useNewBlocks();
+  const [blocks, setBlocks] = useState<Block[]>([]);
+
+  const { blocks: incomingBlocks } = useIncomingBlocks();
+
+  useEffect(() => {
+    setBlocks(incomingBlocks.concat(blocks).slice(0, 20));
+  }, [incomingBlocks]);
+
+  useSocketCommand({
+    command: "last-blocks",
+    onReceive: (data: Block[]) => {
+      setBlocks(data.reverse());
+    },
+  });
 
   return (
     <>

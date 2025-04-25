@@ -73,7 +73,6 @@ const queryClient = new QueryClient({
 });
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  console.log(error);
   return (
     <MainBox>
       <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:grid-cols-[auto_1fr] sm:p-8">

@@ -1,7 +1,7 @@
 import { useSocketRoom } from "./useSocketRoom";
 import { useCallback, useState } from "react";
 
-interface Block {
+export interface Block {
   block_hash: string;
   difficulty: number;
   blueScore: string;
@@ -13,7 +13,7 @@ interface Block {
   }[];
 }
 
-export const useNewBlocks = () => {
+export const useIncomingBlocks = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
 
   const handleBlocks = useCallback((newBlock: Block) => {

@@ -1,4 +1,4 @@
-import { joinRoom, leaveRoom, socket, useSocketConnected } from "../api/socket";
+import { socket, useSocketConnected } from "../api/socket";
 import { useEffect } from "react";
 
 const roomReferences: Record<string, number> = {};
@@ -15,7 +15,7 @@ export const useSocketRoom = <T>({ room, onMessage, eventName }: UseSocketRoomOp
   useEffect(() => {
     roomReferences[room] = (roomReferences[room] || 0) + 1;
     if (roomReferences[room] === 1) {
-      joinRoom(room);
+      socket.emit("join-room", room);
     }
     socket.on(eventName, onMessage);
 
@@ -24,10 +24,10 @@ export const useSocketRoom = <T>({ room, onMessage, eventName }: UseSocketRoomOp
 
       roomReferences[room]--;
       if (roomReferences[room] === 0) {
-        leaveRoom(room);
+        // nothing to do now..
       }
     };
   }, [room, onMessage, connected]);
 
-  return { connected: socket.connected };
+  return {};
 };
