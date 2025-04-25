@@ -2,6 +2,7 @@ import { Accepted, Confirmed, NotAccepted } from "../Accepted";
 import ErrorMessage from "../ErrorMessage";
 import KasLink from "../KasLink";
 import LoadingMessage from "../LoadingMessage";
+import Spinner from "../Spinner";
 import Tooltip, { TooltipDisplayMode } from "../Tooltip";
 import ClockLoader from "../assets/clock_loader_10.svg";
 import InfoIcon from "../assets/info.svg";
@@ -43,9 +44,9 @@ export function meta() {
 export default function TransactionDetails({ loaderData }: Route.ComponentProps) {
   const location = useLocation();
   const isTabActive = (tab: string) => (new URLSearchParams(location.search).get("tab") || "general") === tab;
+  const { virtualChainBlueScore } = useVirtualChainBlueScore();
 
   const { data: transaction, isLoading, isError } = useTransactionById(loaderData.transactionId);
-  const { data: virtualChainBlueScore } = useVirtualChainBlueScore();
   const marketData = useContext(MarketDataContext);
 
   if (isLoading) {
@@ -61,7 +62,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
     );
   }
 
-  const confirmations = (virtualChainBlueScore?.blueScore || 0) - (transaction?.accepting_block_blue_score || 0);
+  const confirmations = (virtualChainBlueScore ?? 0) - (transaction?.accepting_block_blue_score || 0);
   const transactionSum = (transaction.outputs || []).reduce((sum, output) => sum + output.amount, 0);
   const displayKAS = (x: number) => numeral((x || 0) / 1_0000_0000).format("0,0.00[000000]");
   const displaySum = displayKAS(transactionSum);
@@ -175,7 +176,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                     <>
                       {confirmations < 86400 ? (
                         <span className="flex flex-row items-center gap-x-1">
-                          {confirmations} confirmations
+                          {virtualChainBlueScore ? confirmations : <Spinner className="w-4 h-4" />} confirmations
                           <ClockLoader className="h-4 w-4" />
                         </span>
                       ) : (

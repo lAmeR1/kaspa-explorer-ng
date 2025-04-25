@@ -17,7 +17,6 @@ export const useIncomingBlocks = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
 
   const handleBlocks = useCallback((newBlock: Block) => {
-    console.log("new block", newBlock);
     setBlocks((prevBlocks) => [newBlock, ...prevBlocks.slice(0, 19)]);
   }, []);
 

@@ -15,7 +15,6 @@ export const useSocketCommand = <T>({ command, onReceive }: UseSocketCommand<T>)
     socket.emit(command, "");
 
     const handleResponse = (data: T) => {
-      console.log("GOT", data);
       onReceive?.(data);
     };
 
