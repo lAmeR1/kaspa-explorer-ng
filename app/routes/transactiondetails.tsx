@@ -96,9 +96,9 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
             value={
               <ul>
                 {transaction.inputs ? (
-                  transaction.inputs.map((input) => (
+                  [...new Set(transaction.inputs.map((input) => input.previous_outpoint_address))].map((addr) => (
                     <li>
-                      <KasLink linkType="address" copy link to={input.previous_outpoint_address} />
+                      <KasLink linkType="address" copy link to={addr} />
                     </li>
                   ))
                 ) : (
@@ -112,16 +112,17 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
           <FieldName name="To" infoText="The (output) address(es) where the KAS in this transaction were sent to." />
           <FieldValue
             value={
-              transaction.outputs ? (
-                transaction.outputs.map((output, index) => (
-                  <>
-                    <KasLink linkType="address" copy link to={output.script_public_key_address} />
-                    {index + 1 < (transaction.outputs?.length || 0) && <br />}
-                  </>
-                ))
-              ) : (
-                <span>No output addresses</span>
-              )
+              <ul>
+                {transaction.outputs ? (
+                  [...new Set(transaction.outputs.map((output) => output.script_public_key_address))].map((addr) => (
+                    <li>
+                      <KasLink linkType="address" copy link to={addr} />
+                    </li>
+                  ))
+                ) : (
+                  <span>No output addresses</span>
+                )}
+              </ul>
             }
           />
         </div>
