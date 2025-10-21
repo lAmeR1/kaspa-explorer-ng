@@ -1,3 +1,4 @@
+import { displayAcceptance } from "../Accepted";
 import ErrorMessage from "../ErrorMessage";
 import KasLink from "../KasLink";
 import LoadingMessage from "../LoadingMessage";
@@ -6,11 +7,14 @@ import Tooltip, { TooltipDisplayMode } from "../Tooltip";
 import Box from "../assets/box.svg";
 import Info from "../assets/info.svg";
 import { useBlockById } from "../hooks/useBlockById";
+import { useTransactionsSearch } from "../hooks/useTransactionsSearch";
+import { useVirtualChainBlueScore } from "../hooks/useVirtualChainBlueScore";
 import type { Route } from "./+types/blockdetails";
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useEffect } from "react";
 import { Link } from "react-router";
 
 dayjs().locale("en");
@@ -36,6 +40,23 @@ export function meta() {
 
 export default function Blocks({ loaderData }: Route.ComponentProps) {
   const { data: block, isLoading, isError } = useBlockById(loaderData.blockId);
+  const { data: inputTxs, refetch: fetchTransactions } = useTransactionsSearch(
+    (block?.transactions.map((tx) => tx.verboseData.transactionId) || []).concat(
+      block?.transactions.flatMap((tx) => tx.inputs.map((input) => input.previousOutpoint.transactionId)) || [],
+    ),
+    "",
+    "light",
+    false,
+  );
+
+  const { virtualChainBlueScore } = useVirtualChainBlueScore();
+
+  useEffect(() => {
+    if (block) {
+      fetchTransactions();
+    }
+  }, [block]);
+
   const blockTime = dayjs(Number(block?.header.timestamp));
   if (isLoading) {
     return <LoadingMessage>Loading block</LoadingMessage>;
@@ -50,6 +71,29 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
     );
   }
 
+  const getTxFromInputTxs = (txId: string) => {
+    for (const tx of inputTxs || []) {
+      if (tx.transaction_id === txId) return tx;
+    }
+  };
+
+  const getAddressFromOutpoint = (txId: string, outpointIndex: number) => {
+    for (const tx of inputTxs || []) {
+      if (tx.transaction_id === txId) {
+        for (const output of tx.outputs || []) {
+          if (output.index === outpointIndex) {
+            return <KasLink linkType={"address"} to={output.script_public_key_address} shorten link />;
+          }
+        }
+      }
+    }
+    return (
+      <>
+        <KasLink linkType={"transaction"} to={txId} shorten link />
+        {` #${outpointIndex}`}
+      </>
+    );
+  };
   return (
     <>
       <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:grid-cols-[auto_1fr] sm:p-8">
@@ -144,15 +188,36 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
       <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
         <div className="mt-4 mb-2 text-black sm:col-span-2">Transactions</div>
         <PageTable
-          headers={["Transaction ID", "From", "To", "Status", "Amount"]}
+          headers={["Transaction ID", "From", "To", "Amount", "Status"]}
           rows={
             block?.transactions.map((transaction) => [
               <KasLink linkType="transaction" to={transaction.verboseData.transactionId} link shorten />,
-              "no idea",
-              transaction.outputs.map((output) => (
-                <KasLink linkType="address" to={output.verboseData.scriptPublicKeyAddress} link shorten />
-              )),
-              "123123123 KAS",
+              <ul>
+                {transaction.inputs.map((input) => (
+                  <li>{getAddressFromOutpoint(input.previousOutpoint.transactionId, input.previousOutpoint.index)}</li>
+                ))}
+              </ul>,
+              <ul>
+                {transaction.outputs.map((output) => (
+                  <li>
+                    <KasLink linkType="address" to={output.verboseData.scriptPublicKeyAddress} link shorten />
+                  </li>
+                ))}
+              </ul>,
+              <ul>
+                {transaction.outputs.map((output) => (
+                  <li>{output.amount / 1_0000_0000} KAS</li>
+                ))}
+              </ul>,
+              <div className="flex flex-row gap-x-2 justify-end">
+                {displayAcceptance(
+                  getTxFromInputTxs(transaction.verboseData.transactionId)?.is_accepted ?? false,
+                  virtualChainBlueScore
+                    ? virtualChainBlueScore -
+                        (getTxFromInputTxs(transaction.verboseData.transactionId)?.accepting_block_blue_score || 0)
+                    : undefined,
+                )}
+              </div>,
             ]) || []
           }
         />

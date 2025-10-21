@@ -12,7 +12,6 @@ import { useAddressBalance } from "../hooks/useAddressBalance";
 import { useAddressTxCount } from "../hooks/useAddressTxCount";
 import { useAddressUtxos } from "../hooks/useAddressUtxos";
 import { useTransactions } from "../hooks/useTransactions";
-import { useVirtualChainBlueScore } from "../hooks/useVirtualChainBlueScore";
 import { isValidKaspaAddressSyntax } from "../utils/kaspa";
 import type { Route } from "./+types/addressdetails";
 import dayjs from "dayjs";
@@ -56,7 +55,6 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const { data: utxoData, isLoading: isLoadingUtxoData } = useAddressUtxos(loaderData.address);
   const { data: txCount, isLoading: isLoadingTxCount } = useAddressTxCount(loaderData.address);
   const marketData = useContext(MarketDataContext);
-  const { data: virtualChainBlueScore } = useVirtualChainBlueScore();
 
   // fetch transactions with resolve_previous_outpoints set to "light"
   const { data: transactions } = useTransactions(loaderData.address, 10, 0, 0, "", "light");

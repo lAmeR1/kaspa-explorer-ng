@@ -5,8 +5,10 @@ export const useTransactionsSearch = (
   transactionIds: string[],
   fields: string,
   resolve_previous_outpoints: "no" | "light" | "full",
+  enabled: boolean = true,
 ) =>
   useQuery({
+    enabled,
     queryKey: ["transactions", { fields, transactionIds }],
     queryFn: async () => {
       const { data } = await axios.post(

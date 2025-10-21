@@ -1,4 +1,4 @@
-import { Accepted, Confirmed, NotAccepted } from "../Accepted";
+import { Accepted, Confirmed, displayAcceptance, NotAccepted } from "../Accepted";
 import ErrorMessage from "../ErrorMessage";
 import KasLink from "../KasLink";
 import LoadingMessage from "../LoadingMessage";
@@ -168,25 +168,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
               infoText="Displays whether the transaction was accepted by the protocol and how many confirmations it has so far."
             />
 
-            <FieldValue
-              value={
-                <div className="flex flex-row items-center gap-x-1">
-                  {transaction.is_accepted ? <Accepted /> : <NotAccepted />}
-                  {transaction.is_accepted && (
-                    <>
-                      {confirmations < 86400 ? (
-                        <span className="flex flex-row items-center gap-x-1">
-                          {virtualChainBlueScore ? confirmations : <Spinner className="w-4 h-4" />} confirmations
-                          <ClockLoader className="h-4 w-4" />
-                        </span>
-                      ) : (
-                        <Confirmed />
-                      )}
-                    </>
-                  )}
-                </div>
-              }
-            />
+            <FieldValue value={displayAcceptance(transaction.is_accepted, confirmations)} />
             {/*horizontal rule*/}
             <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
             <FieldName name="Hash" infoText="Hash calculated from the transaction data." />

@@ -77,13 +77,16 @@ export default function Blocks() {
 
         <PageTable
           className="text-black"
-          headers={["Timestamp", "Hash", "BlueScore", "TX Count"]}
-          rows={blocks.map((block) => [
-            dayjs(parseInt(block.timestamp)).format("HH:mm:ss"),
-            <KasLink linkType="block" link to={block.block_hash} shorten />,
-            block.blueScore,
-            block.txCount,
-          ])}
+          headers={["Timestamp", "Hash", "BlueScore", "TX Count"]}
+          additionalClassNames={{ 1: "overflow-hidden " }}
+          rows={blocks
+            .slice(0, 10)
+            .map((block) => [
+              dayjs(parseInt(block.timestamp)).format("HH:mm:ss"),
+              <KasLink linkType="block" link to={block.block_hash} />,
+              block.blueScore,
+              block.txCount,
+            ])}
         />
       </div>
       <FooterHelper icon={Box}>
