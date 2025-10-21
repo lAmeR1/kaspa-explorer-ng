@@ -1,10 +1,8 @@
-import { Accepted, Confirmed, displayAcceptance, NotAccepted } from "../Accepted";
+import { displayAcceptance } from "../Accepted";
 import ErrorMessage from "../ErrorMessage";
 import KasLink from "../KasLink";
 import LoadingMessage from "../LoadingMessage";
-import Spinner from "../Spinner";
 import Tooltip, { TooltipDisplayMode } from "../Tooltip";
-import ClockLoader from "../assets/clock_loader_10.svg";
 import InfoIcon from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 import Swap from "../assets/swap.svg";
@@ -96,13 +94,19 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
           <FieldName name="From" infoText="The (input) address(es) that sent KAS in this transaction." />
           <FieldValue
             value={
-              transaction.inputs ? (
-                transaction.inputs.map((input) => (
-                  <KasLink linkType="address" copy link to={input.previous_outpoint_address} />
-                ))
-              ) : (
-                <span>Coinbase (newly mined coins)</span>
-              )
+              <ul>
+                {transaction.inputs ? (
+                  transaction.inputs.map((input) => (
+                    <li>
+                      <KasLink linkType="address" copy link to={input.previous_outpoint_address} />
+                    </li>
+                  ))
+                ) : (
+                  <li>
+                    <span>Coinbase (newly mined coins)</span>
+                  </li>
+                )}
+              </ul>
             }
           />
           <FieldName name="To" infoText="The (output) address(es) where the KAS in this transaction were sent to." />
