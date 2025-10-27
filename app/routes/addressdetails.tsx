@@ -9,6 +9,7 @@ import Info from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 import { MarketDataContext } from "../context/MarketDataProvider";
 import { useAddressBalance } from "../hooks/useAddressBalance";
+import { useAddressNames } from "../hooks/useAddressNames";
 import { useAddressTxCount } from "../hooks/useAddressTxCount";
 import { useAddressUtxos } from "../hooks/useAddressUtxos";
 import { useTransactions } from "../hooks/useTransactions";
@@ -33,8 +34,6 @@ export async function loader({ params }: Route.LoaderArgs) {
   if (!isValidKaspaAddressSyntax(address))
     throw new Response(`Kaspa address ${address} doesn't follow the kaspa address schema.`, { status: 400 });
 
-  // todo: check real validity of address?
-
   return { address };
 }
 
@@ -54,6 +53,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const { data, isLoading: isLoadingAddressBalance } = useAddressBalance(loaderData.address);
   const { data: utxoData, isLoading: isLoadingUtxoData } = useAddressUtxos(loaderData.address);
   const { data: txCount, isLoading: isLoadingTxCount } = useAddressTxCount(loaderData.address);
+  const { data: addressNames } = useAddressNames();
   const marketData = useContext(MarketDataContext);
 
   // fetch transactions with resolve_previous_outpoints set to "light"
@@ -96,6 +96,12 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="Address" infoText="A unique Kaspa address used to send and receive funds." />
           <FieldValue value={<KasLink linkType="address" copy qr to={loaderData.address} />} />
+          {addressNames && addressNames[loaderData.address] && (
+            <>
+              <FieldName name="Address Label" infoText="A label assigned to this address." />
+              <FieldValue value={addressNames[loaderData.address]} />
+            </>
+          )}
           <FieldName name="Transactions" infoText="Total number of transactions involving this address." />
           <FieldValue
             value={
@@ -156,6 +162,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                             to={input.previous_outpoint_address}
                             active={input.previous_outpoint_address === loaderData.address}
                             shorten
+                            resolveName
                           />
                           <br />
                         </>
@@ -173,6 +180,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                       to={output.script_public_key_address}
                       active={loaderData.address === output.script_public_key_address}
                       shorten
+                      resolveName
                     />
                     <br />
                   </>

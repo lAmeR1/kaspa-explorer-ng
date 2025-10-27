@@ -3,6 +3,7 @@ import Tooltip, { TooltipDisplayMode } from "./Tooltip";
 import Copy from "./assets/copy.svg";
 import CopyCheck from "./assets/copycheck.svg";
 import QrCode from "./assets/qr_code.svg";
+import { useAddressNames } from "./hooks/useAddressNames";
 import { useState } from "react";
 import { Link } from "react-router";
 
@@ -16,6 +17,7 @@ interface KasLinkProps {
   link?: boolean;
   active?: boolean;
   shorten?: boolean;
+  resolveName?: boolean;
 }
 
 const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
@@ -24,10 +26,12 @@ const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
   address: "/addresses/",
 };
 
-const KasLink = ({ to, className, linkType, copy, qr, link, active, shorten }: KasLinkProps) => {
+const KasLink = ({ to, className, linkType, copy, qr, link, active, shorten, resolveName }: KasLinkProps) => {
   const [clicked, setClicked] = useState(false);
   const [showQr, setShowQr] = useState(false);
   const linkHref = linkTypeToAddress[linkType] + to;
+
+  const { data: addressNames, isLoading: isLoading } = useAddressNames();
 
   const handleClick = () => {
     navigator.clipboard.writeText(to);
@@ -39,12 +43,12 @@ const KasLink = ({ to, className, linkType, copy, qr, link, active, shorten }: K
     return <></>;
   }
 
-  // if (active) {
-  //   return <span>this address</span>;
-  // }
-
   const splitAt = linkType === "address" ? 13 : 8;
-  const displayValue = shorten ? to.substring(0, splitAt) + "…" + to.substring(to.length - 8) : to;
+  let displayValue = shorten ? to.substring(0, splitAt) + "…" + to.substring(to.length - 8) : to;
+
+  if (!isLoading && linkType === "address" && addressNames![to] && resolveName) {
+    displayValue = addressNames![to];
+  }
 
   return (
     <span>
