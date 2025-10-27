@@ -1,5 +1,5 @@
 import { useSocketRoom } from "./useSocketRoom";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export interface Block {
   block_hash: string;
@@ -16,7 +16,11 @@ export interface Block {
 export const useIncomingBlocks = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
 
+  const startTime = useMemo(() => Date.now(), []);
+  const [blockCount, setBlockCount] = useState(0);
+
   const handleBlocks = useCallback((newBlock: Block) => {
+    setBlockCount((prevBlockCount) => prevBlockCount + 1);
     setBlocks((prevBlocks) => [newBlock, ...prevBlocks.slice(0, 19)]);
   }, []);
 
@@ -28,5 +32,6 @@ export const useIncomingBlocks = () => {
 
   return {
     blocks,
+    avgBlockTime: blockCount / ((Date.now() - startTime) / 1000),
   };
 };
