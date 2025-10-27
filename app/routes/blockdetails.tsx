@@ -193,9 +193,13 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
             block?.transactions.map((transaction) => [
               <KasLink linkType="transaction" to={transaction.verboseData.transactionId} link shorten />,
               <ul>
-                {transaction.inputs.map((input) => (
-                  <li>{getAddressFromOutpoint(input.previousOutpoint.transactionId, input.previousOutpoint.index)}</li>
-                ))}
+                {transaction.inputs.length > 0
+                  ? transaction.inputs.map((input) => (
+                      <li>
+                        {getAddressFromOutpoint(input.previousOutpoint.transactionId, input.previousOutpoint.index)}
+                      </li>
+                    ))
+                  : "COINBASE (Newly mined coins)"}
               </ul>,
               <ul>
                 {transaction.outputs.map((output) => (
