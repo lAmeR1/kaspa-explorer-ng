@@ -8,7 +8,6 @@ import CardContainer from "../layout/CardContainer";
 import FooterHelper from "../layout/FooterHelper";
 import MainBox from "../layout/MainBox";
 import numeral from "numeral";
-import { Link } from "react-router";
 
 export function meta() {
   return [
@@ -28,18 +27,28 @@ export default function Addresses() {
     return <LoadingMessage>Loading addresses</LoadingMessage>;
   }
 
+  const calculateSum = (top: number) => topAddresses!.ranking.slice(0, top).reduce((acc, curr) => acc + curr.amount, 0);
+
   return (
     <>
       <MainBox>
         <CardContainer title="Addresses">
-          <Card title="Number of addresses" value={`${numeral(1541252).format("0,")}`} subtext="with at least 1 KAS" />
-          <Card title="Top 10 addresses" value={`${numeral(0).format("0.[00]")}%`} subtext="of circulating supply" />
+          {/*<Card title="Number of addresses" value={`${numeral(1541252).format("0,")}`} subtext="with at least 1 KAS" />*/}
           <Card
-            title="Top 100 addresses"
-            value={`${numeral(34.245).format("0.[00]")}%`}
+            title="Top 10 addresses"
+            value={`${numeral((calculateSum(10) / (coinSupply!.circulatingSupply / 1_0000_0000)) * 100).format("0.00")}%`}
             subtext="of circulating supply"
           />
-          <Card title="Top 1000 addresses" value={`${numeral(58.2).format("0.0")}`} subtext="of circulating supply" />
+          <Card
+            title="Top 100 addresses"
+            value={`${numeral((calculateSum(100) / (coinSupply!.circulatingSupply / 1_0000_0000)) * 100).format("0.00")}%`}
+            subtext="of circulating supply"
+          />
+          <Card
+            title="Top 1000 addresses"
+            value={`${numeral((calculateSum(1000) / (coinSupply!.circulatingSupply / 1_0000_0000)) * 100).format("0.00")}%`}
+            subtext="of circulating supply"
+          />
         </CardContainer>
       </MainBox>
 
@@ -49,13 +58,13 @@ export default function Addresses() {
             <tr className="border-b border-gray-100">
               <th className="pl-0.5 font-normal">Rank</th>
               <th className="pl-0.5 font-normal">Address</th>
-              {/*<th className="pl-0.5 font-normal">Label</th>*/}
+              <th className="pl-0.5 font-normal">Label</th>
               <th className="pl-0.5 font-normal">Balance</th>
               <th className="text-right font-normal">Percentage</th>
             </tr>
           </thead>
           <tbody>
-            {topAddresses?.ranking.slice(0, 100).map((addressInfo, index) => (
+            {topAddresses?.ranking.slice(0, 100).map((addressInfo) => (
               <tr key={addressInfo.rank} className="border-t border-gray-100 text-black">
                 <td className="pr-2 text-nowrap">{addressInfo.rank + 1}</td>
                 <td className="text-link pr-2 font-mono">
@@ -63,11 +72,11 @@ export default function Addresses() {
                     <KasLink linkType="address" link to={addressInfo.address} />
                   </span>
                 </td>
-                {/*<td>*/}
-                {/*  <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-nowrap text-black">*/}
-                {/*    exchange1 wallet*/}
-                {/*  </span>*/}
-                {/*</td>*/}
+                <td>
+                  <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-nowrap text-black">
+                    tbd
+                  </span>
+                </td>
                 <td className="pr-2">
                   {numeral(addressInfo.amount).format("0,0")}
                   <span className="text-gray-500"> KAS</span>
