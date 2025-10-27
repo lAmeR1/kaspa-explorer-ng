@@ -7,7 +7,7 @@ import InfoIcon from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 import Swap from "../assets/swap.svg";
 import { MarketDataContext } from "../context/MarketDataProvider";
-import { useTransactionById } from "../hooks/useTansactionById";
+import { useTransactionById } from "../hooks/useTransactionById";
 import { useVirtualChainBlueScore } from "../hooks/useVirtualChainBlueScore";
 import type { Route } from "./+types/transactiondetails";
 import dayjs from "dayjs";

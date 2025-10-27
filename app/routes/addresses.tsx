@@ -1,4 +1,8 @@
+import KasLink from "../KasLink";
+import LoadingMessage from "../LoadingMessage";
 import AccountBalanceWallet from "../assets/account_balance_wallet.svg";
+import { useCoinSupply } from "../hooks/useCoinSupply";
+import { useTopAddresses } from "../hooks/useTopAddresses";
 import Card from "../layout/Card";
 import CardContainer from "../layout/CardContainer";
 import FooterHelper from "../layout/FooterHelper";
@@ -17,6 +21,13 @@ export function meta() {
 }
 
 export default function Addresses() {
+  const { data: topAddresses, isLoading } = useTopAddresses();
+  const { data: coinSupply, isLoading: isLoadingSupply } = useCoinSupply();
+
+  if (isLoading || isLoadingSupply) {
+    return <LoadingMessage>Loading addresses</LoadingMessage>;
+  }
+
   return (
     <>
       <MainBox>
@@ -38,31 +49,33 @@ export default function Addresses() {
             <tr className="border-b border-gray-100">
               <th className="pl-0.5 font-normal">Rank</th>
               <th className="pl-0.5 font-normal">Address</th>
-              <th className="pl-0.5 font-normal">Label</th>
+              {/*<th className="pl-0.5 font-normal">Label</th>*/}
               <th className="pl-0.5 font-normal">Balance</th>
               <th className="text-right font-normal">Percentage</th>
             </tr>
           </thead>
           <tbody>
-            {[...Array(100)].map((_, index) => (
-              <tr key={index} className="border-t border-gray-100 text-black">
-                <td className="pr-2 text-nowrap">{index + 1}</td>
+            {topAddresses?.ranking.slice(0, 100).map((addressInfo, index) => (
+              <tr key={addressInfo.rank} className="border-t border-gray-100 text-black">
+                <td className="pr-2 text-nowrap">{addressInfo.rank + 1}</td>
                 <td className="text-link pr-2 font-mono">
                   <span className="">
-                    <Link to="/addresses/kaspa:qyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3">
-                      {"kaspa:qyp3ffdjvv6de6cg6jjgyhlg3mt3fngna2vzukdpzvwkaj5j3hctsyqecqf7dh3"}
-                    </Link>
+                    <KasLink linkType="address" link to={addressInfo.address} />
                   </span>
                 </td>
-                <td>
-                  <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-nowrap text-black">
-                    exchange1 wallet
-                  </span>
-                </td>
+                {/*<td>*/}
+                {/*  <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-nowrap text-black">*/}
+                {/*    exchange1 wallet*/}
+                {/*  </span>*/}
+                {/*</td>*/}
                 <td className="pr-2">
-                  1,124,124<span className="text-gray-500"> KAS</span>
+                  {numeral(addressInfo.amount).format("0,0")}
+                  <span className="text-gray-500"> KAS</span>
                 </td>
-                <td className="flex flex-row justify-end py-3 pl-5">1.25%</td>
+                <td className="flex flex-row justify-end py-3 pl-5">
+                  {numeral((addressInfo.amount / (coinSupply!.circulatingSupply / 1_0000_0000)) * 100).format("0.00")}
+                  <span className="text-gray-500">&nbsp;%</span>
+                </td>
               </tr>
             ))}
           </tbody>

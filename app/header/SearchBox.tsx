@@ -2,7 +2,7 @@ import Spinner from "../Spinner";
 import Error from "../assets/error.svg";
 import Search from "../assets/search.svg";
 import { useBlockById } from "../hooks/useBlockById";
-import { useTransactionById } from "../hooks/useTansactionById";
+import { useTransactionById } from "../hooks/useTransactionById";
 import { isValidHashSyntax, isValidKaspaAddressSyntax } from "../utils/kaspa";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
