@@ -78,7 +78,8 @@ export default function Blocks() {
 
       <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left sm:p-8">
         <div className="bg-primary/20 text-md mb-2 basis-full rounded-2xl p-6 text-left text-black">
-          Blocks are arriving with a speed of 10 blocks per second. The network is currently at block 119,762,579.
+          Blocks are arriving with a speed of 10 blocks per second. The network is currently at block{" "}
+          {numeral(blockDagInfo?.virtualDaaScore).format("0,0")}.
         </div>
 
         <PageTable

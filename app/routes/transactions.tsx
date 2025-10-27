@@ -1,14 +1,13 @@
-import { Accepted } from "../Accepted";
-import Button from "../Button";
 import KasLink from "../KasLink";
+import PageTable from "../PageTable";
 import Transaction from "../assets/transaction.svg";
+import { useIncomingBlocks } from "../hooks/useIncomingBlocks";
 import Card from "../layout/Card";
 import CardContainer from "../layout/CardContainer";
 import FooterHelper from "../layout/FooterHelper";
 import HelperBox from "../layout/HelperBox";
 import MainBox from "../layout/MainBox";
 import numeral from "numeral";
-import { Link } from "react-router";
 
 export function meta() {
   return [
@@ -23,6 +22,8 @@ export function meta() {
 }
 
 export default function Transactions() {
+  const { transactions } = useIncomingBlocks();
+
   return (
     <>
       <MainBox>
@@ -35,35 +36,20 @@ export default function Transactions() {
       </MainBox>
 
       <MainBox>
-        <HelperBox>
-          Blocks and its transactions are arriving with a speed of 10 blocks per second. You can pause the update using
-          the button.
-          <Button value={"Pause"} primary />
-          <Button value="Ignore coinbase TXs" primary />
-        </HelperBox>
+        <HelperBox>Blocks and its transactions are arriving with a speed of 10 blocks per second.</HelperBox>
 
-        <div className="d mt-4 grid w-full grid-cols-[auto_2fr_auto] items-center divide-y-1 divide-gray-100">
-          <div className="pl-0.5 text-gray-500">Timestamp</div>
-          <div className="pl-0.5 text-gray-500">TX ID</div>
-          <div className="pl-0.5 text-right text-gray-500">Amount</div>
-
-          {[...Array(20)].map((_, index) => (
-            <>
-              <div className="last:bg-alert h-12 py-3 pr-2 text-nowrap">{(index + 1) * 2} second ago</div>
-              <div className="last:bg-alert py-3 pr-2 font-mono">
-                <KasLink
-                  linkType="transaction"
-                  link
-                  to="330ecb081ea2093ffb8de8662518a5320e778851dfa44ef667d5fa0ce7dfccd7"
-                />
-              </div>
-              <div className="last:bg-alert py-3 text-right">
-                82.<span className="">9981</span>
-                <span className="text-gray-500"> KAS</span>
-              </div>
-            </>
-          ))}
-        </div>
+        <PageTable
+          className="text-black w-full"
+          headers={["Timestamp", "Transaction ID", "Amount"]}
+          additionalClassNames={{ 1: "overflow-hidden " }}
+          rows={transactions.map((transaction) => [
+            "a moment ago",
+            <KasLink linkType="transaction" link to={transaction.txId} />,
+            numeral(transaction.outputs.reduce((acc, output) => acc + Number(output[1]), 0) / 1_0000_0000).format(
+              "0,0.[00]",
+            ),
+          ])}
+        />
       </MainBox>
       <FooterHelper icon={Transaction}>
         A transaction is a cryptographically signed command that modifies the blockchain's state. Block explorers

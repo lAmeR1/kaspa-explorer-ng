@@ -30,8 +30,19 @@ export const useIncomingBlocks = () => {
     onMessage: handleBlocks,
   });
 
+  const txs = [];
+
+  for (const block of blocks) {
+    for (const tx of block.txs) {
+      txs.push(tx);
+      if (txs.length > 20) break;
+    }
+    if (txs.length > 20) break;
+  }
+
   return {
     blocks,
     avgBlockTime: blockCount / ((Date.now() - startTime) / 1000),
+    transactions: txs,
   };
 };
