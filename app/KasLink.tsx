@@ -26,7 +26,7 @@ const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
   address: "/addresses/",
 };
 
-const KasLink = ({ to, linkType, copy, qr, link, active, shorten, resolveName }: KasLinkProps) => {
+const KasLink = ({ to, linkType, copy, qr, link, shorten, resolveName }: KasLinkProps) => {
   const [clicked, setClicked] = useState(false);
   const [showQr, setShowQr] = useState(false);
   const linkHref = linkTypeToAddress[linkType] + to;
@@ -59,7 +59,7 @@ const KasLink = ({ to, linkType, copy, qr, link, active, shorten, resolveName }:
   return (
     <span>
       <span className="break-all">
-        {link && linkHref && !active ? (
+        {link && linkHref ? (
           <Link className="text-link hover:underline" to={linkHref}>
             {displayValue}
           </Link>

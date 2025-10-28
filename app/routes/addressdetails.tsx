@@ -99,7 +99,13 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
           {addressNames && addressNames[loaderData.address] && (
             <>
               <FieldName name="Address Label" infoText="A label assigned to this address." />
-              <FieldValue value={addressNames[loaderData.address]} />
+              <FieldValue
+                value={
+                  <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-nowrap text-black">
+                    {addressNames[loaderData.address]}
+                  </span>
+                }
+              />
             </>
           )}
           <FieldName name="Transactions" infoText="Total number of transactions involving this address." />
@@ -147,7 +153,11 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
             <PageTable
               headers={["Timestamp", "ID", "From", "", "To", "Amount", "Status"]}
               className="w-full md:text-sm lg:text-base"
-              additionalClassNames={{ 2: "md:w-40 lg:w-50", 4: "md:w-40 lg:w-50", 3: "hidden md:table-cell" }}
+              additionalClassNames={{
+                2: "md:w-40 lg:w-50",
+                4: "md:w-40 lg:w-50",
+                3: "hidden md:table-cell",
+              }}
               rows={(transactions || []).map((transaction) => [
                 dayjs(transaction.block_time).fromNow(),
                 <KasLink shorten linkType="transaction" link to={transaction.transaction_id} />,
@@ -157,10 +167,9 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                       input.previous_outpoint_address && (
                         <>
                           <KasLink
-                            link
+                            link={input.previous_outpoint_address !== loaderData.address}
                             linkType="address"
                             to={input.previous_outpoint_address}
-                            active={input.previous_outpoint_address === loaderData.address}
                             shorten
                             resolveName
                           />
@@ -175,10 +184,9 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                 (transaction.outputs || []).map((output) => (
                   <>
                     <KasLink
-                      link
                       linkType="address"
                       to={output.script_public_key_address}
-                      active={loaderData.address === output.script_public_key_address}
+                      link={loaderData.address !== output.script_public_key_address}
                       shorten
                       resolveName
                     />
