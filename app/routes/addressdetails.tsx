@@ -255,15 +255,23 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         )}
 
         {isTabActive("utxos") && (
-          <PageTable
-            rows={(utxoData || []).map((utxo) => [
-              utxo.utxoEntry.blockDaaScore,
-              <KasLink linkType="transaction" to={utxo.outpoint.transactionId} shorten link />,
-              utxo.outpoint.index,
-              numeral(parseFloat(utxo.utxoEntry.amount) / 1_0000_0000).format("0,0.00[000000]") + " KAS",
-            ])}
-            headers={["Block DAA Score", "TransactionID", "Index", "Amount"]}
-          />
+          <>
+            <PageTable
+              rows={(utxoData?.slice(0, 50) || []).map((utxo) => [
+                utxo.utxoEntry.blockDaaScore,
+                <KasLink linkType="transaction" to={utxo.outpoint.transactionId} shorten link />,
+                utxo.outpoint.index,
+                numeral(parseFloat(utxo.utxoEntry.amount) / 1_0000_0000).format("0,0.00[000000]") + " KAS",
+              ])}
+              headers={["Block DAA Score", "TransactionID", "Index", "Amount"]}
+            />
+            {utxoData?.slice(0, 50).length === 50 && (
+              <div className="me-auto ms-auto">
+                There are more than 50 UTXOs for this address, which are not displayed.
+              </div>
+            )}
+            {utxoData?.length === 0 && <div className="me-auto ms-auto">No UTXOs found for this address.</div>}
+          </>
         )}
       </div>
     </>

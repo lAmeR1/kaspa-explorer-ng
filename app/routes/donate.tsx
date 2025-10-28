@@ -9,7 +9,7 @@ export default function Donate() {
     <MainBox>
       <div className="grid grid-cols-[3fr_1fr] gap-x-10">
         <div className="col-span-2 md:col-span-1">
-          <h1>Support Explorer Kaspa Development</h1>
+          <h1>Support Kaspa Explorer Development</h1>
           <p className="py-6">
             Kaspa is built by a passionate and dedicated community of people from all backgrounds, working together to
             make it the best it can be. It’s a project that thrives on the time, talent, and creativity of countless
