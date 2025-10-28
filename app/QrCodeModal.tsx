@@ -32,7 +32,7 @@ const QrCodeModal = (props: QrCodeModalProps) => {
       >
         <div className="mb-8 flex w-full flex-row items-center justify-between text-[24px]">
           <span>Kaspa address</span>
-          <Close className="fill-black" onClick={() => props.setShowQr(false)} />
+          <Close className="fill-black cursor-pointer" onClick={() => props.setShowQr(false)} />
         </div>
 
         <div className="relative mx-8 mb-6">
