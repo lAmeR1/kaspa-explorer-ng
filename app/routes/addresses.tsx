@@ -35,7 +35,6 @@ export default function Addresses() {
 
   const getAddressCountAbove1KAS = () => {
     if (!addressDistribution) return;
-    console.log(addressDistribution);
     return addressDistribution[0].tiers?.reduce((acc, curr) => acc + (curr.tier > 0 ? curr.count : 0), 0);
   };
 

@@ -22,8 +22,6 @@ export const useTransactions = (
         },
       });
 
-      console.log(response.headers);
-
       return {
         transactions: response.data as Transaction[],
         nextBefore: response.headers["x-next-page-before"],

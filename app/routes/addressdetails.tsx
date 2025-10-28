@@ -79,7 +79,6 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
     // LAST = 3,
     // PREVIOUS = 2,
     // NEXT = 1,
-    console.log(page, txData);
     if (page === 0) {
       setBeforeAfter([0, 0]);
       setCurrentPage(1);
