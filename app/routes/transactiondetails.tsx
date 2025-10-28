@@ -116,7 +116,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                 {transaction.outputs ? (
                   [...new Set(transaction.outputs.map((output) => output.script_public_key_address))].map((addr) => (
                     <li>
-                      <KasLink linkType="address" copy link to={addr} />
+                      <KasLink linkType="address" copy link to={addr} resolveName />
                     </li>
                   ))
                 ) : (

@@ -219,7 +219,13 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
               <ul>
                 {transaction.outputs.map((output) => (
                   <li>
-                    <KasLink linkType="address" to={output.verboseData.scriptPublicKeyAddress} link shorten />
+                    <KasLink
+                      linkType="address"
+                      to={output.verboseData.scriptPublicKeyAddress}
+                      link
+                      shorten
+                      resolveName
+                    />
                   </li>
                 ))}
               </ul>,
