@@ -26,7 +26,7 @@ const linkTypeToAddress: Record<KasLinkProps["linkType"], string> = {
   address: "/addresses/",
 };
 
-const KasLink = ({ to, className, linkType, copy, qr, link, active, shorten, resolveName }: KasLinkProps) => {
+const KasLink = ({ to, linkType, copy, qr, link, active, shorten, resolveName }: KasLinkProps) => {
   const [clicked, setClicked] = useState(false);
   const [showQr, setShowQr] = useState(false);
   const linkHref = linkTypeToAddress[linkType] + to;
@@ -44,10 +44,16 @@ const KasLink = ({ to, className, linkType, copy, qr, link, active, shorten, res
   }
 
   const splitAt = linkType === "address" ? 13 : 8;
-  let displayValue = shorten ? to.substring(0, splitAt) + "…" + to.substring(to.length - 8) : to;
+  let displayValue: string | React.ReactNode = shorten
+    ? to.substring(0, splitAt) + "…" + to.substring(to.length - 8)
+    : to;
 
   if (!isLoading && linkType === "address" && addressNames![to] && resolveName) {
-    displayValue = addressNames![to];
+    displayValue = (
+      <Tooltip message={to} display={TooltipDisplayMode.Hover}>
+        <span className="bg-accent-yellow rounded-full px-2 py-0 text-center text-nowrap">{addressNames![to]}</span>
+      </Tooltip>
+    );
   }
 
   return (
