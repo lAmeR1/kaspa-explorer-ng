@@ -57,6 +57,21 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
     }
   }, [block]);
 
+  useEffect(() => {
+    if (block && inputTxs) {
+      const cntNotAccepted = block.transactions
+        .map((transaction) => getTxFromInputTxs(transaction.verboseData.transactionId)?.is_accepted ?? false)
+        .filter((accepted) => !accepted).length;
+
+      if (cntNotAccepted > 1) {
+        const timeoutRefetch = setTimeout(() => fetchTransactions(), 2000);
+        return () => {
+          clearTimeout(timeoutRefetch);
+        };
+      }
+    }
+  }, [inputTxs]);
+
   const blockTime = dayjs(Number(block?.header.timestamp));
   if (isLoading) {
     return <LoadingMessage>Loading block</LoadingMessage>;
