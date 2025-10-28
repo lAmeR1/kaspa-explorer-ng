@@ -12,7 +12,7 @@ export const useTransactions = (
   useQuery({
     queryKey: ["transaction", { address, before, after, limit, fields, resolve_previous_outpoints }],
     queryFn: async () => {
-      const { data } = await axios.get(`https://api.kaspa.org/addresses/${address}/full-transactions-page`, {
+      const response = await axios.get(`https://api.kaspa.org/addresses/${address}/full-transactions-page`, {
         params: {
           limit,
           before,
@@ -21,7 +21,15 @@ export const useTransactions = (
           resolve_previous_outpoints,
         },
       });
-      return data as Transaction[];
+
+      console.log(response.headers);
+
+      return {
+        transactions: response.data as Transaction[],
+        nextBefore: response.headers["x-next-page-before"],
+        nextAfter: response.headers["x-next-page-after"],
+        xPageCount: response.headers["x-page-count"],
+      };
     },
   });
 

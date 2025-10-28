@@ -1,54 +1,45 @@
-import Button from "./Button";
 import ChevronLeft from "./assets/chevron-left.svg";
 import ChevronRight from "./assets/chevron-right.svg";
+
+enum PageSelectorClick {
+  FIRST = 0,
+  LAST = 3,
+  PREVIOUS = 2,
+  NEXT = 1,
+}
 
 interface PageSelectorProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (nextPage: number) => void;
+  onPageChange: (page: PageSelectorClick) => void;
 }
 
-const SHOW_DIFF_RANGE = 1;
-
 const PageSelector = ({ currentPage, totalPages, onPageChange }: PageSelectorProps) => {
-  const showPages = [1];
-
-  if (currentPage - SHOW_DIFF_RANGE <= 3 && totalPages > 2) {
-    showPages.push(2);
-  } else if (currentPage - SHOW_DIFF_RANGE > 3) {
-    showPages.push(Number.NaN);
-  }
-
-  for (
-    let i = Math.max(3, currentPage - SHOW_DIFF_RANGE);
-    i <= Math.min(totalPages - 1, currentPage + SHOW_DIFF_RANGE);
-    i++
-  ) {
-    showPages.push(i);
-  }
-
-  if (totalPages > showPages[showPages.length - 1] + 2) {
-    showPages.push(Number.NaN);
-  } else if (totalPages === showPages[showPages.length - 1] + 2) {
-    showPages.push(totalPages - 1);
-  }
-
-  if (totalPages > 1) {
-    showPages.push(totalPages);
-  }
-
   return (
     <div className="flex flex-row items-center gap-x-[5px]">
-      <ChevronLeft className="h-8 w-8 fill-gray-500 p-1 hover:cursor-pointer hover:text-gray-800" />
-      {showPages.map((i) => (
-        <Button
-          key={i}
-          value={isNaN(i) ? "..." : i.toString()}
-          primary={i === currentPage}
-          onClick={(e) => onPageChange(Number.parseInt((e.target as HTMLElement).textContent || ""))}
-        />
-      ))}
-      <ChevronRight className="h-8 w-8 fill-gray-500 p-1 hover:cursor-pointer hover:text-gray-800" />
+      <div
+        className={currentPage !== 1 ? "text-black cursor-pointer select-none" : "text-gray-500 select-none"}
+        onClick={() => currentPage !== 1 && onPageChange(PageSelectorClick.FIRST)}
+      >
+        First
+      </div>
+      <ChevronLeft
+        className={currentPage !== 1 ? "h-8 w-8 fill-black p-1 cursor-pointer" : "fill-gray-500 h-8 w-8 p-1"}
+        onClick={() => currentPage !== 1 && onPageChange(PageSelectorClick.PREVIOUS)}
+      />
+      <div className="py-2 px-3 h-8 border-gray-100 border rounded-[64px] flex flex-row items-center">
+        {currentPage} of {totalPages}
+      </div>
+      <ChevronRight
+        className={currentPage !== totalPages ? "h-8 w-8 fill-black p-1 cursor-pointer" : "fill-gray-500 h-8 w-8 p-1"}
+        onClick={() => currentPage !== totalPages && onPageChange(PageSelectorClick.NEXT)}
+      />
+      <div
+        className={currentPage !== totalPages ? "text-black cursor-pointer select-none" : "text-gray-500 select-none"}
+        onClick={() => currentPage !== totalPages && onPageChange(PageSelectorClick.LAST)}
+      >
+        Last
+      </div>
     </div>
   );
 };

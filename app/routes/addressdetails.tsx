@@ -1,5 +1,6 @@
 import { Accepted, NotAccepted } from "../Accepted";
 import KasLink from "../KasLink";
+import PageSelector from "../PageSelector";
 import PageTable from "../PageTable";
 import Spinner from "../Spinner";
 import Tooltip, { TooltipDisplayMode } from "../Tooltip";
@@ -20,7 +21,7 @@ import localeData from "dayjs/plugin/localeData";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import numeral from "numeral";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router";
 
 dayjs().locale("en");
@@ -55,9 +56,46 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const { data: txCount, isLoading: isLoadingTxCount } = useAddressTxCount(loaderData.address);
   const { data: addressNames } = useAddressNames();
   const marketData = useContext(MarketDataContext);
+  const [beforeAfter, setBeforeAfter] = useState<number[]>([0, 0]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    setBeforeAfter([0, 0]); // Reset beforeAfter state
+    setCurrentPage(1); // Reset currentPage state
+  }, [loaderData.address]);
 
   // fetch transactions with resolve_previous_outpoints set to "light"
-  const { data: transactions } = useTransactions(loaderData.address, 10, 0, 0, "", "light");
+  const { data: txData } = useTransactions(
+    loaderData.address,
+    10,
+    currentPage === 1 ? 0 : beforeAfter[0],
+    currentPage === 1 ? 0 : beforeAfter[1],
+    "",
+    "light",
+  );
+
+  const pageChange = (page: number) => {
+    // FIRST = 0,
+    // LAST = 3,
+    // PREVIOUS = 2,
+    // NEXT = 1,
+    console.log(page, txData);
+    if (page === 0) {
+      setBeforeAfter([0, 0]);
+      setCurrentPage(1);
+    } else if (page === 1) {
+      setBeforeAfter([txData?.nextBefore ?? 0, 0]);
+      setCurrentPage((currentPage) => currentPage + 1);
+    } else if (page === 2) {
+      setBeforeAfter([0, txData?.nextAfter ?? 0]);
+      setCurrentPage((currentPage) => currentPage - 1);
+    } else if (page === 3) {
+      setBeforeAfter([0, 1]);
+      setCurrentPage(Math.ceil(txCount!.total / 10));
+    }
+  };
+
+  const transactions = txData?.transactions || [];
 
   if (!loaderData.address) return;
 
@@ -109,20 +147,9 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
             </>
           )}
           <FieldName name="Transactions" infoText="Total number of transactions involving this address." />
-          <FieldValue
-            value={
-              !isLoadingTxCount ? (
-                <>
-                  {txCount?.limit_exceeded && "> "}
-                  {txCount?.total || 0}
-                </>
-              ) : (
-                <LoadingSpinner />
-              )
-            }
-          />
+          <FieldValue value={!isLoadingTxCount ? numeral(txCount!.total).format("0,") : <LoadingSpinner />} />
           <FieldName name="UTXOs" infoText="Unspent, available outputs available at this address." />
-          <FieldValue value={!isLoadingUtxoData ? utxoData?.length : <LoadingSpinner />} />
+          <FieldValue value={!isLoadingUtxoData ? numeral(utxoData!.length).format("0,") : <LoadingSpinner />} />
         </div>
       </div>
 
@@ -215,6 +242,15 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                 <span className="text-sm">{transaction.is_accepted ? <Accepted /> : <NotAccepted />}</span>,
               ])}
             />
+            <div className="ms-auto me-5 flex flex-row justify-end items-center">
+              {!isLoadingTxCount && (
+                <PageSelector
+                  currentPage={currentPage}
+                  totalPages={Math.ceil(txCount!.total / 10)}
+                  onPageChange={pageChange}
+                />
+              )}
+            </div>
           </div>
         )}
 

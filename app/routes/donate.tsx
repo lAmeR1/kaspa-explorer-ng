@@ -2,7 +2,7 @@ import KasLink from "../KasLink";
 import KaspaIconOutline from "../assets/kaspa_outline.svg";
 import MainBox from "../layout/MainBox";
 
-const DONATION_ADDRESS = "kaspa:qr5trheyg9m9x6t6ph063vq9h9t6u8w40vzd4h0hey554p2q6c6qw6raedq3p";
+const DONATION_ADDRESS = "kaspa:qpfkh5h5ulurzw8xt5u4ezmawg2ycs9c375yhqag5t7c7xyf6jkfgneuwgdyh";
 
 export default function Donate() {
   return (
