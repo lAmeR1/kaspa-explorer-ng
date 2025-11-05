@@ -26,7 +26,7 @@ const Header = ({
     >
       <div className="md:text-md flex w-full flex-row items-center">
         <Link to={"/"}>
-          <LogoIcon className="ms-4 h-7 w-35 md:h-10 md:w-50" />
+          <LogoIcon className="ms-4 h-10 w-48 md:h-10 md:w-50" />
         </Link>
         <Price />
 
