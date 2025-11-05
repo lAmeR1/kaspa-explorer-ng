@@ -11,10 +11,12 @@ import Time from "./assets/time.svg";
 import Trophy from "./assets/trophy.svg";
 import VerifiedUser from "./assets/verified_user.svg";
 import SearchBox from "./header/SearchBox";
+import { useAddressDistribution } from "./hooks/useAddressDistribution";
 import { useBlockdagInfo } from "./hooks/useBlockDagInfo";
 import { useBlockReward } from "./hooks/useBlockReward";
 import { useCoinSupply } from "./hooks/useCoinSupply";
 import { useHalving } from "./hooks/useHalving";
+import { useTransactionsCount } from "./hooks/useTransactionsCount";
 import numeral from "numeral";
 import { useState } from "react";
 
@@ -27,6 +29,17 @@ const Dashboard = () => {
   const { data: coinSupply, isLoading: isLoadingCoinSupply } = useCoinSupply();
   const { data: blockReward, isLoading: isLoadingBlockReward } = useBlockReward();
   const { data: halving, isLoading: isLoadingHalving } = useHalving();
+  const { data: transactionsCount, isLoading: isLoadingTxCount } = useTransactionsCount();
+  const { data: addressDistribution, isLoading: isLoadingDistribution } = useAddressDistribution();
+
+  const totalTxCount = isLoadingTxCount
+    ? ""
+    : Math.floor((transactionsCount!.regular + transactionsCount!.coinbase) / 1_000_000).toString();
+
+  const getAddressCountAbove1KAS = () => {
+    if (!addressDistribution) return;
+    return addressDistribution[0].tiers?.reduce((acc, curr) => acc + (curr.tier > 0 ? curr.count : 0), 0);
+  };
 
   return (
     <>
@@ -40,7 +53,11 @@ const Dashboard = () => {
       <div className="flex w-full flex-col rounded-4xl bg-black px-4 py-12 text-white sm:px-8 sm:py-12 md:px-20 md:py-20 lg:px-24 lg:py-24 xl:px-36 xl:py-26">
         <span className="mb-7 text-3xl md:text-4xl lg:text-5xl">Kaspa by the numbers</span>
         <div className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-          <DashboardBox description="Total transactions" value="> 120M" icon={<Swap className="w-5" />} />
+          <DashboardBox
+            description="Total transactions"
+            value={`> ${totalTxCount} M`}
+            icon={<Swap className="w-5" />}
+          />
           <DashboardBox
             description="Total blocks"
             value={numeral(blockDagInfo?.virtualDaaScore || 0).format("0,0")}
@@ -64,8 +81,9 @@ const Dashboard = () => {
           <DashboardBox description="Average block time" value={"10.0"} unit="s" icon={<Time className="w-5" />} />
           <DashboardBox
             description="Wallet addresses"
-            value="~ 520,000"
+            value={`${numeral(getAddressCountAbove1KAS()).format("0,")}`}
             icon={<AccountBalanceWallet className="w-5" />}
+            loading={isLoadingDistribution}
           />
           <DashboardBox
             description="Block reward"
