@@ -2,6 +2,7 @@ import { displayAcceptance } from "../Accepted";
 import ErrorMessage from "../ErrorMessage";
 import KasLink from "../KasLink";
 import LoadingMessage from "../LoadingMessage";
+import PageTable from "../PageTable";
 import Tooltip, { TooltipDisplayMode } from "../Tooltip";
 import InfoIcon from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
@@ -251,84 +252,62 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
         )}
 
         {isTabActive("inputs") && (
-          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
-            {transaction.inputs ? (
-              transaction.inputs.map((input, index) => (
-                <>
-                  <FieldName name="Signature Op Count" />
-                  <FieldValue value={input.sig_op_count} />
-                  <FieldName name="Signature Script" />
-                  <FieldValue value={input.signature_script} />
-                  <FieldName name="Amount" />
-                  <FieldValue
-                    value={
-                      <>
-                        <span>
-                          {displayKAS(input.previous_outpoint_amount).split(".")[0]}.
-                          <span className="self-end pb-[0.4rem]">
-                            {displayKAS(input.previous_outpoint_amount).split(".")[1]}
-                          </span>
+          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl text-nowrap bg-white text-left text-black sm:grid-cols-[auto_1fr]">
+            {transaction.inputs && transaction.inputs.length > 0 ? (
+              <PageTable
+                rows={transaction.inputs.map((input) => {
+                  return [
+                    input.sig_op_count,
+                    <span className="text-wrap">{input.signature_script}</span>,
+                    <>
+                      <KasLink linkType="transaction" link shorten to={input.previous_outpoint_hash} />
+                      {` #${input.previous_outpoint_index}`}
+                    </>,
+                    <KasLink linkType="address" shorten link to={input.previous_outpoint_address} />,
+                    <>
+                      <span>
+                        {displayKAS(input.previous_outpoint_amount).split(".")[0]}.
+                        <span className="self-end pb-[0.4rem]">
+                          {displayKAS(input.previous_outpoint_amount).split(".")[1]}
                         </span>
-                        <span className="text-gray-500"> KAS</span>
-                      </>
-                    }
-                  />
-                  <FieldName name="Outpoint Index" />
-                  <FieldValue value={`#${input.previous_outpoint_index}`} />
-                  <FieldName name="Outpoint Hash" />
-                  <FieldValue value={<KasLink linkType="transaction" link to={input.previous_outpoint_hash} />} />
-                  <FieldName name="Outpoint Address" />
-                  <FieldValue value={<KasLink linkType="address" link to={input.previous_outpoint_address} />} />
-                  {/*horizontal rule*/}
-                  {index + 1 < (transaction.inputs || []).length && (
-                    <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-                  )}
-                </>
-              ))
+                      </span>
+                      <span className="text-gray-500"> KAS</span>
+                    </>,
+                  ];
+                })}
+                headers={[
+                  "Sig Op Count",
+                  "Signature Script",
+                  <span className="text-nowrap">Outpoint ID & Index</span>,
+                  "Outpoint Address",
+                  "Amount",
+                ]}
+              />
             ) : (
               <div className="sm:col-span-2">This is a coinbase transaction without inputs.</div>
             )}
           </div>
         )}
 
-        {isTabActive("outputs") && (
-          <div className="grid w-full grid-cols-2 gap-x-18 gap-y-2 rounded-4xl bg-white text-left text-nowrap text-black sm:grid-cols-[auto_1fr]">
-            {transaction.outputs ? (
-              transaction.outputs.map((output, index) => (
-                <>
-                  <FieldName name="Index" />
-                  <FieldValue value={output.index || "0"} />
-                  <FieldName name="Amount" />
-                  <FieldValue
-                    value={
-                      <>
-                        <span>
-                          {displayKAS(output.amount).split(".")[0]}.
-                          <span className="self-end pb-[0.4rem]">{displayKAS(output.amount).split(".")[1]}</span>
-                        </span>
-                        <span className="text-gray-500"> KAS</span>
-                      </>
-                    }
-                  />
-                  <FieldName name="Script Public Key Type" />
-                  <FieldValue value={output.script_public_key_type} />
-                  <FieldName name="Script Public Key" className="col-span-2" />
-                  <FieldValue value={output.script_public_key} className="col-span-2" />
-                  <FieldName name="Script Public Key Address" className="col-span-2" />
-                  <FieldValue
-                    value={<KasLink linkType="address" link to={output.script_public_key_address} />}
-                    className="col-span-2"
-                  />
-                  {/*horizontal rule*/}
-                  {index + 1 < (transaction.outputs || []).length && (
-                    <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
-                  )}
-                </>
-              ))
-            ) : (
-              <div>This transaction doesn't have any outputs.</div>
-            )}
-          </div>
+        {isTabActive("outputs") && transaction.outputs && transaction.outputs.length > 0 && (
+          <PageTable
+            headers={["Index", "Type", "Script Public Key", "Script Public Key Address", "Amount"]}
+            rows={transaction.outputs.map((output) => {
+              return [
+                output.index || "0",
+                <span className="text-nowrap">{output.script_public_key_type}</span>,
+                output.script_public_key,
+                <KasLink linkType="address" to={output.script_public_key_address} link />,
+                <span className="text-nowrap">
+                  <span>
+                    {displayKAS(output.amount).split(".")[0]}.
+                    <span className="self-end pb-[0.4rem]">{displayKAS(output.amount).split(".")[1]}</span>
+                  </span>
+                  <span className="text-gray-500 text-nowrap"> KAS</span>
+                </span>,
+              ];
+            })}
+          />
         )}
       </div>
     </>
