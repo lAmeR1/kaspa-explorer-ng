@@ -1,4 +1,5 @@
 import { displayAcceptance } from "../Accepted";
+import DataMessage from "../DataMessage";
 import ErrorMessage from "../ErrorMessage";
 import KasLink from "../KasLink";
 import LoadingMessage from "../LoadingMessage";
@@ -252,7 +253,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
         )}
 
         {isTabActive("inputs") && (
-          <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl text-nowrap bg-white text-left text-black sm:grid-cols-[auto_1fr]">
+          <>
             {transaction.inputs && transaction.inputs.length > 0 ? (
               <PageTable
                 rows={transaction.inputs.map((input) => {
@@ -284,9 +285,16 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                 ]}
               />
             ) : (
-              <div className="sm:col-span-2">This is a coinbase transaction without inputs.</div>
+              <div className="w-full flex flex-col items-center justify-center">
+                <DataMessage>
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="text-xl font-medium">No Inputs</div>
+                    <div>This is a coinbase transaction without inputs.</div>
+                  </div>
+                </DataMessage>
+              </div>
             )}
-          </div>
+          </>
         )}
 
         {isTabActive("outputs") && transaction.outputs && transaction.outputs.length > 0 && (
