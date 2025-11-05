@@ -245,7 +245,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                       <span>{fee}</span>
                       <span className="text-gray-500"> KAS</span>
                       <div className="text-gray-500">
-                        {numeral(fee * (marketData?.price || 0)).format("$0,0.[00000000]")}
+                        {numeral((fee * (marketData?.price || 0)).toFixed(7)).format("$0,0.00[000000]")}
                       </div>
                     </>
                   }
