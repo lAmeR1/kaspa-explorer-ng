@@ -258,35 +258,37 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
         {isTabActive("inputs") && (
           <>
             {transaction.inputs && transaction.inputs.length > 0 ? (
-              <PageTable
-                rows={transaction.inputs.map((input) => {
-                  return [
-                    input.sig_op_count,
-                    <span className="text-wrap">{input.signature_script}</span>,
-                    <>
-                      <KasLink linkType="transaction" link shorten to={input.previous_outpoint_hash} />
-                      {` #${input.previous_outpoint_index}`}
-                    </>,
-                    <KasLink linkType="address" shorten link to={input.previous_outpoint_address} />,
-                    <>
-                      <span>
-                        {displayKAS(input.previous_outpoint_amount).split(".")[0]}.
-                        <span className="self-end pb-[0.4rem]">
-                          {displayKAS(input.previous_outpoint_amount).split(".")[1]}
+              <div className="text-nowrap">
+                <PageTable
+                  rows={transaction.inputs.map((input) => {
+                    return [
+                      input.sig_op_count,
+                      <span className="text-wrap">{input.signature_script}</span>,
+                      <>
+                        <KasLink linkType="transaction" link shorten to={input.previous_outpoint_hash} />
+                        {` #${input.previous_outpoint_index}`}
+                      </>,
+                      <KasLink linkType="address" shorten link to={input.previous_outpoint_address} />,
+                      <>
+                        <span className="text-nowrap">
+                          {displayKAS(input.previous_outpoint_amount).split(".")[0]}.
+                          <span className="self-end pb-[0.4rem]">
+                            {displayKAS(input.previous_outpoint_amount).split(".")[1]}
+                          </span>
                         </span>
-                      </span>
-                      <span className="text-gray-500"> KAS</span>
-                    </>,
-                  ];
-                })}
-                headers={[
-                  "Sig Op Count",
-                  "Signature Script",
-                  <span className="text-nowrap">Outpoint ID & Index</span>,
-                  "Outpoint Address",
-                  "Amount",
-                ]}
-              />
+                        <span className="text-gray-500"> KAS</span>
+                      </>,
+                    ];
+                  })}
+                  headers={[
+                    "Sig Op Count",
+                    "Signature Script",
+                    <span className="text-nowrap">Outpoint ID & Index</span>,
+                    "Outpoint Address",
+                    "Amount",
+                  ]}
+                />
+              </div>
             ) : (
               <div className="w-full flex flex-col items-center justify-center">
                 <DataMessage>
