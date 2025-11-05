@@ -235,7 +235,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                         0,
                       )) /
                       1_0000_0000,
-                  ).format("0,0.00[000000]")}
+                  ).format("+0,0.00[000000]")}
                   <span className="text-gray-500"> KAS</span>
                 </>,
                 <span className="text-sm">{transaction.is_accepted ? <Accepted /> : <NotAccepted />}</span>,
