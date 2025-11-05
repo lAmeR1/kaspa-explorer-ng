@@ -11,13 +11,13 @@ import numeral from "numeral";
 
 export function meta() {
   return [
-    { title: "Kaspa Explorer - Transactions" },
+    { title: "Kaspa Transactions List | Kaspa Explorer" },
     {
       name: "description",
       content:
-        "Transactions page of Kaspa Explorer displaying a comprehensive overview of recent transactions," +
-        " including their details and insights into the Kaspa blockchain.",
+        "Track the latest Kaspa transactions. View transaction ID, sender, recipient, fees, and block confirmations.",
     },
+    { name: "keywords", content: "Kaspa transactions, blockchain transfers, transaction ID, sender, receiver, fees" },
   ];
 }
 

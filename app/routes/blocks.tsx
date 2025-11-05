@@ -24,12 +24,13 @@ dayjs.extend(localizedFormat);
 
 export function meta() {
   return [
-    { title: "Kaspa Explorer - Blocks" },
+    { title: "Kaspa Blocks List | Kaspa Explorer" },
     {
       name: "description",
       content:
-        "Overview page of Kaspa Block Explorer, showcasing recent blocks, their details, and insights into the Kaspa blockchain.",
+        "Explore recent Kaspa blocks. View height, timestamp, transactions, block hash, and miner details in real-time.",
     },
+    { name: "keywords", content: "Kaspa blocks, blockchain explorer, latest blocks, transactions, miners" },
   ];
 }
 

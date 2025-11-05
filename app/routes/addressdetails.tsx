@@ -38,14 +38,14 @@ export async function loader({ params }: Route.LoaderArgs) {
   return { address };
 }
 
-export function meta() {
+export function meta({ params }: Route.LoaderArgs) {
   return [
-    { title: "Kaspa Explorer - Account Details" },
+    { title: `Kaspa Address ${params.address} | Kaspa Explorer` },
     {
       name: "description",
-      content:
-        "Overview page of Kaspa Block Explorer, showcasing recent blocks, their details, and insights into the Kaspa blockchain.",
+      content: "Check Kaspa address details. View transaction history, balance, and associated blocks.",
     },
+    { name: "keywords", content: "Kaspa address, transactions, wallet balance, blockchain address lookup" },
   ];
 }
 

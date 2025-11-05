@@ -27,14 +27,14 @@ export async function loader({ params }: Route.LoaderArgs) {
   return { blockId };
 }
 
-export function meta() {
+export function meta({ params }: Route.LoaderArgs) {
   return [
-    { title: "Kaspa Explorer - Blocks" },
+    { title: `Kaspa Block ${params.blockId} | Kaspa Explorer` },
     {
       name: "description",
-      content:
-        "Overview page of Kaspa Block Explorer, showcasing recent blocks, their details, and insights into the Kaspa blockchain.",
+      content: "View Kaspa block details. Check transactions, miner, block hash, confirmations, and DAG links.",
     },
+    { name: "keywords", content: "Kaspa block, blockchain explorer, block details, miner, DAG, transactions" },
   ];
 }
 

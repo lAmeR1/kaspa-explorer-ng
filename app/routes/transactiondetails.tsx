@@ -30,13 +30,16 @@ export async function loader({ params }: Route.LoaderArgs) {
   return { transactionId };
 }
 
-export function meta() {
+export function meta({ params }: Route.LoaderArgs) {
   return [
-    { title: "Kaspa Explorer - Transaction Details" },
+    { title: `Kaspa Transaction ${params.transactionId} | Kaspa Explorer` },
     {
       name: "description",
-      content:
-        "Overview page of Kaspa Block Explorer, showcasing recent blocks, their details, and insights into the Kaspa blockchain.",
+      content: "Explore Kaspa transaction. View sender, recipient, amount, status, and associated blocks and more.",
+    },
+    {
+      name: "keywords",
+      content: "Kaspa transaction, transaction ID, blockchain transfer, sender, receiver, transaction status",
     },
   ];
 }

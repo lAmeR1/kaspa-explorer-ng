@@ -14,11 +14,12 @@ import numeral from "numeral";
 
 export function meta() {
   return [
-    { title: "Kaspa Explorer - Addresses" },
+    { title: "Kaspa Addresses List | Kaspa Explorer" },
     {
       name: "description",
-      content: "",
+      content: "Browse Kaspa addresses. Track balances, transaction history, and recent activity on the network.",
     },
+    { name: "keywords", content: "Kaspa addresses, blockchain explorer, wallet, transaction history, balances" },
   ];
 }
 
