@@ -78,7 +78,7 @@ export default function Addresses() {
           headers={["Rank", "Address", "Label", "Balance", "Percentage"]}
           rows={topAddresses!.ranking.slice(0, 100).map((addressInfo) => [
             addressInfo.rank + 1,
-            <KasLink linkType="address" link to={addressInfo.address} />,
+            <KasLink linkType="address" link to={addressInfo.address} mono />,
             addressNames && addressNames[addressInfo.address] && (
               <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-nowrap text-black">
                 {addressNames[addressInfo.address]}

@@ -91,7 +91,7 @@ export default function Blocks() {
             .slice(0, 10)
             .map((block) => [
               dayjs(parseInt(block.timestamp)).format("HH:mm:ss"),
-              <KasLink linkType="block" link to={block.block_hash} />,
+              <KasLink linkType="block" link to={block.block_hash} mono />,
               block.blueScore,
               block.txCount,
             ])}

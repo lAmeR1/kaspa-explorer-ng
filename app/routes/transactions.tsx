@@ -44,10 +44,13 @@ export default function Transactions() {
           additionalClassNames={{ 1: "overflow-hidden " }}
           rows={transactions.map((transaction) => [
             "a moment ago",
-            <KasLink linkType="transaction" link to={transaction.txId} />,
-            numeral(transaction.outputs.reduce((acc, output) => acc + Number(output[1]), 0) / 1_0000_0000).format(
-              "0,0.[00]",
-            ),
+            <KasLink linkType="transaction" link to={transaction.txId} mono />,
+            <>
+              {numeral(transaction.outputs.reduce((acc, output) => acc + Number(output[1]), 0) / 1_0000_0000).format(
+                "0,0.[00]",
+              )}
+              <span className="text-gray-500"> KAS</span>
+            </>,
           ])}
         />
       </MainBox>
