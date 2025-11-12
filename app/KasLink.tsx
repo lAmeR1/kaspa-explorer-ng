@@ -61,7 +61,7 @@ const KasLink = ({ to, linkType, copy, qr, link, shorten, resolveName, mono }: K
 
   return (
     <span>
-      <span className={"break-all " + (mono ? "font-mono" : "")}>
+      <span className={"break-all " + (mono ? "font-mono tracking-tighter" : "")}>
         {link && linkHref ? (
           <Link className="text-link hover:underline" to={linkHref}>
             {displayValue}
