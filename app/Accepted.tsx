@@ -8,7 +8,7 @@ export const Accepted = () => (
 );
 
 export const NotAccepted = () => (
-  <div className="bg-accent-red inline-block text-alert rounded-full px-2 min-h-5 text-center content-center break-keep">
+  <div className="bg-accent-red inline-block text-error rounded-full px-2 min-h-5 text-center content-center break-keep">
     Not accepted
   </div>
 );
