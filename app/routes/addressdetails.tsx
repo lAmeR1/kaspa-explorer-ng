@@ -14,6 +14,7 @@ import { useAddressNames } from "../hooks/useAddressNames";
 import { useAddressTxCount } from "../hooks/useAddressTxCount";
 import { useAddressUtxos } from "../hooks/useAddressUtxos";
 import { useTransactions } from "../hooks/useTransactions";
+import FooterHelper from "../layout/FooterHelper";
 import { isValidKaspaAddressSyntax } from "../utils/kaspa";
 import type { Route } from "./+types/addressdetails";
 import dayjs from "dayjs";
@@ -273,6 +274,12 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
           </>
         )}
       </div>
+      <FooterHelper icon={AccountBalanceWallet}>
+        <span className="">
+          An address is a unique identifier on the blockchain used to send, receive, and store assets or data. It holds
+          balances and interacts with the network securely.
+        </span>
+      </FooterHelper>
     </>
   );
 }

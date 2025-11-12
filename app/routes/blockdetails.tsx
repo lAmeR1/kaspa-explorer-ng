@@ -9,6 +9,7 @@ import Info from "../assets/info.svg";
 import { useBlockById } from "../hooks/useBlockById";
 import { useTransactionsSearch } from "../hooks/useTransactionsSearch";
 import { useVirtualChainBlueScore } from "../hooks/useVirtualChainBlueScore";
+import FooterHelper from "../layout/FooterHelper";
 import type { Route } from "./+types/blockdetails";
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
@@ -247,6 +248,12 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           }
         />
       </div>
+      <FooterHelper icon={Box}>
+        <span>
+          A block is a secure, sequential record in the blockchain containing verified transactions, a unique hash, and
+          a reference to the previous block, ensuring data integrity.
+        </span>
+      </FooterHelper>
     </>
   );
 }

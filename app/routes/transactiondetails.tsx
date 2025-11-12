@@ -8,9 +8,11 @@ import Tooltip, { TooltipDisplayMode } from "../Tooltip";
 import InfoIcon from "../assets/info.svg";
 import Kaspa from "../assets/kaspa.svg";
 import Swap from "../assets/swap.svg";
+import Transaction from "../assets/transaction.svg";
 import { MarketDataContext } from "../context/MarketDataProvider";
 import { useTransactionById } from "../hooks/useTransactionById";
 import { useVirtualChainBlueScore } from "../hooks/useVirtualChainBlueScore";
+import FooterHelper from "../layout/FooterHelper";
 import type { Route } from "./+types/transactiondetails";
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
@@ -245,7 +247,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                       <span>{fee}</span>
                       <span className="text-gray-500"> KAS</span>
                       <div className="text-gray-500">
-                        {numeral((fee * (marketData?.price || 0)).toFixed(7)).format("$0,0.00[000000]")}
+                        {numeral((fee * (marketData?.price || 0)).toFixed(6)).format("$0,0.00[000000]")}
                       </div>
                     </>
                   }
@@ -323,6 +325,10 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
           />
         )}
       </div>
+      <FooterHelper icon={Transaction}>
+        A transaction is a cryptographically signed command that modifies the blockchain's state. Block explorers
+        monitor and display the details of every transaction within the network.
+      </FooterHelper>
     </>
   );
 }

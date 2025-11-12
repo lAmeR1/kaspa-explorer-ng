@@ -16,7 +16,7 @@ const QrCodeModal = (props: QrCodeModalProps) => {
   const handleClick = () => {
     navigator.clipboard.writeText(props.value);
     setClicked(true);
-    setTimeout(() => setClicked(false), 1000);
+    setTimeout(() => setClicked(false), 3000);
   };
   return (
     <div
@@ -55,9 +55,12 @@ const QrCodeModal = (props: QrCodeModalProps) => {
         <div className="mt-2 w-full text-center text-wrap break-all text-black">{props.value}</div>
 
         <div className="relative mt-8 w-full">
-          <Tooltip message="copied" display={TooltipDisplayMode.Click} className="w-full" clickTimeout={2000}>
-            <Button className="h-10 w-full" value={"Copy to clipboard"} primary onClick={handleClick} />
-          </Tooltip>
+          <Button
+            className="h-10 w-full"
+            value={!clicked ? "Copy to clipboard" : "Copied"}
+            primary
+            onClick={!clicked ? handleClick : undefined}
+          />
         </div>
       </div>
     </div>

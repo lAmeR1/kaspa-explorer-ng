@@ -68,7 +68,7 @@ const KasLink = ({ to, linkType, copy, qr, link, shorten, resolveName }: KasLink
         )}
       </span>
       <span className="fill-gray-500">
-        <Tooltip message={"copied"} display={TooltipDisplayMode.Click} clickTimeout={1000}>
+        <Tooltip message={"Copied"} display={TooltipDisplayMode.Click} clickTimeout={1000}>
           {copy &&
             (!clicked ? (
               <Copy
@@ -76,7 +76,7 @@ const KasLink = ({ to, linkType, copy, qr, link, shorten, resolveName }: KasLink
                 onClick={handleClick}
               />
             ) : (
-              <CopyCheck className="mx-1 inline h-4 w-4 animate-[spin_0.2s_linear_1] align-middle" />
+              <CopyCheck className="mx-1 inline h-4 w-4 align-middle" />
             ))}
         </Tooltip>
 
