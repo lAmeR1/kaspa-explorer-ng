@@ -10,6 +10,7 @@ export default [
   route("addresses/:address", "./routes/addressdetails.tsx"),
 
   route("donate", "./routes/donate.tsx"),
+  route("analytics", "./routes/analytics.tsx"),
   route("*", "./routes/notfound.tsx"),
   // route("/transactions", "routes/transactions.tsx"),
 ] satisfies RouteConfig;

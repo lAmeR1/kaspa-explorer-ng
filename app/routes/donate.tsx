@@ -4,6 +4,21 @@ import MainBox from "../layout/MainBox";
 
 const DONATION_ADDRESS = "kaspa:qpfkh5h5ulurzw8xt5u4ezmawg2ycs9c375yhqag5t7c7xyf6jkfgneuwgdyh";
 
+export function meta() {
+  return [
+    { title: "Donate to Support | Kaspa Explorer" },
+    {
+      name: "description",
+      content:
+        "Support Kaspa Explorer and help us maintain and improve this open-source Kaspa blockchain explorer. Every donation matters.",
+    },
+    {
+      name: "keywords",
+      content: "Kaspa donate, support explorer, KaspaScan donation, contribute to blockchain explorer, open-source",
+    },
+  ];
+}
+
 export default function Donate() {
   return (
     <MainBox>
