@@ -61,6 +61,8 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const [beforeAfter, setBeforeAfter] = useState<number[]>([0, 0]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  const [expand, setExpand] = useState([]);
+
   useEffect(() => {
     setBeforeAfter([0, 0]); // Reset beforeAfter state
     setCurrentPage(1); // Reset currentPage state
@@ -190,28 +192,40 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                 dayjs(transaction.block_time).fromNow(),
                 <KasLink shorten linkType="transaction" link to={transaction.transaction_id} mono />,
                 (transaction.inputs || []).length > 0 ? (
-                  (transaction.inputs || []).map(
-                    (input) =>
-                      input.previous_outpoint_address && (
-                        <>
-                          <KasLink
-                            link={input.previous_outpoint_address !== loaderData.address}
-                            linkType="address"
-                            to={input.previous_outpoint_address}
-                            shorten
-                            resolveName
-                            mono
-                          />
-                          <br />
-                        </>
-                      ),
-                  )
+                  <>
+                    {(transaction.inputs || [])
+                      .slice(0, expand.indexOf(transaction.transaction_id) === -1 ? 5 : undefined)
+                      .map(
+                        (input) =>
+                          input.previous_outpoint_address && (
+                            <span className="leading-6">
+                              <KasLink
+                                link={input.previous_outpoint_address !== loaderData.address}
+                                linkType="address"
+                                to={input.previous_outpoint_address}
+                                shorten
+                                resolveName
+                                mono
+                              />
+                              <br />
+                            </span>
+                          ),
+                      )}
+                    {(transaction.inputs || []).length > 5 && expand.indexOf(transaction.transaction_id) === -1 && (
+                      <span
+                        className="text-link cursor-pointer hover:underline"
+                        onClick={() => setExpand((expand) => expand.concat(transaction.transaction_id))}
+                      >
+                        Show more (+{transaction.inputs!.length - 5})
+                      </span>
+                    )}
+                  </>
                 ) : (
                   <span>Coinbase (newly mined coins)</span>
                 ),
                 <ArrowRight className="inline h-4 w-4" />,
                 (transaction.outputs || []).map((output) => (
-                  <>
+                  <span className="leading-6">
                     <KasLink
                       linkType="address"
                       to={output.script_public_key_address}
@@ -221,7 +235,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                       mono
                     />
                     <br />
-                  </>
+                  </span>
                 )),
                 <>
                   {numeral(

@@ -9,6 +9,7 @@ import { useTransactionsCount } from "../hooks/useTransactionsCount";
 import Card from "../layout/Card";
 import CardContainer from "../layout/CardContainer";
 import FooterHelper from "../layout/FooterHelper";
+import HelperBox from "../layout/HelperBox";
 import MainBox from "../layout/MainBox";
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
@@ -78,10 +79,10 @@ export default function Blocks() {
       </MainBox>
 
       <div className="flex w-full flex-col rounded-4xl bg-white p-4 text-left sm:p-8">
-        <div className="bg-primary/20 text-md mb-2 basis-full rounded-2xl p-6 text-left text-black">
+        <HelperBox>
           Blocks are arriving with a speed of 10 blocks per second. The network is currently at block{" "}
           {numeral(blockDagInfo?.virtualDaaScore).format("0,0")}.
-        </div>
+        </HelperBox>
 
         <PageTable
           className="text-black"
