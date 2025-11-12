@@ -51,7 +51,9 @@ const KasLink = ({ to, linkType, copy, qr, link, shorten, resolveName }: KasLink
   if (!isLoading && linkType === "address" && addressNames![to] && resolveName) {
     displayValue = (
       <Tooltip message={to} display={TooltipDisplayMode.Hover}>
-        <span className="bg-accent-yellow rounded-full px-2 py-0 text-center text-nowrap">{addressNames![to]}</span>
+        <div className="bg-accent-yellow inline-block text-alert rounded-full px-2 h-5 content-center text-center text-nowrap">
+          {addressNames![to]}
+        </div>
       </Tooltip>
     );
   }

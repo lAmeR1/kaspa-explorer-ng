@@ -1,17 +1,22 @@
 import Spinner from "./Spinner";
 import ClockLoader from "./assets/clock_loader_10.svg";
-import { useVirtualChainBlueScore } from "./hooks/useVirtualChainBlueScore";
 
 export const Accepted = () => (
-  <div className="bg-accent-green text-success inline rounded-full px-2 py-0.5 text-center break-keep">Accepted</div>
+  <div className="bg-accent-green inline-block text-success rounded-full px-2 py-0.5 h-5 text-center content-center break-keep">
+    Accepted
+  </div>
 );
 
 export const NotAccepted = () => (
-  <div className="bg-accent-red text-alert inline rounded-full px-2 py-0.5 text-center break-keep">Not accepted</div>
+  <div className="bg-accent-red inline-block text-alert rounded-full px-2 h-5 py-0.5 text-center content-center break-keep">
+    Not accepted
+  </div>
 );
 
 export const Confirmed = () => (
-  <div className="bg-accent-green text-success inline rounded-full px-2 py-0.5 text-center break-keep">Confirmed</div>
+  <div className="bg-accent-green inline-block text-success rounded-full px-2 h-5 py-0.5 text-center content-center break-keep">
+    Confirmed
+  </div>
 );
 
 export const displayAcceptance = (accepted: boolean, confirmations: number | undefined) => {
