@@ -80,9 +80,9 @@ export default function Addresses() {
             addressInfo.rank + 1,
             <KasLink linkType="address" link to={addressInfo.address} mono />,
             addressNames && addressNames[addressInfo.address] && (
-              <span className="bg-accent-yellow rounded-full px-4 py-0.5 text-center text-nowrap text-black">
+              <div className="inline-block bg-accent-yellow text-alert rounded-full px-4 py-0.5 text-center text-nowrap min-h-5">
                 {addressNames[addressInfo.address]}
-              </span>
+              </div>
             ),
             <>
               {numeral(addressInfo.amount).format("0,0")}

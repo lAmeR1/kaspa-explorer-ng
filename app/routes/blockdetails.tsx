@@ -98,14 +98,14 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
       if (tx.transaction_id === txId) {
         for (const output of tx.outputs || []) {
           if (output.index === outpointIndex) {
-            return <KasLink linkType={"address"} to={output.script_public_key_address} shorten link />;
+            return <KasLink linkType={"address"} to={output.script_public_key_address} shorten link mono />;
           }
         }
       }
     }
     return (
       <>
-        <KasLink linkType={"transaction"} to={txId} shorten link />
+        <KasLink linkType={"transaction"} to={txId} shorten link mono />
         {` #${outpointIndex}`}
       </>
     );
@@ -207,7 +207,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           headers={["Transaction ID", "From", "To", "Amount", "Status"]}
           rows={
             block?.transactions.map((transaction) => [
-              <KasLink linkType="transaction" to={transaction.verboseData.transactionId} link shorten />,
+              <KasLink linkType="transaction" to={transaction.verboseData.transactionId} link shorten mono />,
               <ul>
                 {transaction.inputs.length > 0
                   ? transaction.inputs.map((input) => (
@@ -226,6 +226,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
                       link
                       shorten
                       resolveName
+                      mono
                     />
                   </li>
                 ))}
