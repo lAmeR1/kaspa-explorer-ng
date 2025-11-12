@@ -101,7 +101,7 @@ const SearchBox = (props: Props) => {
         <input
           type="text"
           ref={inputFieldRef}
-          className={`${invalidInput ? "text-alert" : ""} w-full pe-2 outline-none md:lg:text-lg group`}
+          className={`${invalidInput ? "text-error" : ""} w-full pe-2 outline-none md:lg:text-lg group`}
           placeholder="Search for blocks, addresses and transactions"
           onChange={(e) => {
             setInvalidInput(false);

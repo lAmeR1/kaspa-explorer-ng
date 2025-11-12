@@ -13,7 +13,7 @@ const PriceLabel = () => {
     <div className="mx-4 hidden h-6 flex-row items-center justify-around gap-x-1 overflow-hidden rounded-4xl border-[1px] border-gray-100 bg-white p-1 pr-2 sm:flex">
       <KaspaIcon className="h-4 w-4" />
       <span className="">${price}</span>
-      <span className={`${isPositive ? "text-success" : "text-alert"}`}>
+      <span className={`${isPositive ? "text-success" : "text-error"}`}>
         {marketData?.change24h || "-.--"}
         <span className="ms-[1px]">%</span>
       </span>
