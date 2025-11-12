@@ -265,7 +265,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                 <span className="text-sm">{transaction.is_accepted ? <Accepted /> : <NotAccepted />}</span>,
               ])}
             />
-            <div className="ms-auto me-5 flex flex-row justify-end items-center">
+            <div className="ms-auto me-5 flex flex-row justify-center items-center">
               {!isLoadingTxCount && (
                 <PageSelector
                   currentPage={currentPage}

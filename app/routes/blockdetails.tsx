@@ -1,9 +1,11 @@
 import { displayAcceptance } from "../Accepted";
+import Coinbase from "../Coinbase";
 import ErrorMessage from "../ErrorMessage";
 import KasLink from "../KasLink";
 import LoadingMessage from "../LoadingMessage";
 import PageTable from "../PageTable";
 import Tooltip, { TooltipDisplayMode } from "../Tooltip";
+import ArrowRight from "../assets/arrow-right.svg";
 import Box from "../assets/box.svg";
 import Info from "../assets/info.svg";
 import { useBlockById } from "../hooks/useBlockById";
@@ -15,7 +17,8 @@ import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useEffect } from "react";
+import numeral from "numeral";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 
 dayjs().locale("en");
@@ -204,19 +207,23 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
       <div className="flex flex-col w-full gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
         <div className="mt-4 mb-2 text-black sm:col-span-2">Transactions</div>
         <PageTable
-          headers={["Transaction ID", "From", "To", "Amount", "Status"]}
+          alignTop
+          headers={["Transaction ID", "From", "", "To", "Amount", "Status"]}
           rows={
             block?.transactions.map((transaction) => [
               <KasLink linkType="transaction" to={transaction.verboseData.transactionId} link shorten mono />,
               <ul>
-                {transaction.inputs.length > 0
-                  ? transaction.inputs.map((input) => (
-                      <li>
-                        {getAddressFromOutpoint(input.previousOutpoint.transactionId, input.previousOutpoint.index)}
-                      </li>
-                    ))
-                  : "COINBASE (Newly mined coins)"}
+                {transaction.inputs.length > 0 ? (
+                  transaction.inputs.map((input) => (
+                    <li>
+                      {getAddressFromOutpoint(input.previousOutpoint.transactionId, input.previousOutpoint.index)}
+                    </li>
+                  ))
+                ) : (
+                  <Coinbase />
+                )}
               </ul>,
+              <ArrowRight className="inline h-4 w-4" />,
               <ul>
                 {transaction.outputs.map((output) => (
                   <li>
@@ -233,7 +240,10 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
               </ul>,
               <ul>
                 {transaction.outputs.map((output) => (
-                  <li>{output.amount / 1_0000_0000} KAS</li>
+                  <li>
+                    {numeral(output.amount / 1_0000_0000).format("0,0.00[000000]")}
+                    <span className="text-gray-500 text-nowrap"> KAS</span>
+                  </li>
                 ))}
               </ul>,
               <div className="flex flex-row gap-x-2 justfiy-start md:justify-end">

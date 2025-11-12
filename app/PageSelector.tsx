@@ -27,7 +27,7 @@ const PageSelector = ({ currentPage, totalPages, onPageChange }: PageSelectorPro
         className={currentPage !== 1 ? "h-8 w-8 fill-black p-1 cursor-pointer" : "fill-gray-500 h-8 w-8 p-1"}
         onClick={() => currentPage !== 1 && onPageChange(PageSelectorClick.PREVIOUS)}
       />
-      <div className="py-2 px-3 h-8 border-gray-100 border rounded-[64px] flex flex-row items-center">
+      <div className="py-2 px-3 h-8 flex flex-row items-center">
         {currentPage} of {totalPages}
       </div>
       <ChevronRight

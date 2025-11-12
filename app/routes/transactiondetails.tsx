@@ -1,4 +1,5 @@
 import { displayAcceptance } from "../Accepted";
+import Coinbase from "../Coinbase";
 import DataMessage from "../DataMessage";
 import ErrorMessage from "../ErrorMessage";
 import KasLink from "../KasLink";
@@ -110,7 +111,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                   ))
                 ) : (
                   <li>
-                    <span>Coinbase (newly mined coins)</span>
+                    <Coinbase />
                   </li>
                 )}
               </ul>
