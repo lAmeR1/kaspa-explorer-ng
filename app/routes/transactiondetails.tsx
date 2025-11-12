@@ -245,7 +245,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                   value={
                     <>
                       <span>{fee}</span>
-                      <span className="text-gray-500"> KAS</span>
+                      <span className="text-gray-500 text-nowrap"> KAS</span>
                       <div className="text-gray-500">
                         {numeral((fee * (marketData?.price || 0)).toFixed(6)).format("$0,0.00[000000]")}
                       </div>
@@ -278,7 +278,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                             {displayKAS(input.previous_outpoint_amount).split(".")[1]}
                           </span>
                         </span>
-                        <span className="text-gray-500"> KAS</span>
+                        <span className="text-gray-500 text-nowrap"> KAS</span>
                       </>,
                     ];
                   })}

@@ -84,10 +84,10 @@ export default function Addresses() {
                 {addressNames[addressInfo.address]}
               </div>
             ),
-            <>
+            <span className="text-nowrap">
               {numeral(addressInfo.amount).format("0,0")}
-              <span className="text-gray-500"> KAS</span>
-            </>,
+              <span className="text-gray-500 text-nowrap"> KAS</span>
+            </span>,
             <>
               {numeral((addressInfo.amount / (coinSupply!.circulatingSupply / 1_0000_0000)) * 100).format("0.00")}
               <span className="text-gray-500">&nbsp;%</span>

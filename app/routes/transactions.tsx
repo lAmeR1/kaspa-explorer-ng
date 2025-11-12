@@ -49,7 +49,7 @@ export default function Transactions() {
               {numeral(transaction.outputs.reduce((acc, output) => acc + Number(output[1]), 0) / 1_0000_0000).format(
                 "0,0.[00]",
               )}
-              <span className="text-gray-500"> KAS</span>
+              <span className="text-gray-500 text-nowrap"> KAS</span>
             </>,
           ])}
         />
