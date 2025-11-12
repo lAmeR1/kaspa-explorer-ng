@@ -62,7 +62,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   const [beforeAfter, setBeforeAfter] = useState<number[]>([0, 0]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const [expand, setExpand] = useState([]);
+  const [expand, setExpand] = useState<string[]>([]);
 
   useEffect(() => {
     setBeforeAfter([0, 0]); // Reset beforeAfter state

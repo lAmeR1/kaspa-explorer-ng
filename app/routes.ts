@@ -1,4 +1,4 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import { index, route, type RouteConfig } from "@react-router/dev/routes";
 
 export default [
   index("routes/home.tsx"),
@@ -11,6 +11,10 @@ export default [
 
   route("donate", "./routes/donate.tsx"),
   route("analytics", "./routes/analytics.tsx"),
+
   route("*", "./routes/notfound.tsx"),
-  // route("/transactions", "routes/transactions.tsx"),
+
+  // Add redirecting routes
+  route("txs", "./routes/txs.tsx"),
+  route("txs/:id", "./routes/txsdetails.tsx"),
 ] satisfies RouteConfig;
