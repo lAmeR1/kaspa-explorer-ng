@@ -5,6 +5,7 @@ interface PageTableProps {
   headers: ReactNode[];
   additionalClassNames?: Record<number, string>;
   className?: string;
+  alignTop?: boolean;
 }
 
 const PageTable = (props: PageTableProps) => {
@@ -35,7 +36,7 @@ const PageTable = (props: PageTableProps) => {
                   <td className={`pt-2 md:hidden text-gray-500`}>{props.headers[cellNr] || ""}</td>
                 )}
                 <td
-                  className={`break-all align-text-top pt-0 md:ps-4 md:last:pe-4 md:py-3 text-left xs:text-left md:last:text-right last:pb-4 ${props.additionalClassNames && (props.additionalClassNames[cellNr] || "")}`}
+                  className={`break-all pt-0 md:ps-4 md:last:pe-4 md:py-3 text-left xs:text-left md:last:text-right last:pb-4 ${props.additionalClassNames && (props.additionalClassNames[cellNr] || "")} ${props.alignTop && " align-text-top "}`}
                 >
                   {cell}
                 </td>

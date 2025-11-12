@@ -181,6 +181,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
         {isTabActive("transactions") && (
           <div className="w-full">
             <PageTable
+              alignTop
               headers={["Timestamp", "ID", "From", "", "To", "Amount", "Status"]}
               className="w-full md:text-sm lg:text-base"
               additionalClassNames={{
@@ -189,7 +190,12 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                 3: "hidden md:table-cell",
               }}
               rows={(transactions || []).map((transaction) => [
-                dayjs(transaction.block_time).fromNow(),
+                <Tooltip
+                  message={dayjs(transaction.block_time).format("YYYY-MM-DD HH:mm:ss")}
+                  display={TooltipDisplayMode.Hover}
+                >
+                  {dayjs(transaction.block_time).fromNow()}
+                </Tooltip>,
                 <KasLink shorten linkType="transaction" link to={transaction.transaction_id} mono />,
                 (transaction.inputs || []).length > 0 ? (
                   <>
