@@ -188,7 +188,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
               }}
               rows={(transactions || []).map((transaction) => [
                 dayjs(transaction.block_time).fromNow(),
-                <KasLink shorten linkType="transaction" link to={transaction.transaction_id} />,
+                <KasLink shorten linkType="transaction" link to={transaction.transaction_id} mono />,
                 (transaction.inputs || []).length > 0 ? (
                   (transaction.inputs || []).map(
                     (input) =>
@@ -200,6 +200,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                             to={input.previous_outpoint_address}
                             shorten
                             resolveName
+                            mono
                           />
                           <br />
                         </>
@@ -217,6 +218,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                       link={loaderData.address !== output.script_public_key_address}
                       shorten
                       resolveName
+                      mono
                     />
                     <br />
                   </>
