@@ -18,13 +18,11 @@ const MobileMenu = ({ showMenu, onCloseRequest }: Props) => {
   return (
     showMenu && (
       <div className="flex flex-col pt-4 sm:hidden">
-        <MenuItem name="Explore">
-          <MenuItem name="Blocks" linkTo="/blocks" indent />
-          <MenuItem name="Transactions" linkTo="/transactions" indent />
-          <MenuItem name="Addresses" linkTo="/addresses" indent />
-        </MenuItem>
-        <div className="h-[1px] bg-gray-100 mx-4"></div>
-        <MenuItem name="Analytics" />
+        <MenuItem name="Blocks" linkTo="/blocks" />
+        <MenuItem name="Transactions" linkTo="/transactions" />
+        <MenuItem name="Addresses" linkTo="/addresses" />
+        <div className="h-[1px] my-4 bg-gray-100 mx-4"></div>
+        <MenuItem name="Analytics" linkTo="/analytics" />
       </div>
     )
   );
@@ -43,8 +41,11 @@ const MenuItem = (props: MenuItemProps) => {
 
   return (
     <Wrapper to={props.linkTo ?? ""}>
-      <div key={props.name} className={`flex w-full flex-row items-center px-6 py-1 ${props.indent ? "pl-10" : ""}`}>
-        <span>{props.name}</span>
+      <div
+        key={props.name}
+        className={`flex w-full flex-row h-10 items-center px-4 py-1 ${props.indent ? "pl-10" : ""}`}
+      >
+        <span className="hover:bg-gray-25 rounded-lg w-full h-10 content-center px-1">{props.name}</span>
       </div>
 
       <div className={`flex flex-col overflow-hidden py-1 transition-all duration-250`}>
