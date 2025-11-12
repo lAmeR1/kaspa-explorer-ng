@@ -2,7 +2,7 @@ import Button from "./Button";
 import Tooltip, { TooltipDisplayMode } from "./Tooltip";
 import Close from "./assets/close.svg";
 import Kaspa from "./assets/kaspa.svg";
-import { QRCodeSVG } from "qrcode.react";
+import { BeautifulQRCode } from "@beautiful-qr-code/react";
 import { useState } from "react";
 
 interface QrCodeModalProps {
@@ -35,9 +35,20 @@ const QrCodeModal = (props: QrCodeModalProps) => {
           <Close className="fill-black cursor-pointer" onClick={() => props.setShowQr(false)} />
         </div>
 
-        <div className="relative mx-8 mb-6">
-          <QRCodeSVG className="block" value={props.value} level="M" size={180} />
-          <Kaspa className="absolute top-1/2 left-1/2 h-9 w-9 -translate-x-1/2 -translate-y-1/2 bg-white" />
+        <div className="relative mx-8 mb-6 w-3/4">
+          {/*<QRCodeSVG className="block" value= level="M" size={180} />*/}
+
+          <BeautifulQRCode
+            data={props.value}
+            foregroundColor="#000"
+            backgroundColor="#fff"
+            radius={1}
+            // className="qr-code-container"
+            // style={{ maxWidth: "300px" }}
+          />
+          <div className="absolute top-1/2 left-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 bg-white">
+            <Kaspa className="absolute top-1/2 left-1/2 h-13 w-13 -translate-x-1/2 -translate-y-1/2 bg-white" />
+          </div>
         </div>
 
         <div className="text-gray-500">Scan or copy the Kaspa address</div>
