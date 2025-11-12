@@ -22,11 +22,10 @@ export const Confirmed = () => (
 export const displayAcceptance = (accepted: boolean, confirmations: number | undefined) => {
   return (
     <div className="flex flex-row items-center gap-x-1">
-      {accepted ? <Accepted /> : <NotAccepted />}
       {accepted && confirmations && (
         <>
           {confirmations < 86400 ? (
-            <span className="flex flex-row items-center gap-x-1">
+            <span className="flex flex-row items-center gap-x-1 text-gray-500">
               {confirmations ? confirmations : <Spinner className="w-4 h-4" />} confirmations
               <ClockLoader className="h-4 w-4" />
             </span>
@@ -35,6 +34,7 @@ export const displayAcceptance = (accepted: boolean, confirmations: number | und
           )}
         </>
       )}
+      {accepted ? <Accepted /> : <NotAccepted />}
     </div>
   );
 };

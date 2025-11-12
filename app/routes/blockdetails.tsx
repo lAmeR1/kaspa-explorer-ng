@@ -150,7 +150,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <FieldValue
           value={block?.header.parents[0].parentHashes.map((parentHash) => (
             <div>
-              <KasLink linkType="block" link to={`${parentHash}`} />
+              <KasLink linkType="block" link to={`${parentHash}`} mono />
             </div>
           ))}
         />
@@ -158,7 +158,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
         <FieldValue
           value={block?.verboseData.childrenHashes.map((child) => (
             <div>
-              <KasLink linkType="block" link to={`${child}`} />
+              <KasLink linkType="block" link to={`${child}`} mono />
             </div>
           ))}
         />
