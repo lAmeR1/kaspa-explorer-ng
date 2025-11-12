@@ -1,4 +1,5 @@
 import { Accepted, NotAccepted } from "../Accepted";
+import Coinbase from "../Coinbase";
 import DataMessage from "../DataMessage";
 import KasLink from "../KasLink";
 import PageSelector from "../PageSelector";
@@ -227,7 +228,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                     )}
                   </>
                 ) : (
-                  <span>Coinbase (newly mined coins)</span>
+                  <Coinbase />
                 ),
                 <ArrowRight className="inline h-4 w-4" />,
                 (transaction.outputs || []).map((output) => (
