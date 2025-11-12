@@ -258,12 +258,11 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
             <PageTable
               rows={(utxoData?.slice(0, 50) || []).map((utxo) => [
                 utxo.utxoEntry.blockDaaScore,
-                <KasLink linkType="transaction" to={utxo.outpoint.transactionId} shorten link />,
+                <KasLink linkType="transaction" to={utxo.outpoint.transactionId} link />,
                 utxo.outpoint.index,
-                utxo.utxoEntry.blockDaaScore,
                 numeral(parseFloat(utxo.utxoEntry.amount) / 1_0000_0000).format("0,0.00[000000]") + " KAS",
               ])}
-              headers={["Block DAA Score", "Transaction ID", "Index", "Block DAA Score", "Amount"]}
+              headers={["Block DAA Score", "Transaction ID", "Index", "Amount"]}
             />
             {utxoData?.slice(0, 50).length === 50 && (
               <div className="me-auto ms-auto">

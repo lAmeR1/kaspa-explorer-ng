@@ -63,10 +63,19 @@ const Footer = () => {
       <div className="my-4 h-[1px] w-full bg-gray-900" />
 
       <div className="jusitfy-start flex w-full flex-row gap-x-6 fill-gray-500 text-gray-500">
-        <Discord className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
-        <Github className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
-        <Telegram className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
-        <Twitter className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
+        <a href="http://discord.gg/kaspa" target="_blank">
+          <Discord className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
+        </a>
+        <a href="https://github.com/lAmeR1/kaspa-explorer-ng" target="_blank">
+          <Github className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
+        </a>
+        <a href="https://t.me/Kaspaenglish" target="_blank">
+          <Telegram className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
+        </a>
+        <a href="https://x.com/kaspaunchained" target="_blank">
+          <Twitter className="h-6 w-6 hover:cursor-pointer hover:fill-white" />
+        </a>
+
         <span className="ms-auto hidden text-nowrap sm:block">© 2025 Kaspa Explorer. All rights are reserved</span>
       </div>
 

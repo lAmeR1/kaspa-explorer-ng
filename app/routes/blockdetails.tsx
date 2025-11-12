@@ -200,7 +200,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           </>
         )}
       </div>
-      <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
+      <div className="flex flex-col w-full gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:p-8">
         <div className="mt-4 mb-2 text-black sm:col-span-2">Transactions</div>
         <PageTable
           headers={["Transaction ID", "From", "To", "Amount", "Status"]}
@@ -234,7 +234,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
                   <li>{output.amount / 1_0000_0000} KAS</li>
                 ))}
               </ul>,
-              <div className="flex flex-row gap-x-2 justify-end">
+              <div className="flex flex-row gap-x-2 justfiy-start md:justify-end">
                 {displayAcceptance(
                   getTxFromInputTxs(transaction.verboseData.transactionId)?.is_accepted ?? false,
                   virtualChainBlueScore
