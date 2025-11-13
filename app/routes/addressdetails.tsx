@@ -199,13 +199,13 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                 </Tooltip>,
                 <KasLink shorten linkType="transaction" link to={transaction.transaction_id} mono />,
                 (transaction.inputs || []).length > 0 ? (
-                  <>
+                  <ul className="leading-tight">
                     {(transaction.inputs || [])
                       .slice(0, expand.indexOf(transaction.transaction_id) === -1 ? 5 : undefined)
                       .map(
                         (input) =>
                           input.previous_outpoint_address && (
-                            <span className="leading-6">
+                            <li>
                               <KasLink
                                 link={input.previous_outpoint_address !== loaderData.address}
                                 linkType="address"
@@ -214,8 +214,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                                 resolveName
                                 mono
                               />
-                              <br />
-                            </span>
+                            </li>
                           ),
                       )}
                     {(transaction.inputs || []).length > 5 && expand.indexOf(transaction.transaction_id) === -1 && (
@@ -226,24 +225,25 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                         Show more (+{transaction.inputs!.length - 5})
                       </span>
                     )}
-                  </>
+                  </ul>
                 ) : (
                   <Coinbase />
                 ),
                 <ArrowRight className="inline h-4 w-4" />,
-                (transaction.outputs || []).map((output) => (
-                  <span className="leading-6">
-                    <KasLink
-                      linkType="address"
-                      to={output.script_public_key_address}
-                      link={loaderData.address !== output.script_public_key_address}
-                      shorten
-                      resolveName
-                      mono
-                    />
-                    <br />
-                  </span>
-                )),
+                <ul className="leading-tight">
+                  {(transaction.outputs || []).map((output) => (
+                    <li>
+                      <KasLink
+                        linkType="address"
+                        to={output.script_public_key_address}
+                        link={loaderData.address !== output.script_public_key_address}
+                        shorten
+                        resolveName
+                        mono
+                      />
+                    </li>
+                  ))}
+                </ul>,
                 <>
                   {numeral(
                     ((transaction.inputs || []).reduce(

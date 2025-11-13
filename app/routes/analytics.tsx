@@ -1,4 +1,5 @@
 import AnalyticsIcon from "../assets/analytics.svg";
+import React from "react";
 
 export function meta() {
   return [
@@ -19,8 +20,10 @@ export default function Analytics() {
   return (
     <div className="flex w-full max-w-300 flex-col items-center rounded-4xl bg-white py-12 sm:py-24">
       <AnalyticsIcon className="h-22 w-22" />
-      <p className="mt-8 mb-6 text-xl font-medium">Analytics - Coming Soon</p>
-      <p>We're building a powerful Analytics page to bring deeper insights into the Kaspa network.</p>
+      <div className="mt-4 mb-6 flex flex-col items-center justify-center">
+        <div className="text-xl font-medium">Analytics - Coming Soon</div>
+        <div>We're building a powerful Analytics page to bring deeper insights into the Kaspa network.</div>
+      </div>
     </div>
   );
 }
