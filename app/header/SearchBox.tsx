@@ -78,7 +78,7 @@ const SearchBox = (props: Props) => {
 
   return (
     <div
-      className={`group flex grow flex-row items-center justify-start rounded-lg bg-gray-50 p-2  
+      className={`group flex flex-row items-center justify-start rounded-lg bg-gray-50 p-2  
          
        hover:bg-gray-100 hover:cursor-text
        outline-white

@@ -3,6 +3,7 @@ import AccountBalanceWallet from "./assets/account_balance_wallet.svg";
 import BackToTab from "./assets/back_to_tab.svg";
 import Box from "./assets/box.svg";
 import Coins from "./assets/coins.svg";
+import Dag from "./assets/dag.svg";
 import FlashOn from "./assets/flash_on.svg";
 import KaspaDifferent from "./assets/kaspadifferent.svg";
 import Landslide from "./assets/landslide.svg";
@@ -44,12 +45,15 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="flex w-full flex-col gap-y-3 rounded-4xl bg-white px-4 py-12 sm:px-8 sm:py-12 md:px-20 md:py-20 lg:px-24 lg:py-24 xl:px-36 xl:py-38">
-        <span className="text-3xl lg:text-[54px]">Kaspa Explorer</span>
-        <span className="mb-6 text-lg">
-          Kaspa is the fastest, open-source, decentralized & fully scalable Layer-1 PoW network in the world.
-        </span>
-        <SearchBox value={search} onChange={setSearch} className="w-full py-4" />
+      <div className="grid grid-cols-1 md:grid-cols-[6fr_5fr] rounded-4xl bg-white px-4 py-12 sm:px-8 sm:py-12 md:ps-20 md:py-20 lg:ps-24 lg:py-24 xl:ps-36 xl:py-26">
+        <div className="flex w-full flex-col gap-y-3 justify-center">
+          <span className="text-3xl lg:text-[54px]">Kaspa Explorer</span>
+          <span className="mb-6 text-lg">
+            Kaspa is the fastest, open-source, decentralized & fully scalable Layer-1 PoW network in the world.
+          </span>
+          <SearchBox value={search} onChange={setSearch} className="w-full py-4" />
+        </div>
+        <Dag className="w-full h-full md:ps-13" />
       </div>
       <div className="flex w-full flex-col rounded-4xl bg-gray-50 px-4 py-12 text-white sm:px-8 sm:py-12 md:px-20 md:py-20 lg:px-24 lg:py-24 xl:px-36 xl:py-26">
         <span className="mb-7 text-black text-3xl md:text-4xl lg:text-5xl">Kaspa by the numbers</span>
