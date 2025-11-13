@@ -25,7 +25,7 @@ const Tooltip = (props: {
       const rect = tooltipDiv.current.getBoundingClientRect();
 
       if (rect.left < 0) {
-        tooltipDiv.current.style.left = Math.round(-1 * rect.left + 16) + "px";
+        tooltipDiv.current.style.transform = `translateX(${Math.round(-1 * rect.left + 8)}px)`;
       }
     }
     if (showElement && props.clickTimeout) setTimeout(() => setShowElement(false), props.clickTimeout);

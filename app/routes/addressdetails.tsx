@@ -192,7 +192,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
               }}
               rows={(transactions || []).map((transaction) => [
                 <Tooltip
-                  message={dayjs(transaction.block_time).format("YYYY-MM-DD HH:mm:ss")}
+                  message={dayjs(transaction.block_time).format("MMM D, YYYY h:mm A")}
                   display={TooltipDisplayMode.Hover}
                 >
                   {dayjs(transaction.block_time).fromNow()}
