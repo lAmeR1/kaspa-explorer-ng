@@ -4,6 +4,7 @@ import BackToTab from "./assets/back_to_tab.svg";
 import Box from "./assets/box.svg";
 import Coins from "./assets/coins.svg";
 import FlashOn from "./assets/flash_on.svg";
+import KaspaDifferent from "./assets/kaspadifferent.svg";
 import Landslide from "./assets/landslide.svg";
 import Rocket from "./assets/rocket_launch.svg";
 import Swap from "./assets/swap.svg";
@@ -140,15 +141,17 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 w-full gap-y-3 rounded-4xl bg-white px-4 py-12 sm:px-8 sm:py-12 md:px-20 md:py-20 lg:px-24 lg:py-24 xl:px-36 xl:py-38">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-y-3 rounded-4xl bg-white px-4 py-12 sm:px-8 sm:py-12 md:px-20 md:py-20 lg:px-24 lg:py-24 xl:px-36 xl:py-38">
         <div className="flex flex-col">
           <div className="text-5xl">Kaspa is built differently.</div>
-          <div className="text-md text-gray-500">
+          <div className="text-md text-gray-500 mt-2 mb-2">
             Kaspa is a community project – completely open source with no central governance – following in the ethos of
             coins like Bitcoin.
           </div>
         </div>
-        <div className="text-right">PIC HERE</div>
+        <div className="flex flex-row items-center justify-center md:justify-end">
+          <KaspaDifferent className="" />
+        </div>
       </div>
     </>
   );
