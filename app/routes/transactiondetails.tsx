@@ -1,7 +1,7 @@
 import { displayAcceptance } from "../Accepted";
 import Coinbase from "../Coinbase";
-import DataMessage from "../DataMessage";
 import ErrorMessage from "../ErrorMessage";
+import IconMessageBox from "../IconMessageBox";
 import KasLink from "../KasLink";
 import LoadingMessage from "../LoadingMessage";
 import PageTable from "../PageTable";
@@ -294,12 +294,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
               </div>
             ) : (
               <div className="w-full flex flex-col items-center justify-center">
-                <DataMessage>
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="text-xl font-medium">No Inputs</div>
-                    <div>This is a coinbase transaction without inputs.</div>
-                  </div>
-                </DataMessage>
+                <IconMessageBox icon="data" title="No inputs" description="This transaction has no inputs." />
               </div>
             )}
           </>

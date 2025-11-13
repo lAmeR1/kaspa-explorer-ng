@@ -1,6 +1,6 @@
 import { Accepted, NotAccepted } from "../Accepted";
 import Coinbase from "../Coinbase";
-import DataMessage from "../DataMessage";
+import IconMessageBox from "../IconMessageBox";
 import KasLink from "../KasLink";
 import PageSelector from "../PageSelector";
 import PageTable from "../PageTable";
@@ -298,12 +298,11 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                 )}
               </>
             ) : (
-              <DataMessage>
-                <div className="flex flex-col items-center justify-center">
-                  <div className="text-xl font-medium">No UTXOs</div>
-                  <div>This address doesn't have UTXOs at the moment.</div>
-                </div>
-              </DataMessage>
+              <IconMessageBox
+                icon="data"
+                title="No UTXOs"
+                description="This address doesn't have any UTXOs at the moment."
+              />
             )}
           </>
         )}

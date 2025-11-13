@@ -1,4 +1,6 @@
 import type { Route } from "./+types/root";
+import ErrorMessage from "./ErrorMessage";
+import IconMessageBox from "./IconMessageBox";
 import "./app.css";
 import ErrorIcon from "./assets/error.svg";
 import Info from "./assets/info.svg";
@@ -7,7 +9,7 @@ import Footer from "./footer/Footer";
 import Header from "./header/Header";
 import MainBox from "./layout/MainBox";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
+import React, { useState } from "react";
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 export const links: Route.LinksFunction = () => [
@@ -73,34 +75,28 @@ const queryClient = new QueryClient({
 });
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  return (
-    <MainBox>
-      <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:grid-cols-[auto_1fr] sm:p-8">
-        <div className="flex flex-row items-center text-2xl sm:col-span-2">
-          <ErrorIcon className="mr-2 h-8 w-8" />
-          Error occured
-        </div>
-
-        <div className="mt-4 text-black sm:col-span-2">Error information</div>
-        {isRouteErrorResponse(error) && (
-          <>
-            <FieldName name="Error status" />
-            <FieldValue value={`${error.status} ${error.statusText}`} />
-            <FieldName name="Error data" />
-            <FieldValue value={error.data} />
-          </>
-        )}
-        {error instanceof Error && (
-          <>
-            <FieldName name="Error message" />
-            <FieldValue value={error.message} />
-            <FieldName name="Error stack" />
-            <FieldValue value={error.stack} />
-          </>
-        )}
-      </div>
-    </MainBox>
+  const description = (
+    <div className="grid w-full grid-cols-1 gap-x-18 gap-y-2 rounded-4xl bg-white p-4 text-left text-nowrap text-black sm:grid-cols-[auto_1fr] sm:p-8">
+      {isRouteErrorResponse(error) && (
+        <>
+          <FieldName name="Error status" />
+          <FieldValue value={`${error.status} ${error.statusText}`} />
+          <FieldName name="Error data" />
+          <FieldValue value={error.data} />
+        </>
+      )}
+      {error instanceof Error && (
+        <>
+          <FieldName name="Error message" />
+          <FieldValue value={error.message} />
+          <FieldName name="Error stack" />
+          <FieldValue value={error.stack} />
+        </>
+      )}
+    </div>
   );
+
+  return <IconMessageBox icon="error" title="Error occured" description={description} />;
 }
 
 export default function App() {
@@ -116,4 +112,6 @@ const FieldName = ({ name }: { name: string }) => (
   </div>
 );
 
-const FieldValue = ({ value }: { value: string | React.ReactNode }) => <span className="overflow-hidden">{value}</span>;
+const FieldValue = ({ value }: { value: string | React.ReactNode }) => (
+  <span className="overflow-hidden text-wrap">{value}</span>
+);
