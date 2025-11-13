@@ -196,7 +196,7 @@ interface InfoBoxProps {
 
 const DashboardInfoBox = (props: InfoBoxProps) => {
   return (
-    <div className="flex flex-col gap-y-2 bg-white p-8 rounded-2xl">
+    <div className="flex flex-col h-full gap-y-2 bg-white p-8 rounded-2xl">
       <>{props.icon}</>
       <span className="text-xl">{props.title}</span>
       <span className="text-gray-500">{props.description}</span>
