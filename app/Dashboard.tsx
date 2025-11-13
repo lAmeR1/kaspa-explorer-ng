@@ -45,7 +45,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-[6fr_5fr] rounded-4xl bg-white px-4 py-12 sm:px-8 sm:py-12 md:ps-20 md:py-20 lg:ps-24 lg:py-24 xl:ps-36 xl:py-26">
+      <div className="grid grid-cols-1 md:grid-cols-[6fr_5fr] rounded-4xl bg-white px-4 py-12 sm:px-8 sm:py-10 md:ps-20 md:py-20 lg:ps-24 xl:ps-36">
         <div className="flex w-full flex-col gap-y-3 justify-center">
           <span className="text-3xl lg:text-[54px]">Kaspa Explorer</span>
           <span className="mb-6 text-lg">
