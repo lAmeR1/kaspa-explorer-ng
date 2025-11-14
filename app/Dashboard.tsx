@@ -53,7 +53,7 @@ const Dashboard = () => {
           </span>
           <SearchBox value={search} onChange={setSearch} className="w-full py-4" />
         </div>
-        <Dag className="w-full h-full md:ps-13" />
+        <Dag className="w-full h-full md:ps-13 mt-2 md:mt-0" />
       </div>
       <div className="flex w-full flex-col rounded-4xl bg-gray-50 px-4 py-12 text-white sm:px-8 sm:py-12 md:px-20 md:py-20 lg:px-24 lg:py-24 xl:px-36 xl:py-26">
         <span className="mb-7 text-black text-3xl md:text-4xl lg:text-5xl">Kaspa by the numbers</span>
