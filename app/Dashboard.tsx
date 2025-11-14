@@ -111,7 +111,7 @@ const Dashboard = () => {
           <DashboardInfoBox
             description="A digital ledger enabling parallel blocks and instant transaction confirmation –
           built on a robust proof-of-work engine with rapid single-second block intervals."
-            title="The world’s first blockDAG"
+            title="The world’s first BlockDAG"
             icon={<Rocket className="w-5" />}
           />
         </div>
