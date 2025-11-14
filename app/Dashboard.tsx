@@ -118,7 +118,7 @@ const Dashboard = () => {
         <div className="col-span-1 md:col-span-3">
           <DashboardInfoBox
             description="Kaspa enables near-instant transaction confirmations, ensuring seamless and efficient user experiences for payments and transfers."
-            title="Instant transactions"
+            title="Instant Transactions"
             icon={<Rocket className="w-5" />}
           />
         </div>
