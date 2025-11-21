@@ -309,7 +309,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
                 output.index || "0",
                 <span className="text-nowrap">{output.script_public_key_type}</span>,
                 output.script_public_key,
-                <KasLink linkType="address" to={output.script_public_key_address} link />,
+                <KasLink linkType="address" to={output.script_public_key_address} link resolveName />,
                 <span className="text-nowrap">
                   <span>
                     {displayKAS(output.amount).split(".")[0]}.
