@@ -1,13 +1,19 @@
 import KasLink from "../KasLink";
 import PageTable from "../PageTable";
 import Transaction from "../assets/transaction.svg";
+import { MarketDataContext } from "../context/MarketDataProvider";
+import { useFeeEstimate } from "../hooks/useFeeEstimate";
 import { useIncomingBlocks } from "../hooks/useIncomingBlocks";
+import { useMempoolSize } from "../hooks/useMempoolSize";
+import { useTransactionCount } from "../hooks/useTransactionCount";
+import { useTransactionsCount } from "../hooks/useTransactionsCount";
 import Card from "../layout/Card";
 import CardContainer from "../layout/CardContainer";
 import FooterHelper from "../layout/FooterHelper";
 import HelperBox from "../layout/HelperBox";
 import MainBox from "../layout/MainBox";
 import numeral from "numeral";
+import { useContext } from "react";
 
 export function meta() {
   return [
@@ -23,15 +29,37 @@ export function meta() {
 
 export default function Transactions() {
   const { transactions } = useIncomingBlocks();
+  const { data: transactionCount, isLoading: isLoadingTxCount } = useTransactionCount();
+  const { data: feeEstimate, isLoading: isLoadingFee } = useFeeEstimate();
+  const marketData = useContext(MarketDataContext);
+  const { data: transactionsCountTotal, isLoading: isLoadingTxCountTotal } = useTransactionsCount();
+  const { mempoolSize: mempoolSize } = useMempoolSize();
+
+  const totalTxCount = isLoadingTxCountTotal
+    ? ""
+    : Math.floor((transactionsCountTotal!.regular + transactionsCountTotal!.coinbase) / 1_000_000).toString();
+
+  const txCount =
+    transactionCount && transactionCount.length > 0
+      ? (transactionCount[0].regular + transactionCount[0].coinbase) / 3600
+      : "-";
+
+  const regularFee = feeEstimate ? (feeEstimate.normalBuckets[0].feerate * 2036) / 1_0000_0000 : 0;
+  const regularFeeUsd = (regularFee * (marketData?.price ?? 0)).toFixed(6);
 
   return (
     <>
       <MainBox>
         <CardContainer title="Transactions">
-          <Card title="Average TPS (24 hrs)" value={`${numeral(154.2).format("0.0")}`} />
-          <Card title="Volume transacted (30 days)" value={`${numeral(603123943).format("0,0")} KAS`} />
-          <Card title="Volume transacted (24 hours)" value={`${numeral(69951282).format("0,0")} KAS`} />
-          <Card title="Average Transaction Fee (24 hours)" value={`${numeral(0.02332).format("0.0000[0000]")} KAS`} />
+          <Card title="Total transactions" value={`${numeral(totalTxCount).format("0")} M`} />
+          <Card title="Average TPS (1 hr)" value={`${numeral(txCount).format("0.0")}`} loading={isLoadingTxCount} />
+          <Card
+            title="Regular fee"
+            value={`${numeral(regularFee).format("0.00000000")} KAS`}
+            subtext={`${numeral(regularFeeUsd).format("0,0.00[000000]")} $`}
+            loading={isLoadingFee}
+          />
+          <Card title="Mempool size" value={mempoolSize} />
         </CardContainer>
       </MainBox>
 

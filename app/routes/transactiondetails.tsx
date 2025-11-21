@@ -12,6 +12,7 @@ import Swap from "../assets/swap.svg";
 import Transaction from "../assets/transaction.svg";
 import { MarketDataContext } from "../context/MarketDataProvider";
 import { useTransactionById } from "../hooks/useTransactionById";
+import { useTransactionCount } from "../hooks/useTransactionCount";
 import { useVirtualChainBlueScore } from "../hooks/useVirtualChainBlueScore";
 import FooterHelper from "../layout/FooterHelper";
 import type { Route } from "./+types/transactiondetails";
