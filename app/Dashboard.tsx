@@ -83,7 +83,7 @@ const Dashboard = () => {
             icon={<Landslide className="w-5" />}
             loading={isLoadingCoinSupply}
           />
-          <DashboardBox description="Average block time" value={"10.0"} unit="s" icon={<Time className="w-5" />} />
+          <DashboardBox description="Average block time" value={"0.1"} unit="s" icon={<Time className="w-5" />} />
           <DashboardBox
             description="Wallet addresses"
             value={`${numeral(getAddressCountAbove1KAS()).format("0,")}`}
