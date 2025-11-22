@@ -122,16 +122,21 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
 
         <span className="mt-4 mb-0">Balance</span>
 
-        <span className="flex flex-row items-center text-[32px]">
-          {balance.split(".")[0]}.
-          <span className="self-end pb-[0.4rem] text-2xl">
-            {!isLoadingAddressBalance ? balance.split(".")[1] : <LoadingSpinner />}
+        {!isLoadingAddressBalance ? (
+          <span className="flex flex-row items-center text-[32px]">
+            {balance.split(".")[0]}.<span className="self-end pb-[0.4rem] text-2xl">{balance.split(".")[1]}</span>
+            <Kaspa className="fill-primary ml-1 h-8 w-8" />
           </span>
-          <Kaspa className="fill-primary ml-1 h-8 w-8" />
-        </span>
-        <span className="ml-1 text-gray-500">
-          {numeral(((data?.balance || 0) / 1_0000_0000) * (marketData?.price || 0)).format("$0,0.00")}
-        </span>
+        ) : (
+          <LoadingSpinner />
+        )}
+        {!isLoadingAddressBalance ? (
+          <span className="ml-1 text-gray-500">
+            {numeral(((data?.balance || 0) / 1_0000_0000) * (marketData?.price || 0)).format("$0,0.00")}
+          </span>
+        ) : (
+          <LoadingSpinner />
+        )}
         {/*horizontal rule*/}
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
 
