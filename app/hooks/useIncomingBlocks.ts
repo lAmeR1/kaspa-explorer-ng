@@ -1,5 +1,5 @@
 import { useSocketRoom } from "./useSocketRoom";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export interface Block {
   block_hash: string;
@@ -18,17 +18,28 @@ export const useIncomingBlocks = () => {
 
   const startTime = useMemo(() => Date.now() + 500, []);
   const [blockCount, setBlockCount] = useState(0);
+  const [avgBlockTime, setAvgBlockTime] = useState(0);
 
   const handleBlocks = useCallback((newBlock: Block) => {
     setBlockCount((prevBlockCount) => prevBlockCount + 1);
     setBlocks((prevBlocks) => [newBlock, ...prevBlocks.slice(0, 19)]);
   }, []);
+  const lastThrottleTime = useRef(0);
 
   useSocketRoom<Block>({
     room: "blocks",
     eventName: "new-block",
     onMessage: handleBlocks,
   });
+
+  useEffect(() => {
+    // Throttling logic with `useRef`
+    const now = Date.now();
+    if (now - lastThrottleTime.current >= 200) {
+      setAvgBlockTime(() => blockCount / (Math.max(now - startTime, 500) / 1000));
+      lastThrottleTime.current = now;
+    }
+  }, [blockCount, startTime]);
 
   const txs = [];
 
@@ -42,7 +53,7 @@ export const useIncomingBlocks = () => {
 
   return {
     blocks,
-    avgBlockTime: blockCount / (Math.max(Date.now() - startTime, 500) / 1000),
+    avgBlockTime,
     transactions: txs,
   };
 };
