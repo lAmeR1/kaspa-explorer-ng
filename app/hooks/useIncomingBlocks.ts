@@ -16,7 +16,7 @@ export interface Block {
 export const useIncomingBlocks = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
 
-  const startTime = useMemo(() => Date.now(), []);
+  const startTime = useMemo(() => Date.now() + 500, []);
   const [blockCount, setBlockCount] = useState(0);
 
   const handleBlocks = useCallback((newBlock: Block) => {
@@ -42,7 +42,7 @@ export const useIncomingBlocks = () => {
 
   return {
     blocks,
-    avgBlockTime: blockCount / ((Date.now() - startTime) / 1000),
+    avgBlockTime: blockCount / (Math.max(Date.now() - startTime, 500) / 1000),
     transactions: txs,
   };
 };
