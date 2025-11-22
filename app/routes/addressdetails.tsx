@@ -186,100 +186,111 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
 
         {isTabActive("transactions") && (
           <div className="w-full">
-            <PageTable
-              alignTop
-              headers={["Timestamp", "ID", "From", "", "To", "Amount", "Status"]}
-              className="w-full md:text-sm lg:text-base"
-              additionalClassNames={{
-                2: "md:w-40 lg:w-50",
-                4: "md:w-40 lg:w-50",
-                3: "hidden md:table-cell",
-              }}
-              rows={(transactions || []).map((transaction) => [
-                <Tooltip
-                  message={dayjs(transaction.block_time).format("MMM D, YYYY h:mm A")}
-                  display={TooltipDisplayMode.Hover}
-                >
-                  {dayjs(transaction.block_time).fromNow()}
-                </Tooltip>,
-                <KasLink shorten linkType="transaction" link to={transaction.transaction_id} mono />,
-                (transaction.inputs || []).length > 0 ? (
-                  <ul className="leading-tight">
-                    {(transaction.inputs || [])
-                      .slice(0, expand.indexOf(transaction.transaction_id) === -1 ? 5 : undefined)
-                      .map(
-                        (input) =>
-                          input.previous_outpoint_address && (
-                            <li>
-                              <KasLink
-                                link={input.previous_outpoint_address !== loaderData.address}
-                                linkType="address"
-                                to={input.previous_outpoint_address}
-                                shorten
-                                resolveName
-                                mono
-                              />
-                            </li>
-                          ),
-                      )}
-                    {(transaction.inputs || []).length > 5 && expand.indexOf(transaction.transaction_id) === -1 && (
-                      <span
-                        className="text-link cursor-pointer hover:underline"
-                        onClick={() => setExpand((expand) => expand.concat(transaction.transaction_id))}
-                      >
-                        Show more (+{transaction.inputs!.length - 5})
-                      </span>
-                    )}
-                  </ul>
-                ) : (
-                  <Coinbase />
-                ),
-                <ArrowRight className="inline h-4 w-4" />,
-                <ul className="leading-tight">
-                  {(transaction.outputs || []).map((output) => (
-                    <li>
-                      <KasLink
-                        linkType="address"
-                        to={output.script_public_key_address}
-                        link={loaderData.address !== output.script_public_key_address}
-                        shorten
-                        resolveName
-                        mono
-                      />
-                    </li>
-                  ))}
-                </ul>,
-                <>
-                  {numeral(
-                    ((transaction.inputs || []).reduce(
-                      (acc, input) =>
-                        acc -
-                        (loaderData.address === (input.previous_outpoint_address || "")
-                          ? input.previous_outpoint_amount || 0
-                          : 0),
-                      0,
-                    ) +
-                      (transaction.outputs || []).reduce(
-                        (acc, output) =>
-                          acc + (loaderData.address === output.script_public_key_address ? output.amount : 0),
-                        0,
-                      )) /
-                      1_0000_0000,
-                  ).format("+0,0.00[000000]")}
-                  <span className="text-gray-500 text-nowrap"> KAS</span>
-                </>,
-                <span className="text-sm">{transaction.is_accepted ? <Accepted /> : <NotAccepted />}</span>,
-              ])}
-            />
-            <div className="ms-auto me-5 flex flex-row justify-center items-center">
-              {!isLoadingTxCount && (
-                <PageSelector
-                  currentPage={currentPage}
-                  totalPages={Math.ceil(txCount!.total / 10)}
-                  onPageChange={pageChange}
+            {transactions && transactions.length > 0 ? (
+              <>
+                <PageTable
+                  alignTop
+                  headers={["Timestamp", "ID", "From", "", "To", "Amount", "Status"]}
+                  className="w-full md:text-sm lg:text-base"
+                  additionalClassNames={{
+                    2: "md:w-40 lg:w-50",
+                    4: "md:w-40 lg:w-50",
+                    3: "hidden md:table-cell",
+                  }}
+                  rows={(transactions || []).map((transaction) => [
+                    <Tooltip
+                      message={dayjs(transaction.block_time).format("MMM D, YYYY h:mm A")}
+                      display={TooltipDisplayMode.Hover}
+                    >
+                      {dayjs(transaction.block_time).fromNow()}
+                    </Tooltip>,
+                    <KasLink shorten linkType="transaction" link to={transaction.transaction_id} mono />,
+                    (transaction.inputs || []).length > 0 ? (
+                      <ul className="leading-tight">
+                        {(transaction.inputs || [])
+                          .slice(0, expand.indexOf(transaction.transaction_id) === -1 ? 5 : undefined)
+                          .map(
+                            (input) =>
+                              input.previous_outpoint_address && (
+                                <li>
+                                  <KasLink
+                                    link={input.previous_outpoint_address !== loaderData.address}
+                                    linkType="address"
+                                    to={input.previous_outpoint_address}
+                                    shorten
+                                    resolveName
+                                    mono
+                                  />
+                                </li>
+                              ),
+                          )}
+                        {(transaction.inputs || []).length > 5 && expand.indexOf(transaction.transaction_id) === -1 && (
+                          <span
+                            className="text-link cursor-pointer hover:underline"
+                            onClick={() => setExpand((expand) => expand.concat(transaction.transaction_id))}
+                          >
+                            Show more (+{transaction.inputs!.length - 5})
+                          </span>
+                        )}
+                      </ul>
+                    ) : (
+                      <Coinbase />
+                    ),
+                    <ArrowRight className="inline h-4 w-4" />,
+                    <ul className="leading-tight">
+                      {(transaction.outputs || []).map((output) => (
+                        <li>
+                          <KasLink
+                            linkType="address"
+                            to={output.script_public_key_address}
+                            link={loaderData.address !== output.script_public_key_address}
+                            shorten
+                            resolveName
+                            mono
+                          />
+                        </li>
+                      ))}
+                    </ul>,
+                    <>
+                      {numeral(
+                        ((transaction.inputs || []).reduce(
+                          (acc, input) =>
+                            acc -
+                            (loaderData.address === (input.previous_outpoint_address || "")
+                              ? input.previous_outpoint_amount || 0
+                              : 0),
+                          0,
+                        ) +
+                          (transaction.outputs || []).reduce(
+                            (acc, output) =>
+                              acc + (loaderData.address === output.script_public_key_address ? output.amount : 0),
+                            0,
+                          )) /
+                          1_0000_0000,
+                      ).format("+0,0.00[000000]")}
+                      <span className="text-gray-500 text-nowrap"> KAS</span>
+                    </>,
+                    <span className="text-sm">{transaction.is_accepted ? <Accepted /> : <NotAccepted />}</span>,
+                  ])}
                 />
-              )}
-            </div>
+                )
+                <div className="ms-auto me-5 flex flex-row justify-center items-center">
+                  {!isLoadingTxCount && (
+                    <PageSelector
+                      currentPage={currentPage}
+                      totalPages={Math.ceil(txCount!.total / 10)}
+                      onPageChange={pageChange}
+                    />
+                  )}
+                </div>
+              </>
+            ) : (
+              <IconMessageBox
+                icon="data"
+                title="No Transactions"
+                description="This address doesn't have any transactions at the moment."
+              />
+            )}
           </div>
         )}
 
