@@ -1,31 +1,33 @@
 import { useQuery, useQueries } from "@tanstack/react-query";
 import axios from "axios";
 
-const fetchBlock = async (blockId: string) => {
-  const { data } = await axios.get(`https://api.kaspa.org/blocks/${blockId}?includeColor=true`);
+const fetchBlock = async (blockId: string, includeTransactions: boolean) => {
+  const { data } = await axios.get(
+    `https://api.kaspa.org/blocks/${blockId}?includeColor=true&includeTransactions=${includeTransactions}`,
+  );
   return data as BlockData;
 };
 
-export const useBlockById = (blockId: string) =>
+export const useBlockById = (blockId: string, includeTransactions = true) =>
   useQuery({
     queryKey: ["block", blockId],
-    queryFn: () => fetchBlock(blockId),
+    queryFn: () => fetchBlock(blockId, includeTransactions),
     enabled: Boolean(blockId),
     retry: false,
   });
 
-export const useBlocksByIds = (blockIds: string[]) =>
+export const useBlocksByIds = (blockIds: string[], includeTransactions = true) =>
   useQueries({
     queries: blockIds.filter(Boolean).map((blockId) => ({
       queryKey: ["block", blockId] as const,
-      queryFn: () => fetchBlock(blockId),
+      queryFn: () => fetchBlock(blockId, includeTransactions),
       enabled: Boolean(blockId),
       retry: false,
     })),
   });
 
 export const useBlocksByIdsAggregated = (blockIds: string[]) => {
-  const results = useBlocksByIds(blockIds);
+  const results = useBlocksByIds(blockIds, false);
   return {
     data: results.map((r) => r.data).filter(Boolean) as BlockData[],
     isLoading: results.some((r) => r.isLoading),
