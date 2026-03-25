@@ -1,3 +1,4 @@
+import IconMessageBox from "../IconMessageBox";
 import KasLink from "../KasLink";
 import PageTable from "../PageTable";
 import Transaction from "../assets/transaction.svg";
@@ -13,7 +14,7 @@ import FooterHelper from "../layout/FooterHelper";
 import HelperBox from "../layout/HelperBox";
 import MainBox from "../layout/MainBox";
 import numeral from "numeral";
-import { useContext } from "react";
+import React, { useContext } from "react";
 
 export function meta() {
   return [
@@ -66,20 +67,10 @@ export default function Transactions() {
       <MainBox>
         <HelperBox>Blocks and its transactions are arriving with a speed of 10 blocks per second.</HelperBox>
 
-        <PageTable
-          className="text-black w-full"
-          headers={["Timestamp", "Transaction ID", "Amount"]}
-          additionalClassNames={{ 1: "overflow-hidden " }}
-          rows={transactions.map((transaction) => [
-            "a moment ago",
-            <KasLink linkType="transaction" link to={transaction.txId} mono />,
-            <>
-              {numeral(transaction.outputs.reduce((acc, output) => acc + Number(output[1]), 0) / 1_0000_0000).format(
-                "0,0.[00]",
-              )}
-              <span className="text-gray-500 text-nowrap"> KAS</span>
-            </>,
-          ])}
+        <IconMessageBox
+          icon="error"
+          title="Update"
+          description="This part of the page is currently getting an update."
         />
       </MainBox>
       <FooterHelper icon={Transaction}>

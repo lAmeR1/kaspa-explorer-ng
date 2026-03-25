@@ -53,7 +53,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
     false,
   );
 
-  const { virtualChainBlueScore } = useVirtualChainBlueScore();
+  const { data: virtualChainBlueScore } = useVirtualChainBlueScore();
 
   useEffect(() => {
     if (block) {
@@ -250,7 +250,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
                 {displayAcceptance(
                   getTxFromInputTxs(transaction.verboseData.transactionId)?.is_accepted ?? false,
                   virtualChainBlueScore
-                    ? virtualChainBlueScore -
+                    ? virtualChainBlueScore.blueScore -
                         (getTxFromInputTxs(transaction.verboseData.transactionId)?.accepting_block_blue_score || 0)
                     : undefined,
                 )}

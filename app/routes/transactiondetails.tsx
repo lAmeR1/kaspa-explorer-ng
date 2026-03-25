@@ -51,7 +51,9 @@ export function meta({ params }: Route.LoaderArgs) {
 export default function TransactionDetails({ loaderData }: Route.ComponentProps) {
   const location = useLocation();
   const isTabActive = (tab: string) => (new URLSearchParams(location.search).get("tab") || "general") === tab;
-  const { virtualChainBlueScore } = useVirtualChainBlueScore();
+  const { data: virtualChainBlueScore } = useVirtualChainBlueScore();
+
+  const blueScore = virtualChainBlueScore ? virtualChainBlueScore.blueScore : 0;
 
   const { data: transaction, isLoading, isError } = useTransactionById(loaderData.transactionId);
   const marketData = useContext(MarketDataContext);
@@ -69,7 +71,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
     );
   }
 
-  const confirmations = (virtualChainBlueScore ?? 0) - (transaction?.accepting_block_blue_score || 0);
+  const confirmations = (blueScore ?? 0) - (transaction?.accepting_block_blue_score || 0);
   const transactionSum = (transaction.outputs || []).reduce((sum, output) => sum + output.amount, 0);
   const displayKAS = (x: number) => numeral((x || 0) / 1_0000_0000).format("0,0.00[000000]");
   const displaySum = displayKAS(transactionSum);

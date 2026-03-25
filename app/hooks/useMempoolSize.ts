@@ -1,21 +1,9 @@
-import { useSocketRoom } from "./useSocketRoom";
-import { useCallback, useState } from "react";
+import { useKaspadInfo } from "./useKaspadInfo";
 
 export const useMempoolSize = () => {
-  const [mempoolSize, setMempoolSize] = useState<number>(0);
-
-  const handleMempoolUpdate = useCallback((mempoolSize: number) => {
-    console.log("mempoolSize", mempoolSize);
-    setMempoolSize(mempoolSize);
-  }, []);
-
-  useSocketRoom<number>({
-    room: "mempool",
-    eventName: "mempool",
-    onMessage: handleMempoolUpdate,
-  });
+  const { data: kaspadInfo } = useKaspadInfo();
 
   return {
-    mempoolSize: mempoolSize,
+    mempoolSize: kaspadInfo?.mempoolSize || 0,
   };
 };

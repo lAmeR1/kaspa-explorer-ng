@@ -1,20 +1,17 @@
-import { useSocketRoom } from "./useSocketRoom";
-import { useCallback, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-export const useVirtualChainBlueScore = () => {
-  const [virtualChainBlueScore, setVirtualChainBlueScore] = useState<number>();
+interface VirualChainInfo {
+  blueScore: number;
+}
 
-  const handleResponse = useCallback((blueScore: { blueScore: string }) => {
-    setVirtualChainBlueScore(parseInt(blueScore.blueScore));
-  }, []);
-
-  useSocketRoom({
-    room: "bluescore",
-    eventName: "bluescore",
-    onMessage: handleResponse,
+export const useVirtualChainBlueScore = () =>
+  useQuery({
+    queryKey: ["virtualChainBlueScore"],
+    queryFn: async () => {
+      const { data } = await axios.get("https://api.kaspa.org/info/virtual-chain-blue-score");
+      return data as VirualChainInfo;
+    },
+    refetchInterval: 5000,
+    staleTime: Infinity,
   });
-
-  return {
-    virtualChainBlueScore,
-  };
-};
