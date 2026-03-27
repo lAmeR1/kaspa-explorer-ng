@@ -8,7 +8,7 @@ import Tooltip, { TooltipDisplayMode } from "../Tooltip";
 import ArrowRight from "../assets/arrow-right.svg";
 import Box from "../assets/box.svg";
 import Info from "../assets/info.svg";
-import { useBlockById } from "../hooks/useBlockById";
+import { useBlockById, useBlocksByIdsAggregated } from "../hooks/useBlockById";
 import { useTransactionsSearch } from "../hooks/useTransactionsSearch";
 import { useVirtualChainBlueScore } from "../hooks/useVirtualChainBlueScore";
 import FooterHelper from "../layout/FooterHelper";
@@ -18,7 +18,7 @@ import localeData from "dayjs/plugin/localeData";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import numeral from "numeral";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Link } from "react-router";
 
 dayjs().locale("en");
@@ -44,6 +44,9 @@ export function meta({ params }: Route.LoaderArgs) {
 
 export default function Blocks({ loaderData }: Route.ComponentProps) {
   const { data: block, isLoading, isError } = useBlockById(loaderData.blockId);
+  const { data: children, isLoading: areChildrenLoading } = useBlocksByIdsAggregated(
+    block?.verboseData.childrenHashes ?? [],
+  );
   const { data: inputTxs, refetch: fetchTransactions } = useTransactionsSearch(
     (block?.transactions.map((tx) => tx.verboseData.transactionId) || []).concat(
       block?.transactions.flatMap((tx) => tx.inputs.map((input) => input.previousOutpoint.transactionId)) || [],
@@ -75,6 +78,30 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
       }
     }
   }, [inputTxs]);
+
+  const childrenNode = useMemo(() => {
+    if (!block) {
+      return;
+    }
+    const enrichedChildren: { id: string; isChainBlock: boolean }[] = block.verboseData.childrenHashes.map((c) => ({
+      id: c,
+      isChainBlock: areChildrenLoading
+        ? false
+        : (children.find((fc) => fc.verboseData.hash === c)?.verboseData?.isChainBlock ?? false),
+    }));
+    return (
+      <FieldValue
+        value={enrichedChildren.map((child) => (
+          <div className="relative">
+            {child.isChainBlock ? (
+              <Box className="-left-5 [&_path]:stroke-gray-300 block top-1/2 -translate-y-1/2  size-4 absolute" />
+            ) : null}
+            <KasLink linkType="block" link to={`${child.id}`} mono />
+          </div>
+        ))}
+      />
+    );
+  }, [block, areChildrenLoading]);
 
   const blockTime = dayjs(Number(block?.header.timestamp));
   if (isLoading) {
@@ -155,13 +182,7 @@ export default function Blocks({ loaderData }: Route.ComponentProps) {
           ))}
         />
         <FieldName name="Children" infoText="Displays the children of this block in the BlockDAG." />
-        <FieldValue
-          value={block?.verboseData.childrenHashes.map((child) => (
-            <div>
-              <KasLink linkType="block" link to={`${child}`} mono />
-            </div>
-          ))}
-        />
+        {childrenNode}
         <div className={`my-4 h-[1px] bg-gray-100 sm:col-span-2`} />
         <div className="text-black sm:col-span-2">Merkle and UTXO data</div>
         <FieldName name="Merkle root" infoText="A cryptographic hash that represents all transactions in the block." />
