@@ -9,7 +9,6 @@ import Footer from "./footer/Footer";
 import Header from "./header/Header";
 import MainBox from "./layout/MainBox";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Analytics } from "@vercel/analytics/react";
 import React, { useState } from "react";
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
@@ -44,7 +43,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Analytics />
         <div className="flex h-screen w-full flex-col items-center justify-start text-base">
           <QueryClientProvider client={queryClient}>
             <MarketDataProvider>
