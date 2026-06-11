@@ -49,7 +49,7 @@ export default function Blocks() {
     false,
   );
 
-  const { data: virtualChainBlueScore } = useVirtualChainBlueScore();
+  const { virtualChainBlueScore } = useVirtualChainBlueScore();
 
   useEffect(() => {
     if (block) {
@@ -246,7 +246,7 @@ export default function Blocks() {
                 {displayAcceptance(
                   getTxFromInputTxs(transaction.verboseData.transactionId)?.is_accepted ?? false,
                   virtualChainBlueScore
-                    ? virtualChainBlueScore.blueScore -
+                    ? virtualChainBlueScore -
                         (getTxFromInputTxs(transaction.verboseData.transactionId)?.accepting_block_blue_score || 0)
                     : undefined,
                 )}
