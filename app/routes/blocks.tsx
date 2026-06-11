@@ -2,7 +2,6 @@ import IconMessageBox from "../IconMessageBox";
 import Box from "../assets/box.svg";
 import { useBlockdagInfo } from "../hooks/useBlockDagInfo";
 import { useBlockReward } from "../hooks/useBlockReward";
-import { type Block } from "../hooks/useIncomingBlocks";
 import { useTransactionsCount } from "../hooks/useTransactionsCount";
 import Card from "../layout/Card";
 import CardContainer from "../layout/CardContainer";
@@ -13,7 +12,7 @@ import localeData from "dayjs/plugin/localeData";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import numeral from "numeral";
-import React, { useState } from "react";
+import React from "react";
 
 dayjs().locale("en");
 dayjs.extend(relativeTime);

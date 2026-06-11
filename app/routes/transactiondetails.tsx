@@ -12,7 +12,6 @@ import Swap from "../assets/swap.svg";
 import Transaction from "../assets/transaction.svg";
 import { MarketDataContext } from "../context/MarketDataProvider";
 import { useTransactionById } from "../hooks/useTransactionById";
-import { useTransactionCount } from "../hooks/useTransactionCount";
 import { useVirtualChainBlueScore } from "../hooks/useVirtualChainBlueScore";
 import FooterHelper from "../layout/FooterHelper";
 import type { Route } from "./+types/transactiondetails";
@@ -22,17 +21,12 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import numeral from "numeral";
 import { useContext } from "react";
-import { NavLink, useLocation } from "react-router";
+import { NavLink, useLocation, useParams } from "react-router";
 
 dayjs().locale("en");
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
 dayjs.extend(localizedFormat);
-
-export async function loader({ params }: Route.LoaderArgs) {
-  const transactionId = params.transactionId as string;
-  return { transactionId };
-}
 
 export function meta({ params }: Route.LoaderArgs) {
   return [
@@ -48,14 +42,15 @@ export function meta({ params }: Route.LoaderArgs) {
   ];
 }
 
-export default function TransactionDetails({ loaderData }: Route.ComponentProps) {
+export default function TransactionDetails() {
+  const { transactionId } = useParams();
   const location = useLocation();
   const isTabActive = (tab: string) => (new URLSearchParams(location.search).get("tab") || "general") === tab;
   const { data: virtualChainBlueScore } = useVirtualChainBlueScore();
 
   const blueScore = virtualChainBlueScore ? virtualChainBlueScore.blueScore : 0;
 
-  const { data: transaction, isLoading, isError } = useTransactionById(loaderData.transactionId);
+  const { data: transaction, isLoading, isError } = useTransactionById(transactionId);
   const marketData = useContext(MarketDataContext);
 
   if (isLoading) {
@@ -142,7 +137,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
       <div className="flex w-full flex-col gap-x-18 gap-y-6 rounded-4xl bg-white p-4 text-left text-black sm:p-8">
         <div className="mr-auto flex w-auto flex-row items-center justify-around gap-x-1 rounded-full bg-gray-50 p-1 px-1">
           <NavLink
-            to={`/transactions/${loaderData.transactionId}?tab=general`}
+            to={`/transactions/${transactionId}?tab=general`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("general") ? "bg-white" : ""}`
@@ -151,7 +146,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
             General information
           </NavLink>
           <NavLink
-            to={`/transactions/${loaderData.transactionId}?tab=inputs`}
+            to={`/transactions/${transactionId}?tab=inputs`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("inputs") ? "bg-white" : ""}`
@@ -160,7 +155,7 @@ export default function TransactionDetails({ loaderData }: Route.ComponentProps)
             Inputs
           </NavLink>
           <NavLink
-            to={`/transactions/${loaderData.transactionId}?tab=outputs`}
+            to={`/transactions/${transactionId}?tab=outputs`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("outputs") ? "bg-white" : ""}`

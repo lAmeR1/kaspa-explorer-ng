@@ -25,21 +25,12 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import numeral from "numeral";
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router";
+import { NavLink, useLocation, useParams } from "react-router";
 
 dayjs().locale("en");
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
 dayjs.extend(localizedFormat);
-
-export async function loader({ params }: Route.LoaderArgs) {
-  const address = params.address;
-
-  if (!isValidKaspaAddressSyntax(address))
-    throw new Response(`Kaspa address ${address} doesn't follow the kaspa address schema.`, { status: 400 });
-
-  return { address };
-}
 
 export function meta({ params }: Route.LoaderArgs) {
   return [
@@ -52,11 +43,16 @@ export function meta({ params }: Route.LoaderArgs) {
   ];
 }
 
-export default function Addressdetails({ loaderData }: Route.ComponentProps) {
+export default function Addressdetails() {
+  const { address } = useParams();
+
+  if (!isValidKaspaAddressSyntax(address))
+    throw new Response(`Kaspa address ${address} doesn't follow the kaspa address schema.`, { status: 400 });
+
   const location = useLocation();
-  const { data, isLoading: isLoadingAddressBalance } = useAddressBalance(loaderData.address);
-  const { data: utxoData, isLoading: isLoadingUtxoData } = useAddressUtxos(loaderData.address);
-  const { data: txCount, isLoading: isLoadingTxCount } = useAddressTxCount(loaderData.address);
+  const { data, isLoading: isLoadingAddressBalance } = useAddressBalance(address);
+  const { data: utxoData, isLoading: isLoadingUtxoData } = useAddressUtxos(address);
+  const { data: txCount, isLoading: isLoadingTxCount } = useAddressTxCount(address);
   const { data: addressNames } = useAddressNames();
   const marketData = useContext(MarketDataContext);
   const [beforeAfter, setBeforeAfter] = useState<number[]>([0, 0]);
@@ -67,11 +63,11 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
   useEffect(() => {
     setBeforeAfter([0, 0]); // Reset beforeAfter state
     setCurrentPage(1); // Reset currentPage state
-  }, [loaderData.address]);
+  }, [address]);
 
   // fetch transactions with resolve_previous_outpoints set to "light"
   const { data: txData } = useTransactions(
-    loaderData.address,
+    address,
     10,
     currentPage === 1 ? 0 : beforeAfter[0],
     currentPage === 1 ? 0 : beforeAfter[1],
@@ -101,7 +97,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
 
   const transactions = txData?.transactions || [];
 
-  if (!loaderData.address) return;
+  if (!address) return;
 
   const isTabActive = (tab: string) => {
     const params = new URLSearchParams(location.search);
@@ -142,14 +138,14 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
 
         <div className="grid grid-cols-1 gap-x-14 gap-y-2 sm:grid-cols-[auto_1fr]">
           <FieldName name="Address" infoText="A unique Kaspa address used to send and receive funds." />
-          <FieldValue value={<KasLink linkType="address" copy qr to={loaderData.address} />} />
-          {addressNames && addressNames[loaderData.address] && (
+          <FieldValue value={<KasLink linkType="address" copy qr to={address} />} />
+          {addressNames && addressNames[address] && (
             <>
               <FieldName name="Address Label" infoText="A label assigned to this address." />
               <FieldValue
                 value={
                   <span className="bg-accent-yellow rounded-full px-2 min-h-5 py-0.5 text-center text-nowrap text-alert">
-                    {addressNames[loaderData.address]}
+                    {addressNames[address]}
                   </span>
                 }
               />
@@ -165,7 +161,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
       <div className="flex w-full flex-col gap-x-18 gap-y-6 rounded-4xl bg-white p-4 text-left text-black sm:p-8">
         <div className="mr-auto flex w-auto flex-row items-center justify-around gap-x-1 rounded-full bg-gray-50 p-1 px-1">
           <NavLink
-            to={`/addresses/${loaderData.address}?tab=transactions`}
+            to={`/addresses/${address}?tab=transactions`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("transactions") ? "bg-white" : ""}`
@@ -174,7 +170,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
             Transactions
           </NavLink>
           <NavLink
-            to={`/addresses/${loaderData.address}?tab=utxos`}
+            to={`/addresses/${address}?tab=utxos`}
             preventScrollReset={true}
             className={() =>
               `rounded-full px-4 py-1.5 hover:cursor-pointer hover:bg-white ${isTabActive("utxos") ? "bg-white" : ""}`
@@ -214,7 +210,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                               input.previous_outpoint_address && (
                                 <li>
                                   <KasLink
-                                    link={input.previous_outpoint_address !== loaderData.address}
+                                    link={input.previous_outpoint_address !== address}
                                     linkType="address"
                                     to={input.previous_outpoint_address}
                                     shorten
@@ -243,7 +239,7 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                           <KasLink
                             linkType="address"
                             to={output.script_public_key_address}
-                            link={loaderData.address !== output.script_public_key_address}
+                            link={address !== output.script_public_key_address}
                             shorten
                             resolveName
                             mono
@@ -256,14 +252,13 @@ export default function Addressdetails({ loaderData }: Route.ComponentProps) {
                         ((transaction.inputs || []).reduce(
                           (acc, input) =>
                             acc -
-                            (loaderData.address === (input.previous_outpoint_address || "")
+                            (address === (input.previous_outpoint_address || "")
                               ? input.previous_outpoint_amount || 0
                               : 0),
                           0,
                         ) +
                           (transaction.outputs || []).reduce(
-                            (acc, output) =>
-                              acc + (loaderData.address === output.script_public_key_address ? output.amount : 0),
+                            (acc, output) => acc + (address === output.script_public_key_address ? output.amount : 0),
                             0,
                           )) /
                           1_0000_0000,

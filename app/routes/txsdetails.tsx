@@ -1,9 +1,7 @@
-import { redirect } from "react-router";
-
-export async function loader({ params }: { params: { id: string } }) {
-  return redirect(`/transactions/${params.id}`);
-}
+import { Navigate, useParams } from "react-router";
 
 export default function TxsIdRedirect() {
-  return null;
+  const { id } = useParams();
+
+  return <Navigate to={`/transactions/${id}`} replace />;
 }

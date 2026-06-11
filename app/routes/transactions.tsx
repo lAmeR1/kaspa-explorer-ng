@@ -1,6 +1,4 @@
 import IconMessageBox from "../IconMessageBox";
-import KasLink from "../KasLink";
-import PageTable from "../PageTable";
 import Transaction from "../assets/transaction.svg";
 import { MarketDataContext } from "../context/MarketDataProvider";
 import { useFeeEstimate } from "../hooks/useFeeEstimate";
