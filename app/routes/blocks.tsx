@@ -1,3 +1,4 @@
+import KasLink from "../KasLink";
 import PageTable from "../PageTable";
 import Box from "../assets/box.svg";
 import { useBlockdagInfo } from "../hooks/useBlockDagInfo";

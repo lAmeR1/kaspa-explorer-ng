@@ -46,13 +46,13 @@ export function meta({ params }: Route.LoaderArgs) {
 export default function Addressdetails() {
   const { address } = useParams();
 
-  if (!isValidKaspaAddressSyntax(address))
+  if (!isValidKaspaAddressSyntax(address!))
     throw new Response(`Kaspa address ${address} doesn't follow the kaspa address schema.`, { status: 400 });
 
   const location = useLocation();
-  const { data, isLoading: isLoadingAddressBalance } = useAddressBalance(address);
-  const { data: utxoData, isLoading: isLoadingUtxoData } = useAddressUtxos(address);
-  const { data: txCount, isLoading: isLoadingTxCount } = useAddressTxCount(address);
+  const { data, isLoading: isLoadingAddressBalance } = useAddressBalance(address!);
+  const { data: utxoData, isLoading: isLoadingUtxoData } = useAddressUtxos(address!);
+  const { data: txCount, isLoading: isLoadingTxCount } = useAddressTxCount(address!);
   const { data: addressNames } = useAddressNames();
   const marketData = useContext(MarketDataContext);
   const [beforeAfter, setBeforeAfter] = useState<number[]>([0, 0]);
@@ -67,7 +67,7 @@ export default function Addressdetails() {
 
   // fetch transactions with resolve_previous_outpoints set to "light"
   const { data: txData } = useTransactions(
-    address,
+    address!,
     10,
     currentPage === 1 ? 0 : beforeAfter[0],
     currentPage === 1 ? 0 : beforeAfter[1],

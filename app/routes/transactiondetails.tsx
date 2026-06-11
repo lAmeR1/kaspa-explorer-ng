@@ -48,7 +48,7 @@ export default function TransactionDetails() {
   const isTabActive = (tab: string) => (new URLSearchParams(location.search).get("tab") || "general") === tab;
   const { virtualChainBlueScore } = useVirtualChainBlueScore();
 
-  const { data: transaction, isLoading, isError } = useTransactionById(transactionId);
+  const { data: transaction, isLoading, isError } = useTransactionById(transactionId ?? "");
   const marketData = useContext(MarketDataContext);
 
   if (isLoading) {
