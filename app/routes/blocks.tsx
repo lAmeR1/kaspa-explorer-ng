@@ -1,3 +1,4 @@
+import PageTable from "../PageTable";
 import Box from "../assets/box.svg";
 import { useBlockdagInfo } from "../hooks/useBlockDagInfo";
 import { useBlockReward } from "../hooks/useBlockReward";
